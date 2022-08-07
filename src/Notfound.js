@@ -1,10 +1,14 @@
 import React from 'react';
 import './App.css';
+import { Link } from 'react-router-dom';
 
 function Notfound() {
   return (
     <div className="App">
-      <h3>Error Not Found</h3>
+      <div class="headform">
+      <h1>Error: Not Found</h1>
+      </div>
+      <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
     </div>
   );
 }

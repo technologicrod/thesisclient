@@ -17,3 +17,107 @@ nav {
   align-items: center;
   list-style: none;
 }
+.maindiv {
+  width: 400px;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background: #ede1ed;
+  border-radius: 25px;
+  border: 2px solid #0c60a6;
+  color: black;
+}
+.loginbutton {
+  margin: 20px;
+}
+
+.headform {
+  width: 100%;
+  height: 100px;
+  align-items: center;
+  position: relative;
+  padding-top: 20px;
+}
+.titleheadform {
+  text-align: center;
+}
+.backbutton {
+  margin: 10px;
+  height: 50px;
+  width: 70px;
+  font-size: 13px;
+  text-align: center;
+  background-color: #02283d;
+  color: white;
+  padding: 8px;
+  position: fixed;
+  top:20%;
+  left: 0;
+  
+}
+.mainbutton {
+  width: 300px;
+  height: 130px;
+  margin: auto;
+  border-radius: 10px;
+  background-color: #0827d4;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  text-decoration: none;
+  padding: 50px;
+}
+.mainbutton:hover {
+  background-color: #0e95e8;
+  color: white;
+}
+.pubutton {
+  width: 300px;
+  height: 250px;
+  margin: auto;
+  border-radius: 10px;
+  background-color: #0827d4;
+  color: white;
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+  text-decoration: none;
+  padding: 70px;
+}
+.pubutton:hover {
+  background-color: #0e95e8;
+  color: white;
+}
+.secondarybutton {
+  margin: 5px;
+}
+.submitbutton {
+  float: right;
+  margin: 10px;
+}
+.prevbutton {
+  float: left;
+  margin: 10px;
+}
+.d-flex {
+  margin: 10px auto 10px auto;
+}
+.tablediv {
+  align-items: center;
+  margin: auto 10px auto 10px;
+}
+.formdiv {
+  margin: auto 10px auto 10px;
+  text-align: left;
+}
+.viewdiv {
+  float: left;
+  text-align: justify;
+}
+.form-group {
+  margin-bottom: 15px;
+}

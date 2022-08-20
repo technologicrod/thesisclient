@@ -24,6 +24,7 @@ import Plantprofiles from './Plantprofiles';
 import Plantprofilesadd from './Plantprofilesadd';
 import Plantprofilesview from './Plantprofilesview';
 import { BrowserRouter as Router, Route, Routes, Outlet } from 'react-router-dom';
+import Crud from './Crud';
 
 const SidebarLayout = () => (
   <>
@@ -42,7 +43,7 @@ function App() {
               <Route path='*' element={<Notfound />} />
               <Route exact path="/employeelist" element={<Employeelist />} />
               <Route exact path="/employeelistadd" element={<Employeelistadd />} />
-              <Route exact path="/employeelistpositionhistory" element={<Employeelistpositionhistory />} />
+              <Route path="/employeelistpositionhistory/:employeeid" element={<Employeelistpositionhistory  />} />
               <Route exact path="/employeeaccounts" element={<Employeeaccounts />} />
               <Route exact path="/employeeaccountsedit" element={<Employeeaccountsedit />} />
               <Route exact path="/employeeaccountsadd" element={<Employeeaccountsadd />} />
@@ -59,6 +60,7 @@ function App() {
               <Route exact path="/plantprofiles" element={<Plantprofiles />} />
               <Route exact path="/plantprofilesadd" element={<Plantprofilesadd />} />
               <Route exact path="/plantprofilesview" element={<Plantprofilesview />} />
+              <Route exact path="/crud" element={< Crud />} />
             </Route>
             <Route exact path="/login" element={<Login />} />
           </Routes>

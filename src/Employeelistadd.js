@@ -26,13 +26,13 @@ function Employeelistadd() {
   const [employeelist, setemployeelist] = useState([]);
 
   useEffect(() =>{
-    Axios.get('http://localhost:3000/employeelist').then((response) => {
+    Axios.get('http://localhost:3001/employeelist').then((response) => {
       setemployeelist(response.data);
     })
   }, [])
 
   const submitEmployee = () => {
-    Axios.post("http://localhost:3000/employeelistadd", {employeelastname: employeelastname, employeefirstname: employeefirstname, employeemiddlename: employeemiddlename, employeeblock: employeeblock, employeelot: employeelot, employeestreet: employeestreet, employeecity: employeecity, employeeprovince: employeeprovince, employeezipcode: employeezipcode, employeecontact1: employeecontact1, employeecontact2: employeecontact2, employeecontact3: employeecontact3, employeecontact4: employeecontact4, employeeeducationalattainment: employeeeducationalattainment, employeeposition: employeeposition, employeestatus: employeestatus, employeejobdescription: employeejobdescription, employeeidpicture: employeeidpicture});
+    Axios.post("http://localhost:3001/employeelistadd", {employeelastname: employeelastname, employeefirstname: employeefirstname, employeemiddlename: employeemiddlename, employeeblock: employeeblock, employeelot: employeelot, employeestreet: employeestreet, employeecity: employeecity, employeeprovince: employeeprovince, employeezipcode: employeezipcode, employeecontact1: employeecontact1, employeecontact2: employeecontact2, employeecontact3: employeecontact3, employeecontact4: employeecontact4, employeeeducationalattainment: employeeeducationalattainment, employeeposition: employeeposition, employeestatus: employeestatus, employeejobdescription: employeejobdescription, employeeidpicture: employeeidpicture});
     setemployeelist([...employeelist, {employeelastname: employeelastname, employeefirstname: employeefirstname, employeemiddlename: employeemiddlename, employeeblock: employeeblock, employeelot: employeelot, employeestreet: employeestreet, employeecity: employeecity, employeeprovince: employeeprovince, employeezipcode: employeezipcode, employeecontact1: employeecontact1, employeecontact2: employeecontact2, employeecontact3: employeecontact3, employeecontact4: employeecontact4, employeeeducationalattainment: employeeeducationalattainment, employeeposition: employeeposition, employeestatus: employeestatus, employeejobdescription: employeejobdescription, employeeidpicture: employeeidpicture}]);
   };
   return (
@@ -40,18 +40,18 @@ function Employeelistadd() {
         <div class="headform">
         <h1 class="titleheadform">New Employee</h1>
       </div>
-      <main class="container-fluid">
+      <main class="container-fluid" name="myform" onsubmit="return validateForm()" method="post" required>
       <Link to="/employeelist"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
-        <div class="formdiv">
+        <form class="formdiv">
           <label class="col-form-label mt-4" for="inputDefault"><h3>Employee Name</h3></label>
             <div class="form-group">
-                <label class="col-form-label mt-4" for="inputDefault">Last Name</label>
+                <label class="col-form-label mt-4" for="inputDefault">Last Name *</label>
                 <input type="text" class="form-control" placeholder="Last Name" id="inputDefault" onChange={(e) =>{
         setemployeelastname(e.target.value)
       }} />
               </div>
               <div class="form-group">
-                <label class="col-form-label mt-4" for="inputDefault">First Name</label>
+                <label class="col-form-label mt-4" for="inputDefault">First Name *</label>
                 <input type="text" class="form-control" placeholder="First Name" id="inputDefault" onChange={(e) =>{
         setemployeefirstname(e.target.value)
       }}/>
@@ -141,13 +141,13 @@ function Employeelistadd() {
       }}>
                 <legend class="mt-4">Status</legend>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="option1" />
+                  <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="Full Time" />
                   <label class="form-check-label" for="optionsRadios1">
                     Full Time
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2" value="option2" />
+                  <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2" value="Part Time" />
                   <label class="form-check-label" for="optionsRadios2">
                     Part Time
                   </label>
@@ -166,7 +166,7 @@ function Employeelistadd() {
       }}/>
               </div>
               <Link to="/employeelist"><button type="button" class="btn btn-outline-success submitbutton" onClick={submitEmployee}>Submit</button></Link>
-        </div>
+        </form>
         </main>
       </div>
   );

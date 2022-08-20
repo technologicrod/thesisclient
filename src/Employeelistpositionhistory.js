@@ -1,12 +1,23 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import Axios from 'axios';
 
 function Employeelistpositionhistory() {
+  const { employeeid } = useParams();
+  const x = employeeid
+  console.log(x)
+  const [employeelist, setemployeelist] = useState([]);
+  useEffect(() =>{
+    Axios.get(`http://localhost:3001/employeelistpositionhistory/${x}`).then((response) => {
+      setemployeelist(response.data);
+    })
+  }, [x])
+  console.log(employeelist)
   return (
     <div className='App'>
     <div class="headform">
-        <h1 class="titleheadform">Rodwell Matchon's Position History</h1>
+        <h1 class="titleheadform">Rodwell Matchon's Position History {employeeid}</h1>
       </div>
       <main class="container-fluid">
       <Link to="/employeelist"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
@@ -25,13 +36,19 @@ function Employeelistpositionhistory() {
                       <th scope="col">Status</th>
                     </tr>
                   </thead>
-                  <tr class="table-primary">
-                    <th scope="row">March 20, 2022</th>
-                    <td>Purchase Order Manager</td>
-                    <td>Full Time</td>
-                  </tr>
+                  <tbody>
+                  {employeelist.map((val) => {
+                          return(
+                            <tr class="table-active tractive">
+                            <td scope="row">{val.employeelastname}</td>
+                            <td scope="row">{val.employeefirstname}</td>
+                            <td scope="row">{val.employeeposition}</td>
+                            </tr>
+                              )
+                      })}
+                  </tbody>
             </table>
-        </div>
+            </div>
       </main>
       </div>
   );

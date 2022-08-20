@@ -121,3 +121,8 @@ nav {
 .form-group {
   margin-bottom: 15px;
 }
+.tractive td:active{
+  background: #123456;
+  color: #fff;
+  transition-delay: 2ms;
+}

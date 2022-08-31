@@ -1,42 +1,96 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
-import { Link } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import Axios from 'axios';
 
 function Employeeaccountsedit() {
+  const { employeeid } = useParams();
+  const x = employeeid
+  const employeeaccountid = x
+  const [employeelist, setemployeelist] = useState([]);
+  const navigate = useNavigate();
+  useEffect(() =>{
+    Axios.get(`http://localhost:3001/employeesaccountedit/${x}`).then((response) => {
+      setemployeelist(response.data);
+    })
+  }, [x])
+  const ea = employeelist[0]
+  var i1, i2, i3;
+  for (var key in ea) {
+    if (ea.hasOwnProperty(key)) {
+        if (key === "employeeaccountusername"){
+          i1 = ea[key]
+        }
+        if (key === "employeeaccountpassword"){
+          i2 = ea[key]
+        }
+        if (key === "employeeaccounttype"){
+          i3 = ea[key]
+        }
+    }
+  }
+  const [newemployeeaccountusername, setnewemployeeaccountusername] = useState("");
+  const [newemployeeaccountpassword, setnewemployeeaccountpassword] = useState("");
+  const [newemployeeaccounttype, setnewemployeeaccounttype] = useState("");
+  useEffect(() =>{
+    setnewemployeeaccountusername(i1)
+    setnewemployeeaccountpassword(i2)
+    setnewemployeeaccounttype(i3)
+  }, [i1, i2, i3])
+  const register = (employeeid) => {
+    var a = document.forms["myform"]["ainput"].value;
+    var b = document.forms["myform"]["binput"].value;
+    if (a == "" ||b == "") {
+      alert("Required fields must be filled out");
+    }
+    else {
+      Axios.put("http://localhost:3001/employeeaccountupdate", {newemployeeaccountusername: newemployeeaccountusername, newemployeeaccountpassword: newemployeeaccountpassword, newemployeeaccounttype: newemployeeaccounttype , employeeaccountid: employeeaccountid});
+      navigate('/employeeaccounts', { replace: true });
+      window.location.reload();
+      alert("Employee Account updated");
+    }
+  }
   return (
     <div className='App'>
-        <div class="headform">
-        <h1 class="titleheadform">Rodwell Matchon's Account</h1>
+        {employeelist.map((val) => {
+          return (
+            <div>
+              <div class="headform">
+        <h1 class="titleheadform">{val.employeelastname}, {val.employeefirstname}'s Account Edit</h1>
+        <h6>Account ID: {val.employeeid}</h6>
       </div>
       <main class="container-fluid">
-      <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
-        <div class="formdiv">
+      <Link to="/employeeaccounts"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+        <form class="formdiv" name="myform" required>
             <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">Username</label>
-                <input type="text" class="form-control" placeholder="rodwellszxc" id="inputDefault" />
+                <input name ="ainput" type="text" class="form-control" placeholder={val.employeeaccountusername} defaultValue={val.employeeaccountusername} id="inputDefault" onChange={(e) =>{setnewemployeeaccountusername(e.target.value)}} required/>
               </div>
               <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">Password</label>
-                <input type="text" class="form-control" placeholder="********" id="inputDefault" />
+                <input name ="binput" type="text" class="form-control" placeholder={val.employeeaccountpassword} defaultValue={val.employeeaccountpassword} id="inputDefault" onChange={(e) =>{setnewemployeeaccountpassword(e.target.value)}} required/>
               </div>
-              <fieldset class="form-group">
+              <fieldset class="form-group" onChange={(e) =>{setnewemployeeaccounttype(e.target.value)}}>
                 <legend class="mt-4">Account Type</legend>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked="" />
+                  <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="Admin" defaultChecked={val.employeeaccounttype === 'Admin'} />
                   <label class="form-check-label" for="optionsRadios1">
                     Admin
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2" value="option2" />
+                  <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2" value="Basic" defaultChecked={val.employeeaccounttype === 'Basic'}/>
                   <label class="form-check-label" for="optionsRadios2">
                     Basic
                   </label>
                 </div>
               </fieldset>
-              <Link to="/employeeaccounts"><button type="button" class="btn btn-outline-success submitbutton">Submit</button></Link>
-        </div>
+              <button type="button" class="btn btn-outline-success submitbutton" onClick={() => {register(employeeaccountid)}}>Submit</button>
+        </form>
       </main>
+            </div>
+          )
+        })}
     </div>
   );
 }

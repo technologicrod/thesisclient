@@ -9,7 +9,7 @@ function Home() {
       <h1 class="titleheadform">Main Form</h1>
     </div>
     <main class="container-fluid">
-    <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+    <Link to="/login"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
       <div class="row">
       <Link class="mainbutton" to='/farmprofiles'>Farm Profiles</Link>
       <Link class="mainbutton" to='/employeelist'>Employees</Link>

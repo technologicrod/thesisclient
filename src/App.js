@@ -7,6 +7,9 @@ import Notfound from './Notfound';
 import Employeelist from './Employeelist';
 import Employeelistadd from './Employeelistadd';
 import Employeelistpositionhistory from './Employeelistpositionhistory';
+import Employeelistedit from './Employeelistedit';
+import Employeeidpicedit from './Employeeidpicedit';
+import Employeejobdescriptionedit from './Employeejobdescriptionedit';
 import Employeeaccounts from './Employeeaccounts';
 import Employeeaccountsedit from './Employeeaccountsedit';
 import Employeeaccountsadd from './Employeeaccountsadd';
@@ -23,8 +26,11 @@ import Farmprofilesview from './Farmprofilesview';
 import Plantprofiles from './Plantprofiles';
 import Plantprofilesadd from './Plantprofilesadd';
 import Plantprofilesview from './Plantprofilesview';
+import Plantprofilesedit from './Plantprofilesedit';
+import Plantprofilespicedit from './Plantprofilespicedit';
 import { BrowserRouter as Router, Route, Routes, Outlet } from 'react-router-dom';
 import Crud from './Crud';
+import Test from './Test';
 
 const SidebarLayout = () => (
   <>
@@ -43,9 +49,12 @@ function App() {
               <Route path='*' element={<Notfound />} />
               <Route exact path="/employeelist" element={<Employeelist />} />
               <Route exact path="/employeelistadd" element={<Employeelistadd />} />
+              <Route path="/employeelistedit/:employeeid" element={<Employeelistedit  />} />
               <Route path="/employeelistpositionhistory/:employeeid" element={<Employeelistpositionhistory  />} />
+              <Route path="/employeeidpicedit/:employeeid" element={<Employeeidpicedit />} />
+              <Route path="/employeejobdescriptionedit/:employeeid" element={<Employeejobdescriptionedit />} />
               <Route exact path="/employeeaccounts" element={<Employeeaccounts />} />
-              <Route exact path="/employeeaccountsedit" element={<Employeeaccountsedit />} />
+              <Route path="/employeeaccountsedit/:employeeid" element={<Employeeaccountsedit />} />
               <Route exact path="/employeeaccountsadd" element={<Employeeaccountsadd />} />
               <Route exact path="/plantutilities" element={<Plantutilities />} />
               <Route exact path="/plantutilitiessoiltype" element={<Plantutilitiessoiltype />} />
@@ -59,8 +68,11 @@ function App() {
               <Route exact path="/farmprofilesview" element={<Farmprofilesview />} />
               <Route exact path="/plantprofiles" element={<Plantprofiles />} />
               <Route exact path="/plantprofilesadd" element={<Plantprofilesadd />} />
-              <Route exact path="/plantprofilesview" element={<Plantprofilesview />} />
+              <Route path="/plantprofilesview/:plantprofileid" element={<Plantprofilesview />} />
+              <Route path="/plantprofilesedit/:plantprofileid" element={<Plantprofilesedit />} />
+              <Route path="/plantprofilespicedit/:plantprofileid" element={<Plantprofilespicedit />} />
               <Route exact path="/crud" element={< Crud />} />
+              <Route exact path="/test" element={< Test />} />
             </Route>
             <Route exact path="/login" element={<Login />} />
           </Routes>

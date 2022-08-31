@@ -16,8 +16,13 @@ function Employeelistpositionhistory() {
   console.log(employeelist)
   return (
     <div className='App'>
+      {employeelist.map((val) => {
+        return (
+          <div>
+          
     <div class="headform">
-        <h1 class="titleheadform">Rodwell Matchon's Position History {employeeid}</h1>
+        <h1 class="titleheadform">{val.employeelastname}, {val.employeefirstname}'s Position History</h1>
+        <h4>Employee ID:  {employeeid}</h4>
       </div>
       <main class="container-fluid">
       <Link to="/employeelist"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
@@ -37,20 +42,19 @@ function Employeelistpositionhistory() {
                     </tr>
                   </thead>
                   <tbody>
-                  {employeelist.map((val) => {
-                          return(
-                            <tr class="table-active tractive">
+                  <tr class="table-active tractive">
                             <td scope="row">{val.employeelastname}</td>
                             <td scope="row">{val.employeefirstname}</td>
                             <td scope="row">{val.employeeposition}</td>
                             </tr>
-                              )
-                      })}
                   </tbody>
             </table>
             </div>
       </main>
-      </div>
+          </div>
+        )
+      })}
+    </div>
   );
 }
 

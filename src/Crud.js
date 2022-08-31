@@ -29,8 +29,8 @@ function Crud() {
       Axios.put("http://localhost:3001/api/update", {movieName: movie, movieReview: newReview});
       setnewReview("")
     }; 
-  
     return (
+      
       <div className="App">
         <h1>Hello World!</h1>
   

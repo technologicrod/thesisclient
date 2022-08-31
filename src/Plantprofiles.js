@@ -1,8 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 import './App.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, generatePath } from 'react-router-dom';
+import Axios from 'axios';
 
 function Plantprofiles() {
+  const [plantprofilelist, setplantprofilelist] = useState([]);
+  useEffect(() =>{
+    Axios.get('http://localhost:3001/plantprofile').then((response) => {
+      setplantprofilelist(response.data);
+    })
+  }, [])
+  var id = 0;
+  function rowSelect(event) {
+    id = event;
+    console.log(id)
+  }
+  const navigate = useNavigate();
+  const handleProceed = (e) => {
+    if (id == 0){
+      alert("Select a row to view.")
+    }
+    else {
+      id && navigate(generatePath("/plantprofilesview/:id", { id }));
+    }
+  };
+  const handleProceedEdit = (e) => {
+    if (id == 0){
+      alert("Select a row to edit.")
+    }
+    else {
+      id && navigate(generatePath("/plantprofilesedit/:id", { id }));
+    }
+  };
   return (
     <div className='App'>
         <div class="headform">
@@ -10,8 +39,8 @@ function Plantprofiles() {
       </div>
       <main class="container-fluid">
       <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
-        <Link to="/plantprofilesview"><button type="button" class="btn btn-outline-info secondarybutton">View</button></Link>
-        <Link to="/plantprofilesadd"><button type="button" class="btn btn-outline-info secondarybutton">Edit</button></Link>
+        <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>View</button>
+        <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedEdit}>Edit</button>
         <Link to="/plantprofilesadd"><button type="button" class="btn btn-outline-info secondarybutton">Add</button></Link>
         <form class="d-flex">
             <input class="form-control me-sm-2" type="text" placeholder="Search ID" />
@@ -27,12 +56,18 @@ function Plantprofiles() {
                       <th scope="col">Estimate # of Months to be Harvested</th>
                     </tr>
                   </thead>
-                  <tr class="table-primary">
-                    <th scope="row">Carabao Mango</th>
-                    <th scope="row">Native</th>
-                    <th scope="row">Fruit</th>
-                    <th scope="row">12 months</th>
-                  </tr>
+                  <tbody>
+                  {plantprofilelist.map((val) => {
+                          return(
+                            <tr class="table-primary tractive" onClick={rowSelect.bind(this, val.plantprofileid)}>
+                            <th scope="row">{val.plantprofileplantname}</th>
+                            <th scope="row">{val.plantprofilevariety}</th>
+                            <th scope="row">{val.plantprofileplanttype}</th>
+                            <th scope="row">{val.plantprofilemonths}</th>
+                          </tr>
+                              )
+                      })}
+                  </tbody>
             </table>
         </div>
         </main>
@@ -41,3 +76,5 @@ function Plantprofiles() {
 }
 
 export default Plantprofiles;
+
+

@@ -56,7 +56,7 @@ function Employeeaccountsedit() {
           return (
             <div>
               <div class="headform">
-        <h1 class="titleheadform">{val.employeelastname}, {val.employeefirstname}'s Account Edit</h1>
+        <h1 class="titleheadform">{val.emp_name}'s Account Edit</h1>
         <h6>Account ID: {val.employeeid}</h6>
       </div>
       <main class="container-fluid">
@@ -64,22 +64,22 @@ function Employeeaccountsedit() {
         <form class="formdiv" name="myform" required>
             <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">Username</label>
-                <input name ="ainput" type="text" class="form-control" placeholder={val.employeeaccountusername} defaultValue={val.employeeaccountusername} id="inputDefault" onChange={(e) =>{setnewemployeeaccountusername(e.target.value)}} required/>
+                <input name ="ainput" type="text" class="form-control" placeholder={val.username} defaultValue={val.username} id="inputDefault" onChange={(e) =>{setnewemployeeaccountusername(e.target.value)}} required/>
               </div>
               <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">Password</label>
-                <input name ="binput" type="text" class="form-control" placeholder={val.employeeaccountpassword} defaultValue={val.employeeaccountpassword} id="inputDefault" onChange={(e) =>{setnewemployeeaccountpassword(e.target.value)}} required/>
+                <input name ="binput" type="text" class="form-control" placeholder={val.pass} defaultValue={val.pass} id="inputDefault" onChange={(e) =>{setnewemployeeaccountpassword(e.target.value)}} required/>
               </div>
               <fieldset class="form-group" onChange={(e) =>{setnewemployeeaccounttype(e.target.value)}}>
                 <legend class="mt-4">Account Type</legend>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="Admin" defaultChecked={val.employeeaccounttype === 'Admin'} />
+                  <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="Admin" defaultChecked={val.account_type === 'Admin'} />
                   <label class="form-check-label" for="optionsRadios1">
                     Admin
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2" value="Basic" defaultChecked={val.employeeaccounttype === 'Basic'}/>
+                  <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2" value="Basic" defaultChecked={val.account_type === 'Basic'}/>
                   <label class="form-check-label" for="optionsRadios2">
                     Basic
                   </label>

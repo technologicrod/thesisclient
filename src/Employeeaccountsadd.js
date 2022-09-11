@@ -8,19 +8,14 @@ function Employeeaccountsadd() {
   const [employeeaccountusername, setemployeeaccountusername] = useState("")
   const [employeeaccountpassword, setemployeeaccountpassword] = useState("")
   const [employeeaccounttype, setemployeeaccounttype] = useState("Basic")
-  const [employeeaccountlist, setemployeeaccountlist] = useState([]);
   const [employeelist, setemployeelist] = useState([]); //for employeelist to get id
   const navigate = useNavigate();
-  useEffect(() =>{
-    Axios.get('http://localhost:3001/employeesaccount').then((response) => {
-      setemployeeaccountlist(response.data);
-    })
-  }, [])
   useEffect(() =>{
     Axios.get('http://localhost:3001/employeesaccountfilter').then((response) => {
       setemployeelist(response.data);
     })
   }, [])
+  console.log(employeelist)
   const register = () => {
     var a = document.forms["myform"]["ainput"].value;
     var b = document.forms["myform"]["binput"].value;
@@ -31,7 +26,7 @@ function Employeeaccountsadd() {
     }
     else {
       Axios.post("http://localhost:3001/employeesaccountadd", {employeeaccountid: employeeaccountid, employeeaccountusername: employeeaccountusername, employeeaccountpassword: employeeaccountpassword, employeeaccounttype: employeeaccounttype});
-      setemployeeaccountlist([...employeeaccountlist, {employeeaccountid: employeeaccountid, employeeaccountusername: employeeaccountusername, employeeaccountpassword: employeeaccountpassword, employeeaccounttype: employeeaccounttype}]);
+      
       navigate('/employeeaccounts', { replace: true });
       window.location.reload();
       alert("Employee Account Updated");
@@ -53,7 +48,7 @@ function Employeeaccountsadd() {
                         <option value="">Select Employee</option>
                         {employeelist.map((val) => {
                           return (
-                            <option value={val.employeeid}>{val.employeelastname}</option>
+                            <option value={val.emp_id}>{val.emp_name}</option>
                           )
                         })}
                     </select>

@@ -5,37 +5,43 @@ import { Link } from 'react-router-dom';
 function Login() {
   return (
     <div className="App">
-      <div class="maindiv">
-      <h1 class="login1">Login</h1>
-      <div class="form-group">
-        <label for="exampleInputEmail1" class="form-label mt-4"
-          >Email address</label
-        >
-        <input
-          type="email"
-          class="form-control"
-          id="exampleInputEmail1"
-          aria-describedby="emailHelp"
-          placeholder="Enter email"
-        />
-        <small id="emailHelp" class="form-text text-muted"
-          >We'll never share your email with anyone else.</small
-        >
+    <div class="maindiv">
+    <h1 class="company">Farm MIS</h1>
+<h2 class="datsys">Farm Management Information System</h2>
+
+<div class="login_body">
+<center><div class="tab" >
+    <x><button class="tablinks" onclick="openCity(event, 'User')" id="user" >Log in as User</button></x>
+    <x class="tab2"><button class="tablinks" onclick="openCity(event, 'Admin')" id="admin" >Log in as Admin</button></x>
+</div></center>
+
+<div id = "User" class=" tabcontent">
+    <div class="login_box">
+      <div class="" method="POST" >
+        <input type="text" name="username" placeholder="Username" required />
+        <input type="password" name="password" placeholder="Password" required/>
+          <div class="outer">
+            <div class="inner"><input type="submit" value="Login"/></div> 
+          </div>
+        <p>--- Or Register using ---</p>
       </div>
-      <div class="form-group">
-        <label for="exampleInputPassword1" class="form-label mt-4"
-          >Password</label
-        >
-        <input
-          type="password"
-          class="form-control"
-          id="exampleInputPassword1"
-          placeholder="Password"
-        />
       </div>
-      <Link class="nav-link" to='/'><button type="button" class="btn btn-primary loginbutton">Submit</button></Link>
-      
-      </div>
+    </div>
+</div>
+    
+
+<div id="Admin"  class="tabcontent">
+    <div class="login_box_admin">
+    <form class=""   method="POST" >
+        <input type="text" name="username" placeholder="Username" required />
+        <input type="password" name="password" placeholder="Password" required/>
+        <div class="outer">
+            <div class="inner"><input type="submit" value="Login"/></div>
+        </div>
+    </form>
+    </div>
+</div>
+    </div>
     </div>
   );
 }

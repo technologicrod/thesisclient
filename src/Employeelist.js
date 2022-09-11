@@ -16,6 +16,7 @@ function Employeelist() {
       setemployeelist(response.data);
     })
   }, [])
+  console.log(employeelist)
 
   function rowSelect(event) {
     id = event;
@@ -36,6 +37,7 @@ function Employeelist() {
     }
     else {
       id && navigate(generatePath("/employeelistedit/:id", { id }));
+      console.log(id)
     }
   };
   return (
@@ -56,16 +58,16 @@ function Employeelist() {
             <table class="table table-hover">
                 <thead>
                     <tr>
-                      <th scope="col">Last Name</th>
-                      <th scope="col">First Name</th>
+                      <th scope="col">Employee Name</th>
+                      <th scope="col">Farm Name</th>
                     </tr>
                   </thead>
                       <tbody>
                       {employeelist.map((val) => {
                           return(
-                            <tr class="table-active tractive" onClick={rowSelect.bind(this, val.employeeid)}>
-                            <td scope="row">{val.employeelastname}</td>
-                            <td scope="row">{val.employeefirstname}</td>
+                            <tr class="table-active tractive" onClick={rowSelect.bind(this, val.emp_id)}>
+                            <td scope="row">{val.emp_name}</td>
+                            <td scope="row">{val.farm_id}</td>
                             </tr>
                               )
                       })}

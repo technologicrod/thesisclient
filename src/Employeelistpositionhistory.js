@@ -13,6 +13,12 @@ function Employeelistpositionhistory() {
       setemployeelist(response.data);
     })
   }, [x])
+  const [positionlist, setpositionlist] = useState([]);
+  useEffect(() =>{
+    Axios.get(`http://localhost:3001/employeelistpositionhistorydata/${x}`).then((response) => {
+      setpositionlist(response.data);
+    })
+  }, [x])
   console.log(employeelist)
   return (
     <div className='App'>
@@ -21,7 +27,7 @@ function Employeelistpositionhistory() {
           <div>
           
     <div class="headform">
-        <h1 class="titleheadform">{val.employeelastname}, {val.employeefirstname}'s Position History</h1>
+        <h1 class="titleheadform">{val.emp_name}'s Position History</h1>
         <h4>Employee ID:  {employeeid}</h4>
       </div>
       <main class="container-fluid">
@@ -42,11 +48,15 @@ function Employeelistpositionhistory() {
                     </tr>
                   </thead>
                   <tbody>
-                  <tr class="table-active tractive">
-                            <td scope="row">{val.employeelastname}</td>
-                            <td scope="row">{val.employeefirstname}</td>
-                            <td scope="row">{val.employeeposition}</td>
+                  {positionlist.map((valo)=> {
+                    return (
+                      <tr class="table-active tractive">
+                            <td scope="row">{valo.date_given}</td>
+                            <td scope="row">{valo.emp_position}</td>
+                            <td scope="row">{valo.emp_status}</td>
                             </tr>
+                    )
+                  })}
                   </tbody>
             </table>
             </div>

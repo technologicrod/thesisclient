@@ -11,8 +11,10 @@ function Plantutilitiesotherexpense() {
       setotherexpenseslist(response.data);
     })
   }, [])
-  const submitOtherExpenses = () => {
-    Axios.post("http://localhost:3001/plantutilitiesotherexpensesadd", {otherexpensesname: otherexpensesname});
+  const [myid, setmyid] = useState("")
+  const submitOtherExpenses = async () => {
+    await Axios.post("http://localhost:3001/plantutilitiesotherexpensesadd", {otherexpensesname: otherexpensesname}).then((result) => {{console.log(result.data.insertId)}});
+    console.log("id: ", myid)
     setotherexpenseslist([...otherexpenseslist, {otherexpensesname: otherexpensesname}]);
   };
   return (

@@ -59,11 +59,11 @@ function Plantprofiles() {
                   <tbody>
                   {plantprofilelist.map((val) => {
                           return(
-                            <tr class="table-primary tractive" onClick={rowSelect.bind(this, val.plantprofileid)}>
-                            <th scope="row">{val.plantprofileplantname}</th>
-                            <th scope="row">{val.plantprofilevariety}</th>
-                            <th scope="row">{val.plantprofileplanttype}</th>
-                            <th scope="row">{val.plantprofilemonths}</th>
+                            <tr class="table-primary tractive" onClick={rowSelect.bind(this, val.plant_id)}>
+                            <th scope="row">{val.plant_name}</th>
+                            <th scope="row">{val.variety}</th>
+                            <th scope="row">{val.category}</th>
+                            <th scope="row">{val.num_of_mon_to_harvest}</th>
                           </tr>
                               )
                       })}

@@ -19,14 +19,17 @@ import Plantutilitiesplantprofile from './Plantutilitiesplantprofile';
 import Plantutilitiesplanttype from './Plantutilitiesplanttype';
 import Plantutilitiesotherexpense from './Plantutilitiesotherexpense';
 import Farmprofiles from './Farmprofiles';
-import Farmprofilesadd1 from './Farmprofilesadd1';
-import Farmprofilesadd2 from './Farmprofilesadd2';
-import Farmprofilesadd3 from './Farmprofilesadd3';
+import Farmprofilesadd from './Farmprofilesadd';
+import Farmprofilesedit from './Farmprofilesedit';
+import Farmprofilesowner from './Farmprofilesowner';
+import Farmprofilesowneradd from './Farmprofilesowneradd';
 import Farmprofilesview from './Farmprofilesview';
 import Plantprofiles from './Plantprofiles';
 import Plantprofilesadd from './Plantprofilesadd';
 import Plantprofilesview from './Plantprofilesview';
 import Plantprofilesedit from './Plantprofilesedit';
+import Plantprofilesdiseaseadd from './Plantprofilesdiseaseadd';
+import Plantprofilesdiseaseedit from './Plantprofilesdiseaseedit';
 import Plantprofilespicedit from './Plantprofilespicedit';
 import { BrowserRouter as Router, Route, Routes, Outlet } from 'react-router-dom';
 import Crud from './Crud';
@@ -62,15 +65,18 @@ function App() {
               <Route exact path="/plantutilitiesplanttype" element={<Plantutilitiesplanttype />} />
               <Route exact path="/plantutilitiesotherexpense" element={<Plantutilitiesotherexpense />} />
               <Route exact path="/farmprofiles" element={<Farmprofiles />} />
-              <Route exact path="/farmprofilesadd1" element={<Farmprofilesadd1 />} />
-              <Route exact path="/farmprofilesadd2" element={<Farmprofilesadd2 />} />
-              <Route exact path="/farmprofilesadd3" element={<Farmprofilesadd3 />} />
-              <Route exact path="/farmprofilesview" element={<Farmprofilesview />} />
+              <Route exact path="/farmprofilesadd" element={<Farmprofilesadd />} />
+              <Route path="/farmprofilesedit/:farm_id" element={<Farmprofilesedit />} />
+              <Route path="/farmprofilesowner/:owner_id" element={<Farmprofilesowner />} />
+              <Route path="/farmprofilesowneradd/:farm_id" element={<Farmprofilesowneradd />} />
+              <Route path="/farmprofilesview/:farm_id" element={<Farmprofilesview />} />
               <Route exact path="/plantprofiles" element={<Plantprofiles />} />
               <Route exact path="/plantprofilesadd" element={<Plantprofilesadd />} />
               <Route path="/plantprofilesview/:plantprofileid" element={<Plantprofilesview />} />
               <Route path="/plantprofilesedit/:plantprofileid" element={<Plantprofilesedit />} />
               <Route path="/plantprofilespicedit/:plantprofileid" element={<Plantprofilespicedit />} />
+              <Route path="/plantprofilesdiseaseadd/:plant_id" element={<Plantprofilesdiseaseadd />} />
+              <Route path="/plantprofilesdiseaseedit/:disease_id" element={<Plantprofilesdiseaseedit />} />
               <Route exact path="/crud" element={< Crud />} />
               <Route exact path="/test" element={< Test />} />
             </Route>

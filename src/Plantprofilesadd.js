@@ -5,6 +5,7 @@ import Axios from 'axios';
 
 function Plantprofilesadd() {
   const [plantprofileplantname, setplantprofileplantname] = useState("")
+  const [plantprofilefarm, setplantprofilefarm] = useState("")
   const [plantprofilecategory, setplantprofilecategory] = useState("")
   const [plantprofilepscientificname, setplantprofilepscientificname] = useState("")
   const [plantprofilevariety, setplantprofilevariety] = useState("")
@@ -12,24 +13,15 @@ function Plantprofilesadd() {
   const [plantprofilemonths, setplantprofilemonths] = useState("")
   const [plantprofilepicture, setplantprofilepicture] = useState("")
   const [plantprofiledescription, setplantprofiledescription] = useState("")
-  const [plantprofiledisease1, setplantprofiledisease1] = useState("")
-  const [plantprofiledisease2, setplantprofiledisease2] = useState("")
-  const [plantprofiledisease3, setplantprofiledisease3] = useState("")
-  const [plantprofiledisease4, setplantprofiledisease4] = useState("")
-  const [plantprofiledisease5, setplantprofiledisease5] = useState("")
-  const [plantprofilelist, setplantprofilelist] = useState([]);
+  const [farmlist, setfarmlist] = useState([]);
   const [plantcategorylist, setplantcategorylist] = useState([]); //for category
   const [planttypelist, setplanttypelist] = useState([]); //for type
   const navigate = useNavigate();
   useEffect(() =>{
-    Axios.get('http://localhost:3001/plantprofile').then((response) => {
-      setplantprofilelist(response.data);
+    Axios.get('http://localhost:3001/farmlist').then((response) => {
+      setfarmlist(response.data);
     })
   }, [])
-  const submitPlantProfile = () => {
-    Axios.post("http://localhost:3001/plantprofileadd", {plantprofileplantname: plantprofileplantname, plantprofilecategory: plantprofilecategory, plantprofilepscientificname: plantprofilepscientificname, plantprofilevariety: plantprofilevariety, plantprofileplanttype: plantprofileplanttype, plantprofilemonths: plantprofilemonths, plantprofilepicture: plantprofilepicture, plantprofiledescription: plantprofiledescription, plantprofiledisease1: plantprofiledisease1, plantprofiledisease2: plantprofiledisease2, plantprofiledisease3: plantprofiledisease3, plantprofiledisease4: plantprofiledisease4, plantprofiledisease5: plantprofiledisease5});
-    setplantprofilelist([...plantprofilelist, {plantprofileplantname: plantprofileplantname, plantprofilecategory: plantprofilecategory, plantprofilepscientificname: plantprofilepscientificname, plantprofilevariety: plantprofilevariety, plantprofileplanttype: plantprofileplanttype, plantprofilemonths: plantprofilemonths, plantprofilepicture: plantprofilepicture, plantprofiledescription: plantprofiledescription, plantprofiledisease1: plantprofiledisease1, plantprofiledisease2: plantprofiledisease2, plantprofiledisease3: plantprofiledisease3, plantprofiledisease4: plantprofiledisease4, plantprofiledisease5: plantprofiledisease5}]);
-  };
   useEffect(() =>{
     Axios.get('http://localhost:3001/plantutilitiesplantprofile').then((response) => {
       setplantcategorylist(response.data);
@@ -49,16 +41,15 @@ function Plantprofilesadd() {
     var f = document.forms["myform"]["finput"].value;
     var g = document.forms["myform"]["ginput"].value;
     var h = document.forms["myform"]["hinput"].value;
-    if (a == "" ||b == "" || c == "" ||d == "" || e == "" ||f == "" || g == "" ||h == "" ) {
+    var i = document.forms["myform"]["iinput"].value;
+    if (a == "" ||b == "" || c == "" ||d == "" || e == "" ||f == "" || g == "" ||h == "" ||i == "") {
       alert("Required fields must be filled out");
     }
     else {
-      Axios.post("http://localhost:3001/plantprofileadd", {plantprofileplantname: plantprofileplantname, plantprofilecategory: plantprofilecategory, plantprofilepscientificname: plantprofilepscientificname, plantprofilevariety: plantprofilevariety, plantprofileplanttype: plantprofileplanttype, plantprofilemonths: plantprofilemonths, plantprofilepicture: plantprofilepicture, plantprofiledescription: plantprofiledescription, plantprofiledisease1: plantprofiledisease1, plantprofiledisease2: plantprofiledisease2, plantprofiledisease3: plantprofiledisease3, plantprofiledisease4: plantprofiledisease4, plantprofiledisease5: plantprofiledisease5});
-    setplantprofilelist([...plantprofilelist, {plantprofileplantname: plantprofileplantname, plantprofilecategory: plantprofilecategory, plantprofilepscientificname: plantprofilepscientificname, plantprofilevariety: plantprofilevariety, plantprofileplanttype: plantprofileplanttype, plantprofilemonths: plantprofilemonths, plantprofilepicture: plantprofilepicture, plantprofiledescription: plantprofiledescription, plantprofiledisease1: plantprofiledisease1, plantprofiledisease2: plantprofiledisease2, plantprofiledisease3: plantprofiledisease3, plantprofiledisease4: plantprofiledisease4, plantprofiledisease5: plantprofiledisease5}]);
+      Axios.post("http://localhost:3001/plantprofileadd", {plantprofileplantname : plantprofileplantname, plantprofilefarm: plantprofilefarm, plantprofilecategory: plantprofilecategory, plantprofilepscientificname: plantprofilepscientificname, plantprofilevariety: plantprofilevariety, plantprofileplanttype: plantprofileplanttype, plantprofilemonths: plantprofilemonths, plantprofilepicture: plantprofilepicture, plantprofiledescription: plantprofiledescription});
       navigate('/plantprofiles', { replace: true });
       window.location.reload();
       alert("Plant Profile Registered");
-
     }
   }
   return (
@@ -75,6 +66,19 @@ function Plantprofilesadd() {
           setplantprofileplantname(e.target.value)
         }}/>
               </div>
+              <div class="form-group">
+                    <label for="exampleSelect1" class="form-label mt-4">Assign Farm</label>
+                    <select  name="hinput" required class="form-select" id="exampleSelect1" onChange={(e) =>{
+          setplantprofilefarm(e.target.value)
+        }}>
+                        <option value="">Select Farm</option>
+                        {farmlist.map((val) => {
+                          return (
+                            <option value={val.farm_id}>{val.farm_id} {val.farm_name}</option>
+                          )
+                        })}
+                    </select>
+                    </div>
               <div class="form-group">
                     <label for="exampleSelect1" class="form-label mt-4">Category</label>
                     <select  name="binput" required class="form-select" id="exampleSelect1" onChange={(e) =>{
@@ -121,57 +125,16 @@ function Plantprofilesadd() {
               </div>
               <div class="form-group">
                 <label for="formFile" class="form-label mt-4">Plant Picture</label>
-                <input name="ginput" required class="form-control" type="file" id="formFile" onChange={(e) =>{
+                <input name="ginput" required class="form-control" type="text" id="formFile" onChange={(e) =>{
           setplantprofilepicture(e.target.value)
         }}/>
               </div>
               <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">Description</label>
-                <input name="hinput" required type="text" class="form-control" placeholder="Description" id="inputDefault" onChange={(e) =>{
+                <input  name="iinput" required type="text" class="form-control" placeholder="Description" id="inputDefault" onChange={(e) =>{
           setplantprofiledescription(e.target.value)
         }}/>
               </div>
-              <label class="col-form-label mt-4" for="inputDefault"><h3>Plant Diseases</h3></label>
-              <div class="formdiv">
-                <label class="col-form-label mt-4" for="inputDefault"> Plant Diesease 1</label>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Plant Disease 1" aria-label="Recipient's username" aria-describedby="button-addon2"onChange={(e) =>{
-          setplantprofiledisease1(e.target.value)
-        }}/>
-                </div>
-            </div>
-            <div class="formdiv">
-                <label class="col-form-label mt-4" for="inputDefault"> Plant Diesease 2</label>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Plant Disease 2" aria-label="Recipient's username" aria-describedby="button-addon2"onChange={(e) =>{
-          setplantprofiledisease2(e.target.value)
-        }}/>
-                </div>
-            </div>
-            <div class="formdiv">
-                <label class="col-form-label mt-4" for="inputDefault"> Plant Diesease 3</label>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Plant Disease 3" aria-label="Recipient's username" aria-describedby="button-addon2"onChange={(e) =>{
-          setplantprofiledisease3(e.target.value)
-        }}/>
-                </div>
-            </div>
-            <div class="formdiv">
-                <label class="col-form-label mt-4" for="inputDefault"> Plant Diesease 4</label>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Plant Disease 4" aria-label="Recipient's username" aria-describedby="button-addon2"onChange={(e) =>{
-          setplantprofiledisease4(e.target.value)
-        }}/>
-                </div>
-            </div>
-            <div class="formdiv">
-                <label class="col-form-label mt-4" for="inputDefault"> Plant Diesease 5</label>
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Plant Disease 5" aria-label="Recipient's username" aria-describedby="button-addon2"onChange={(e) =>{
-          setplantprofiledisease5(e.target.value)
-        }}/>
-                </div>
-            </div>
               <button type="button" class="btn btn-outline-success submitbutton" onClick={register}>Submit</button>
         </form>
         </main>

@@ -52,11 +52,11 @@ function Employeeaccounts() {
                   <tbody>
                   {employeelist.map((val)=> {
                     return (
-                    <tr class="table-primary tractive" onClick={rowSelect.bind(this, val.emp_id)}>
-                    <th scope="row">{val.emp_id}</th>
-                    <th scope="row">{val.emp_name}</th>
-                    <th scope="row">{val.username}</th>
-                    <th scope="row">{val.account_type}</th>
+                    <tr class="table-active tractive" onClick={rowSelect.bind(this, val.emp_id)}>
+                    <td scope="row">{val.emp_id}</td>
+                    <td scope="row">{val.emp_name}</td>
+                    <td scope="row">{val.username}</td>
+                    <td scope="row">{val.account_type}</td>
                   </tr>
                     )
                   })}

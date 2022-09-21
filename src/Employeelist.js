@@ -22,7 +22,6 @@ function Employeelist() {
     id = event;
     console.log(id)
   }
-  console.log("This is the id: ", id)
   const handleProceed = (e) => {
     if (id == 0){
       alert("Select a row to view.")

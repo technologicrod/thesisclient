@@ -29,7 +29,7 @@ function Employeeaccountsadd() {
       
       navigate('/employeeaccounts', { replace: true });
       window.location.reload();
-      alert("Employee Account Updated");
+      alert("Employee Account added");
 
     }
   }

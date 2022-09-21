@@ -16,7 +16,7 @@ function Nav() {
       <Link class="nav-link" to='/employeelist'><li class="nav-item">Employees</li></Link>
       <Link class="nav-link" to='/plantutilities'><li class="nav-item">Plant Utilities</li></Link>
       <Link class="nav-link" to='/plantprofiles'><li class="nav-item">Plant Profiles</li></Link>
-      <Link class="nav-link" to='/login'><li class="nav-item">Harvest Calendars</li></Link>
+      <Link class="nav-link" to='/harvestcalendarlist'><li class="nav-item">Harvest Calendars</li></Link>
       <Link class="nav-link" to='/login'><li class="nav-item">Harvest Inventory</li></Link>
       <Link class="nav-link" to='/login'><li class="nav-item">Sales</li></Link>
       <Link class="nav-link" to='/login'><li class="nav-item">Items Inventory</li></Link>

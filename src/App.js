@@ -31,6 +31,19 @@ import Plantprofilesedit from './Plantprofilesedit';
 import Plantprofilesdiseaseadd from './Plantprofilesdiseaseadd';
 import Plantprofilesdiseaseedit from './Plantprofilesdiseaseedit';
 import Plantprofilespicedit from './Plantprofilespicedit';
+import Harvestcalendarlist from './Harvestcalendarlist';
+import Harvestcalendarlistinactive from './Harvestcalendarlistinactive';
+import Harvestcalendaradd from './Harvestcalendaradd';
+import Harvestcalendaredit from './Harvestcalendaredit';
+import Harvestcalendar from './Harvestcalendar';
+import Harvestcalendarmonitoring from './Harvestcalendarmonitoring';
+import Harvestcalendarmonitoringevent from './Harvestcalendarmonitoringevent';
+import Harvestcalendarinputmonitoring from './Harvestcalendarinputmonitoring';
+import Harvestcalendarinputdiseases from './Harvestcalendarinputdiseases';
+import Harvestcalendardiseases from './Harvestcalendardiseases';
+import Harvestcalendarupdatediseases from './Harvestcalendarupdatediseases';
+import Harvestcalendarinputmortalities from './Harvestcalendarinputmortalities';
+import Harvestcalendarinputactivity from './Harvestcalendarinputactivity';
 import { BrowserRouter as Router, Route, Routes, Outlet } from 'react-router-dom';
 import Crud from './Crud';
 import Test from './Test';
@@ -77,6 +90,19 @@ function App() {
               <Route path="/plantprofilespicedit/:plantprofileid" element={<Plantprofilespicedit />} />
               <Route path="/plantprofilesdiseaseadd/:plant_id" element={<Plantprofilesdiseaseadd />} />
               <Route path="/plantprofilesdiseaseedit/:disease_id" element={<Plantprofilesdiseaseedit />} />
+              <Route exact path="/harvestcalendarlist" element={< Harvestcalendarlist />} />
+              <Route exact path="/harvestcalendarlistinactive" element={< Harvestcalendarlistinactive />} />
+              <Route exact path="/harvestcalendaradd" element={< Harvestcalendaradd />} />
+              <Route path="/harvestcalendaredit/:batch_id" element={< Harvestcalendaredit />} />
+              <Route path="/harvestcalendar/:batch_id" element={< Harvestcalendar />} />
+              <Route path="/harvestcalendarmonitoring/:values" element={< Harvestcalendarmonitoring />} />
+              <Route path="/harvestcalendarmonitoringevent/:values" element={< Harvestcalendarmonitoringevent />} />
+              <Route path="/harvestcalendarinputmonitoring/:values" element={< Harvestcalendarinputmonitoring />} />
+              <Route path="/harvestcalendarinputdiseases/:values" element={< Harvestcalendarinputdiseases />} />
+              <Route path="/harvestcalendarupdatediseases/:values" element={< Harvestcalendarupdatediseases />} />
+              <Route path="/harvestcalendardiseases/:values" element={< Harvestcalendardiseases />} />
+              <Route path="/harvestcalendarinputmortalities/:values" element={< Harvestcalendarinputmortalities />} />
+              <Route path="/harvestcalendarinputactivity/:values" element={< Harvestcalendarinputactivity />} />
               <Route exact path="/crud" element={< Crud />} />
               <Route exact path="/test" element={< Test />} />
             </Route>

@@ -71,7 +71,8 @@ function Harvestcalendarlist() {
       <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
       <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>View Harvest Calendar</button>
       <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedEdit}>Edit Batch Harvest</button>
-      <Link to="/harvestcalendarlistinactive"><button type="button" class="btn btn-outline-info secondarybutton">View Inctive Batches</button></Link>
+      <Link to="/harvestcalendarlistinactive"><button type="button" class="btn btn-outline-info secondarybutton">View Inactive Batches</button></Link>
+      <Link to="/harvestcalendarharvested"><button type="button" class="btn btn-outline-info secondarybutton">View Harvested Batches</button></Link>
       <Link to="/harvestcalendaradd"><button type="button" class="btn btn-outline-info secondarybutton">Add New Batch</button></Link>
         <form class="d-flex">
             <input class="form-control me-sm-2" type="text" placeholder="Search ID" />

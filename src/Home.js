@@ -16,7 +16,7 @@ function Home() {
       <Link class="mainbutton" to='/plantutilities'>Plant Utilities</Link>
       <Link class="mainbutton" to='/plantprofiles'>Plant Profiles</Link>
       <Link class="mainbutton" to='/harvestcalendarlist'>Harvest Calendars</Link>
-      <Link class="mainbutton" to='/'>Harvest Inventory</Link>
+      <Link class="mainbutton" to='/harvestinventory'>Harvest Inventory</Link>
       <Link class="mainbutton" to='/'>Sales</Link>
       <Link class="mainbutton" to='/'>Item Inventory</Link>
       <Link class="mainbutton" to='/'>Purchase Orders</Link>

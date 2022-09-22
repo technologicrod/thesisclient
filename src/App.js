@@ -44,6 +44,14 @@ import Harvestcalendardiseases from './Harvestcalendardiseases';
 import Harvestcalendarupdatediseases from './Harvestcalendarupdatediseases';
 import Harvestcalendarinputmortalities from './Harvestcalendarinputmortalities';
 import Harvestcalendarinputactivity from './Harvestcalendarinputactivity';
+import Harvestinventory from './Harvestinventory';
+import Harvestcalendarharvested from './Harvestcalendarharvested';
+import Harvestcalendaronsale from './Harvestcalendaronsale';
+import Harvestinventoryinput from './Harvestinventoryinput';
+import Harvestinventoryinputvariations from './Harvestinventoryinputvariations';
+import Harvestinventorymedia from './Harvestinventorymedia';
+import Harvestinventoryviewvariations from './Harvestinventoryviewvariations';
+import Harvestinventoryallvariations from './Harvestinventoryallvariations';
 import { BrowserRouter as Router, Route, Routes, Outlet } from 'react-router-dom';
 import Crud from './Crud';
 import Test from './Test';
@@ -103,6 +111,14 @@ function App() {
               <Route path="/harvestcalendardiseases/:values" element={< Harvestcalendardiseases />} />
               <Route path="/harvestcalendarinputmortalities/:values" element={< Harvestcalendarinputmortalities />} />
               <Route path="/harvestcalendarinputactivity/:values" element={< Harvestcalendarinputactivity />} />
+              <Route path="/harvestinventoryinput/:batch_id" element={< Harvestinventoryinput />} />
+              <Route path="/harvestinventoryinputvariations/:harvest_id" element={< Harvestinventoryinputvariations />} />
+              <Route path="/harvestinventorymedia/:harvest_id" element={< Harvestinventorymedia />} />
+              <Route path="/harvestinventoryviewvariations/:harvest_id" element={< Harvestinventoryviewvariations />} />
+              <Route exact path="/harvestinventoryallvariations" element={< Harvestinventoryallvariations />} />
+              <Route exact path="/harvestinventory" element={< Harvestinventory />} />
+              <Route exact path="/harvestcalendarharvested" element={< Harvestcalendarharvested />} />
+              <Route exact path="/harvestcalendaronsale" element={< Harvestcalendaronsale />} />
               <Route exact path="/crud" element={< Crud />} />
               <Route exact path="/test" element={< Test />} />
             </Route>

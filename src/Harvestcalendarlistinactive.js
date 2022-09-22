@@ -72,6 +72,7 @@ function Harvestcalendarlistinactive() {
       <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>View Harvest Calendar</button>
       <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedEdit}>Edit Batch Harvest</button>
       <Link to="/harvestcalendarlist"><button type="button" class="btn btn-outline-info secondarybutton">View Active Batches</button></Link>
+      <Link to="/harvestcalendarharvested"><button type="button" class="btn btn-outline-info secondarybutton">View Harvested Batches</button></Link>
       <Link to="/harvestcalendaradd"><button type="button" class="btn btn-outline-info secondarybutton">Add New Batch</button></Link>
         <form class="d-flex">
             <input class="form-control me-sm-2" type="text" placeholder="Search ID" />

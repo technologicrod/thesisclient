@@ -12,12 +12,12 @@ function Nav() {
     <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav me-auto">
       <Link class="nav-link" to='/'><li class="nav-item">Home</li></Link>
-      <Link class="nav-link" to='/login'><li class="nav-item">Farm Profiles</li></Link>
+      <Link class="nav-link" to='/farmprofiles'><li class="nav-item">Farm Profiles</li></Link>
       <Link class="nav-link" to='/employeelist'><li class="nav-item">Employees</li></Link>
       <Link class="nav-link" to='/plantutilities'><li class="nav-item">Plant Utilities</li></Link>
       <Link class="nav-link" to='/plantprofiles'><li class="nav-item">Plant Profiles</li></Link>
       <Link class="nav-link" to='/harvestcalendarlist'><li class="nav-item">Harvest Calendars</li></Link>
-      <Link class="nav-link" to='/login'><li class="nav-item">Harvest Inventory</li></Link>
+      <Link class="nav-link" to='/harvestinventory'><li class="nav-item">Harvest Inventory</li></Link>
       <Link class="nav-link" to='/login'><li class="nav-item">Sales</li></Link>
       <Link class="nav-link" to='/login'><li class="nav-item">Items Inventory</li></Link>
       <Link class="nav-link" to='/login'><li class="nav-item">Purchase Orders</li></Link>

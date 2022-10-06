@@ -35,6 +35,12 @@ function Harvestcalendar() {
             setbatchinfo(response.data);
         })
     }, [x])
+    const [latestinfo, setlatestinfo] = useState([]);
+    useEffect(() =>{
+        Axios.get(`http://localhost:3001/plantbatchlatestinfo/${x}`).then((response) => {
+            setlatestinfo(response.data);
+        })
+    }, [x])
     var y,z
     var values = {id: "", startd: "", endd: ""}
     const handleSelectSlot = ({start,end,resourceId}) => {
@@ -145,8 +151,25 @@ function Harvestcalendar() {
     }
     return (
         <div className='App'>
-            <h1>Harvest Calendar</h1>
-            <h2>Add New Event</h2>
+            <h1>Harvest Calendar of Batch {x}</h1>
+            <br></br>
+            <h3><em>Latest Data Inputted:</em></h3>
+            {latestinfo.map((val)=> {
+                return (
+                    <div>
+                        <p>
+                            <h6><strong>Plant Stage</strong>: {val.plant_stage}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <strong>Quantity</strong>: {val.quantity} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <strong>Survival Rate</strong>: {val.survival_rate} </h6>
+                        </p>
+                        <p>
+                            <h6><strong>Average Current Height in M</strong>: {val.curr_height} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <strong>Average Current Width in M:</strong> {val.curr_width} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <strong>Remarks</strong>: {val.remarks}</h6>
+                        </p>
+                    </div>
+                )
+            })}
             <Link to="/harvestcalendarlist"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
             {/*<div>
                 <input type="text" placeholder='Add Title' style={{width:"20%", marginRight:"10px"}} value={newEvent.title} onChange={(e) => setnewEvent({...newEvent, title: e.target.value})} />

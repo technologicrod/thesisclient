@@ -5,12 +5,13 @@ import Axios from 'axios';
 
 
 function Harvestinventoryallvariations() {
+  const y = "Active"
   const [batchlist, setbatchlist] = useState([])
   useEffect(() =>{
-    Axios.get(`http://localhost:3001/harvestvariationslist`).then((response) => {
+    Axios.get(`http://localhost:3001/harvestvariationslist/${y}`).then((response) => {
       setbatchlist(response.data);
     })
-  }, [])
+  }, [y])
   return (
     <div className='App'>
         <div class="headform">
@@ -23,10 +24,12 @@ function Harvestinventoryallvariations() {
                     <tr>
                       <th scope="col">Quantity ID</th>
                       <th scope="col">Harvest ID</th>
+                      <th scope="col">Plant</th>
                       <th scope="col">Grade</th>
                       <th scope="col">Quantity Harvested</th>
                       <th scope="col">Units</th>
                       <th scope="col">Price per Unit</th>
+                      <th scope="col">Active</th>
                     </tr>
                   </thead>
                       <tbody>
@@ -35,10 +38,12 @@ function Harvestinventoryallvariations() {
                             <tr class="table-active tractive">
                             <td scope="row">{val.quantity_id}</td>
                             <td scope="row">{val.harvest_id}</td>
+                            <td scope="row">{val.plant_name}</td>
                             <td scope="row">{val.grade}</td>
                             <td scope="row">{val.quantity_harvested}</td>
                             <td scope="row">{val.units}</td>
                             <td scope="row">{val.price_per_unit}</td>
+                            <td scope="row">{val.var_status}</td>
                             </tr>
                           )
                         })}

@@ -7,6 +7,21 @@ import Axios from 'axios';
 function Harvestinventoryinputvariations() {
     const { harvest_id } = useParams()
     const x = harvest_id
+    const [batchlist, setbatchlist] = useState([])
+    useEffect(() =>{
+    Axios.get(`http://localhost:3001/harvestinventoryonsalebatchesinfo/${x}`).then((response) => {
+        setbatchlist(response.data);
+    })
+    }, [x])
+    const ea = batchlist[0]
+    var batch_id
+    for (var key in ea) {
+        if (ea.hasOwnProperty(key)) {
+            if (key === "batch_id"){
+                batch_id = ea[key]
+            }
+          }
+      }
     const navigate = useNavigate()
     const a_grade = "A"
     const [a_quantity_harvested, seta_quantity_harvested] = useState("")
@@ -24,18 +39,27 @@ function Harvestinventoryinputvariations() {
     const [d_quantity_harvested, setd_quantity_harvested] = useState("")
     const [d_units, setd_units] = useState("")
     const [d_price_per_unit, setd_price_per_unit] = useState("")
+    const batch_status = "On Sale"
     const register = () => {
-        if (a_quantity_harvested < 0 || a_quantity_harvested === 0){
-            alert("Invalid input for Grade A Quantity Harvest. Negative and zero values are not accepted.");
+        if (a_quantity_harvested != ""){
+            if (a_quantity_harvested < 0 || a_quantity_harvested === 0){
+                alert("Invalid input for Grade A Quantity Harvest. Negative and zero values are not accepted.");
+            }
         }
-        else if (b_quantity_harvested < 0 || b_quantity_harvested === 0){
-            alert("Invalid input for Grade A Quantity Harvest. Negative and zero values are not accepted.");
+        else if (b_quantity_harvested != ""){
+            if (b_quantity_harvested < 0 || b_quantity_harvested === 0){
+                alert("Invalid input for Grade A Quantity Harvest. Negative and zero values are not accepted.");
+            }
         }
-        else if (c_quantity_harvested < 0 || c_quantity_harvested === 0){
-            alert("Invalid input for Grade A Quantity Harvest. Negative and zero values are not accepted.");
+        else if (c_quantity_harvested != ""){
+            if (c_quantity_harvested < 0 || c_quantity_harvested === 0){
+                alert("Invalid input for Grade A Quantity Harvest. Negative and zero values are not accepted.");
+            }
         }
-        else if (d_quantity_harvested < 0 || d_quantity_harvested === 0){
-            alert("Invalid input for Grade A Quantity Harvest. Negative and zero values are not accepted.");
+        else if (d_quantity_harvested != ""){
+            if (d_quantity_harvested < 0 || d_quantity_harvested === 0){
+                alert("Invalid input for Grade A Quantity Harvest. Negative and zero values are not accepted.");
+            }
         }
         if (a_quantity_harvested != ""){
             if (a_units == "" || a_price_per_unit == ""){
@@ -104,7 +128,7 @@ function Harvestinventoryinputvariations() {
             alert("No data inputted.")
         }
         else {
-            Axios.post("http://localhost:3001/harvestinputvariations", {harvest_id: harvest_id, a_grade: a_grade, a_quantity_harvested: a_quantity_harvested, a_units: a_units, a_price_per_unit: a_price_per_unit, b_grade: b_grade, b_quantity_harvested: b_quantity_harvested, b_units: b_units, b_price_per_unit: b_price_per_unit, c_grade: c_grade, c_quantity_harvested: c_quantity_harvested, c_units: c_units, c_price_per_unit: c_price_per_unit, d_grade: d_grade, d_quantity_harvested: d_quantity_harvested, d_units: d_units, d_price_per_unit: d_price_per_unit});
+            Axios.post("http://localhost:3001/harvestinputvariations", {harvest_id: harvest_id, a_grade: a_grade, a_quantity_harvested: a_quantity_harvested, a_units: a_units, a_price_per_unit: a_price_per_unit, b_grade: b_grade, b_quantity_harvested: b_quantity_harvested, b_units: b_units, b_price_per_unit: b_price_per_unit, c_grade: c_grade, c_quantity_harvested: c_quantity_harvested, c_units: c_units, c_price_per_unit: c_price_per_unit, d_grade: d_grade, d_quantity_harvested: d_quantity_harvested, d_units: d_units, d_price_per_unit: d_price_per_unit, batch_status: batch_status, batch_id: batch_id});
             navigate('/harvestcalendaronsale', { replace: true });
             window.location.reload();
             alert("Variations recorded");
@@ -116,7 +140,7 @@ function Harvestinventoryinputvariations() {
             <h1 class="titleheadform">Input Harvest {x}'s Variations for Sales</h1>
             </div>
             <main class="container-fluid">
-            <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+            <Link to="/harvestcalendaronsale"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
                 <form class="formdiv" name="myform" required>
                     <h3>Grade A Crops:</h3>
                     <div class="form-group">
@@ -139,7 +163,7 @@ function Harvestinventoryinputvariations() {
                     </div>
                     <div class="form-group">
                         <label class="col-form-label mt-4" for="inputDefault">Units <em>(ex: kilograms, pieces)</em></label>
-                        <input type="text" class="form-control" placeholder="Quantity Harvested" id="inputDefault" onChange={(e) =>{setb_units(e.target.value)}} required/>
+                        <input type="text" class="form-control" placeholder="Units" id="inputDefault" onChange={(e) =>{setb_units(e.target.value)}} required/>
                     </div>
                     <div class="form-group">
                         <label class="col-form-label mt-4" for="inputDefault">Price per Unit in Peso</label>
@@ -153,7 +177,7 @@ function Harvestinventoryinputvariations() {
                     </div>
                     <div class="form-group">
                         <label class="col-form-label mt-4" for="inputDefault">Units <em>(ex: kilograms, pieces)</em></label>
-                        <input type="text" class="form-control" placeholder="Quantity Harvested" id="inputDefault" onChange={(e) =>{setc_units(e.target.value)}} required/>
+                        <input type="text" class="form-control" placeholder="Units" id="inputDefault" onChange={(e) =>{setc_units(e.target.value)}} required/>
                     </div>
                     <div class="form-group">
                         <label class="col-form-label mt-4" for="inputDefault">Price per Unit in Peso</label>
@@ -167,7 +191,7 @@ function Harvestinventoryinputvariations() {
                     </div>
                     <div class="form-group">
                         <label class="col-form-label mt-4" for="inputDefault">Units <em>(ex: kilograms, pieces)</em></label>
-                        <input type="text" class="form-control" placeholder="Quantity Harvested" id="inputDefault" onChange={(e) =>{setd_units(e.target.value)}} required/>
+                        <input type="text" class="form-control" placeholder="Units" id="inputDefault" onChange={(e) =>{setd_units(e.target.value)}} required/>
                     </div>
                     <div class="form-group">
                         <label class="col-form-label mt-4" for="inputDefault">Price per Unit in Peso</label>

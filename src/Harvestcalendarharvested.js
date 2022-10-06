@@ -42,6 +42,7 @@ function Harvestcalendarharvested() {
         <main class="container-fluid">
       <Link to="/harvestinventory"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
       <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>Input for Sales</button>
+      <Link to="/harvestcalendarreadyforsale"><button type="button" class="btn btn-outline-info secondarybutton">View Ready for Sale Batches</button></Link>
       <Link to="/harvestcalendaronsale"><button type="button" class="btn btn-outline-info secondarybutton">View On Sale Batches</button></Link>
       <Link to="/harvestinventoryallvariations"><button type="button" class="btn btn-outline-info secondarybutton">View On Sale Crops</button></Link>
 

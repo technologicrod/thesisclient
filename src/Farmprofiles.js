@@ -12,6 +12,15 @@ function Farmprofiles() {
       setfarmlist(response.data);
     })
   }, [])
+  const ea = farmlist[0]
+  var i1
+  for (var key in ea) {
+    if (ea.hasOwnProperty(key)) {
+        if (key === "farm_id"){
+          i1 = ea[key]
+        }
+    }
+  }
   function rowSelect(event) {
     id = event;
     console.log(id)
@@ -33,7 +42,13 @@ function Farmprofiles() {
       <main class="container-fluid">
       <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>View</button>
-        <Link to="/farmprofilesadd"><button type="button" class="btn btn-outline-info secondarybutton">Add</button></Link>
+        {farmlist.map((val)=> {
+          if (i1 == ""){
+            return(
+              <Link to="/farmprofilesadd"><button type="button" class="btn btn-outline-info secondarybutton">Add</button></Link>
+            )
+          }
+        })}
         <form class="d-flex">
             <input class="form-control me-sm-2" type="text" placeholder="Search ID" />
             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>

@@ -12,6 +12,7 @@ function Harvestcalendarlist() {
       setbatchlist(response.data);
     })
   }, [batch_status])
+  console.log("batch: ",batchlist)
   const [latestlist, setlatestlist] = useState([])
   useEffect(() =>{
     Axios.get(`http://localhost:3001/plantbatchlistlatestinfo`).then((response) => {

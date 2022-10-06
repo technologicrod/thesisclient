@@ -70,6 +70,7 @@ function Harvestcalendarmonitoringevent() {
       }
       fetchData()
       }, [x])
+      console.log("dis: ", harvestdiseasesinfo)
     //to fetch mortalities list
     const [harvestmortalitiesinfo, setharvestmortalitiesinfo] = useState([]);
     useEffect(() =>{
@@ -100,7 +101,7 @@ function Harvestcalendarmonitoringevent() {
         }
       }
     const handleProceedDiseases = (e) => {
-      var withbatchid = {"id":x, "startd":y, "endd": z, "actinc": ai, "batch_id": bid}
+      var withbatchid = {"id":x, "startd":y, "endd": z, "actinc": ai, "batch_id": bid, "activities_id": i1}
       withbatchid = JSON.stringify(withbatchid)
       withbatchid && navigate(generatePath("/harvestcalendardiseases/:withbatchid", { withbatchid }));
   };

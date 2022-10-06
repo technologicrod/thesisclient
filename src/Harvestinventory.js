@@ -42,6 +42,7 @@ function Harvestinventory() {
         <main class="container-fluid">
       <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
       <Link to="/harvestcalendarharvested"><button type="button" class="btn btn-outline-info secondarybutton">View Harvested Batches</button></Link>
+      <Link to="/harvestcalendarreadyforsale"><button type="button" class="btn btn-outline-info secondarybutton">View Ready for Sale Batches</button></Link>
       <Link to="/harvestcalendaronsale"><button type="button" class="btn btn-outline-info secondarybutton">View On Sale Batches</button></Link>
       <Link to="/harvestinventoryallvariations"><button type="button" class="btn btn-outline-info secondarybutton">View On Sale Crops</button></Link>
 

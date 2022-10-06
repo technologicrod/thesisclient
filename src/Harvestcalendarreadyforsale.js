@@ -4,8 +4,8 @@ import { Link, useNavigate, generatePath } from 'react-router-dom';
 import Axios from 'axios';
 
 
-function Harvestcalendaronsale() {
-    const batch_status = "On Sale"
+function Harvestcalendarreadyforsale() {
+    const batch_status = "Ready for Sale"
     const [batchlist, setbatchlist] = useState([])
     useEffect(() =>{
     Axios.get(`http://localhost:3001/harvestbatchlist/${batch_status}`).then((response) => {
@@ -36,25 +36,17 @@ function Harvestcalendaronsale() {
         id && navigate(generatePath("/harvestinventorymedia/:id", { id }));
       }
     };
-    const handleProceedVariations = (e) => {
-      if (id == 0){
-        alert("Select a row to view.")
-      }
-      else {
-        id && navigate(generatePath("/harvestinventoryviewvariations/:id", { id }));
-      }
-    };
 
   return (
     <div className='App'>
         <div class="headform">
-        <h1 class="titleheadform">On Sale Batches List</h1>
+        <h1 class="titleheadform">Ready for Sale Batches List</h1>
         <main class="container-fluid">
       <Link to="/harvestinventory"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+      <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>Input Quantity Variations</button>
       <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedMedia}>View Batch Media</button>
       <Link to="/harvestcalendarharvested"><button type="button" class="btn btn-outline-info secondarybutton">View Harvested Batches</button></Link>
-      <Link to="/harvestcalendarreadyforsale"><button type="button" class="btn btn-outline-info secondarybutton">View Ready for Sale Batches</button></Link>
-      <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedVariations}>View Harvested Crops Variations</button>
+      <Link to="/harvestcalendaronsale"><button type="button" class="btn btn-outline-info secondarybutton">View On Sale Batches</button></Link>
       <Link to="/harvestinventoryallvariations"><button type="button" class="btn btn-outline-info secondarybutton">View On Sale Crops</button></Link>
       
 
@@ -95,4 +87,4 @@ function Harvestcalendaronsale() {
       </div>
   );
 }
-export default Harvestcalendaronsale;
+export default Harvestcalendarreadyforsale;

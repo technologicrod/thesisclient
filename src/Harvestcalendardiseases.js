@@ -58,12 +58,13 @@ function Harvestcalendardiseases() {
     const [harvestdiseasesinfo, setharvestdiseasenfo] = useState([]);
     useEffect(() =>{
       async function fetchData(){
-          await Axios.get(`http://localhost:3001/harvestdiseaseslist/${bid}`).then((response) => {
+          await Axios.get(`http://localhost:3001/harvestdiseaseslist/${x}`).then((response) => {
             setharvestdiseasenfo(response.data);
       })
       }
       fetchData()
-      }, [bid])
+      }, [x])
+      console.log(bid)
   return (
     <div className='App'>
         <div class="headform">

@@ -7,12 +7,13 @@ import Axios from 'axios';
 function Harvestinventoryviewvariations() {
     const { harvest_id } = useParams();
     const x = harvest_id
+    const y = "Active"
   const [batchlist, setbatchlist] = useState([])
   useEffect(() =>{
-    Axios.get(`http://localhost:3001/harvestvariationsinfo/${x}`).then((response) => {
+    Axios.get(`http://localhost:3001/harvestvariationsinfo/${x}/${y}`).then((response) => {
       setbatchlist(response.data);
     })
-  }, [x])
+  }, [x, y])
   return (
     <div className='App'>
         <div class="headform">
@@ -28,6 +29,7 @@ function Harvestinventoryviewvariations() {
                       <th scope="col">Quantity Harvested</th>
                       <th scope="col">Units</th>
                       <th scope="col">Price per Unit</th>
+                      <th scope="col">Status</th>
                     </tr>
                   </thead>
                       <tbody>
@@ -39,6 +41,7 @@ function Harvestinventoryviewvariations() {
                             <td scope="row">{val.quantity_harvested}</td>
                             <td scope="row">{val.units}</td>
                             <td scope="row">{val.price_per_unit}</td>
+                            <td scope="row">{val.var_status}</td>
                             </tr>
                           )
                         })}

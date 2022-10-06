@@ -52,6 +52,19 @@ import Harvestinventoryinputvariations from './Harvestinventoryinputvariations';
 import Harvestinventorymedia from './Harvestinventorymedia';
 import Harvestinventoryviewvariations from './Harvestinventoryviewvariations';
 import Harvestinventoryallvariations from './Harvestinventoryallvariations';
+import Harvestcalendarreadyforsale from './Harvestcalendarreadyforsale';
+import Iteminventory from './Iteminventory';
+import Iteminventoryadd from './Iteminventoryadd';
+import Iteminventoryedit from './Iteminventoryedit';
+import Purchaseorders from './Purchaseorders';
+import Supplierslist from './Supplierslist';
+import Suppliersadd from './Suppliersadd';
+import Suppliersedit from './Suppliersedit';
+import Purchaseorderlist from './Purchaseorderlist';
+import Purchaseorderadd from './Purchaseorderadd';
+import Purchaseorderlistinfo from './Purchaseorderlistinfo';
+import Purchaseorderedit from './Purchaseorderedit';
+import Purchaseorderconfirmation from './Purchaseorderconfirmation';
 import { BrowserRouter as Router, Route, Routes, Outlet } from 'react-router-dom';
 import Crud from './Crud';
 import Test from './Test';
@@ -119,6 +132,19 @@ function App() {
               <Route exact path="/harvestinventory" element={< Harvestinventory />} />
               <Route exact path="/harvestcalendarharvested" element={< Harvestcalendarharvested />} />
               <Route exact path="/harvestcalendaronsale" element={< Harvestcalendaronsale />} />
+              <Route exact path="/harvestcalendarreadyforsale" element={< Harvestcalendarreadyforsale />} />
+              <Route exact path="/iteminventory" element={< Iteminventory />} />
+              <Route exact path="/iteminventoryadd" element={< Iteminventoryadd />} />
+              <Route path="/iteminventoryedit/:supply_id" element={< Iteminventoryedit />} />
+              <Route exact path="/purchaseorders" element={< Purchaseorders />} />
+              <Route exact path="/supplierslist" element={< Supplierslist />} />
+              <Route exact path="/suppliersadd" element={< Suppliersadd />} />
+              <Route path="/suppliersedit/:supplier_id" element={< Suppliersedit />} />
+              <Route exact path="/purchaseorderlist" element={< Purchaseorderlist />} />
+              <Route path="/purchaseorderadd/:supply_id" element={< Purchaseorderadd />} />
+              <Route exact path="/purchaseorderlistinfo" element={< Purchaseorderlistinfo />} />
+              <Route path="/purchaseorderedit/:po_id" element={< Purchaseorderedit />} />
+              <Route path="/purchaseorderconfirmation/:supplier_id" element={< Purchaseorderconfirmation />} />
               <Route exact path="/crud" element={< Crud />} />
               <Route exact path="/test" element={< Test />} />
             </Route>

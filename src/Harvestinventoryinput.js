@@ -20,7 +20,7 @@ function Harvestinventoryinput() {
     }, [x])
     const ea = harvestinfo[0]
     var date_harvested
-    const batch_status = "On Sale"
+    const batch_status = "Ready for Sale"
     for (var key in ea) {
         if (ea.hasOwnProperty(key)) {
             if (key === "date_harvested"){
@@ -50,7 +50,7 @@ function Harvestinventoryinput() {
             <h1 class="titleheadform">Input Batch {x}'s Crops for Sales</h1>
             </div>
             <main class="container-fluid">
-            <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+            <Link to="/harvestcalendarharvested"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
                 <form class="formdiv" name="myform" required>
                 <fieldset name="ainput" class="form-group" onChange={(e) =>{setbatch_quality(e.target.value)}} required>
                             <legend class="mt-4">Harvested Batch Quality</legend>

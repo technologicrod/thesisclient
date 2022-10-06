@@ -12,7 +12,7 @@ function Harvestcalendarinputdiseases() {
     const handleProceed = (e) => {
         wnew && navigate(generatePath("/harvestcalendardiseases/:wnew", { wnew }));
       };
-    var x,y,z,ai // x for id, y for start date, z for start, ai for act_increment
+    var x,y,z,ai, actid // x for id, y for start date, z for start, ai for act_increment
     for (var key in w) {
       if (w.hasOwnProperty(key)) {
           if (key === "id"){
@@ -27,8 +27,12 @@ function Harvestcalendarinputdiseases() {
           if (key === "actinc"){
             ai = w[key]
           }
+          if (key === "activities_id"){
+            actid = w[key]
+          }
       }
     }
+    console.log("WWWWWWWW: ", w)
     const [harvestdiseasesinfo, setharvestdiseasesinfo] = useState([]);
     useEffect(() =>{
       async function fetchData(){
@@ -52,7 +56,7 @@ function Harvestcalendarinputdiseases() {
     const [date_occured, setdate_occured] = useState("")
     const [disease_desc, setdisease_desc] = useState("")
     const dis_status = "Active"
-    const activities_id = x
+    const activities_id = actid
     const act_increment = ai
     useEffect(()=>{
         setdate_occured(y)
@@ -66,12 +70,12 @@ function Harvestcalendarinputdiseases() {
         if (a == "" ||b == "" || c == "") {
           alert("Required fields must be filled out");
         }
-        if (b > i1){
+        else if (b > i1){
             alert("Invalid input. Quantities affected are greater than the batch's actual quantity.");
         }
         else {
             Axios.post("http://localhost:3001/harvestinputdiseasesadd", {disease_id: disease_id, activities_id: activities_id, act_increment: act_increment, num_of_plants_affected: num_of_plants_affected, date_occured: date_occured, disease_desc: disease_desc, dis_status: dis_status});
-            x && navigate(generatePath("/harvestcalendarmonitoringevent/:x", { x }));
+            x && navigate(generatePath("/harvestcalendarmonitoringevent/:values", { values }));
             window.location.reload();
             alert("Plant Disease recorded");
         }

@@ -60,10 +60,10 @@ function Plantprofiles() {
                   {plantprofilelist.map((val) => {
                           return(
                             <tr class="table-primary tractive" onClick={rowSelect.bind(this, val.plant_id)}>
-                            <th scope="row">{val.plant_name}</th>
-                            <th scope="row">{val.variety}</th>
-                            <th scope="row">{val.category}</th>
-                            <th scope="row">{val.num_of_mon_to_harvest}</th>
+                              <th scope="row">{val.plant_name}</th>
+                              <th scope="row">{val.variety}</th>
+                              <th scope="row">{val.category}</th>
+                              <th scope="row">{val.num_of_mon_to_harvest}</th>
                           </tr>
                               )
                       })}
@@ -76,5 +76,3 @@ function Plantprofiles() {
 }
 
 export default Plantprofiles;
-
-

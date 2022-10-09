@@ -10,6 +10,7 @@ function Plantprofiles() {
       setplantprofilelist(response.data);
     })
   }, [])
+  console.log("pr: ",plantprofilelist)
   var id = 0;
   function rowSelect(event) {
     id = event;

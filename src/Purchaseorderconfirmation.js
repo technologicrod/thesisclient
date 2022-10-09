@@ -6,6 +6,7 @@ import Axios from 'axios';
 function Purchaseorderconfirmation() {
     const { supplier_id } = useParams();
     const x = supplier_id
+    const navigate = useNavigate();
     const stat = "Pending"
     const [polist, setpolist] = useState([]);
     useEffect(() =>{
@@ -42,10 +43,14 @@ function Purchaseorderconfirmation() {
             }
         }
       }
+    var today = new Date();
     const register = () => {
-        Axios.post("http://localhost:3001/purchaseorderconfirmadd", {supplier_id: x, poidlist: poidlist, totalamount: totalamount});
-        alert(poidlist)
+        Axios.post("http://localhost:3001/purchaseorderconfirmadd", {supplier_id: x, poidlist: poidlist, totalamount: totalamount, date_confirmed: today});
+        navigate('/purchaseorderconfirmedlist', { replace: true });
+        window.location.reload();
+        alert("Purchase Order Confirmed");
     }
+    
     return (
       <div className='App'>
           <div class="headform">

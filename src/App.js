@@ -65,6 +65,12 @@ import Purchaseorderadd from './Purchaseorderadd';
 import Purchaseorderlistinfo from './Purchaseorderlistinfo';
 import Purchaseorderedit from './Purchaseorderedit';
 import Purchaseorderconfirmation from './Purchaseorderconfirmation';
+import Purchaseorderconfirmedlist from './Purchaseorderconfirmedlist';
+import Purchaseorderconfirmedinfo from './Purchaseorderconfirmedinfo';
+import Purchaseorderpayment from './Purchaseorderpayment';
+import Purchaseorderhistory from './Purchaseorderhistory';
+import Purchaseorderstockin from './Purchaseorderstockin';
+import Purchaseorderstockininput from './Purchaseorderstockininput';
 import { BrowserRouter as Router, Route, Routes, Outlet } from 'react-router-dom';
 import Crud from './Crud';
 import Test from './Test';
@@ -145,6 +151,12 @@ function App() {
               <Route exact path="/purchaseorderlistinfo" element={< Purchaseorderlistinfo />} />
               <Route path="/purchaseorderedit/:po_id" element={< Purchaseorderedit />} />
               <Route path="/purchaseorderconfirmation/:supplier_id" element={< Purchaseorderconfirmation />} />
+              <Route exact path="/purchaseorderconfirmedlist" element={< Purchaseorderconfirmedlist />} />
+              <Route path="/purchaseorderconfirmedinfo/:final_po_id" element={< Purchaseorderconfirmedinfo />} />
+              <Route path="/purchaseorderpayment/:final_po_id" element={< Purchaseorderpayment />} />
+              <Route exact path="/purchaseorderhistory" element={< Purchaseorderhistory />} />
+              <Route path="/purchaseorderstockin/:final_po_id" element={< Purchaseorderstockin />} />
+              <Route path="/purchaseorderstockininput/:final_po_id/:po_id" element={< Purchaseorderstockininput />} />
               <Route exact path="/crud" element={< Crud />} />
               <Route exact path="/test" element={< Test />} />
             </Route>

@@ -13,8 +13,8 @@ function Purchaseorders() {
       <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
       <Link to="/purchaseorderlist"><button type="button" class="btn btn-outline-info secondarybutton">New Purchase Order</button></Link>
       <Link to="/purchaseorderlistinfo"><button type="button" class="btn btn-outline-info secondarybutton">Purchase Order Cart</button></Link>
-      <Link to="/"><button type="button" class="btn btn-outline-info secondarybutton">Purchase Order List</button></Link>
-      <Link to="/"><button type="button" class="btn btn-outline-info secondarybutton">Purchase Order History</button></Link>
+      <Link to="/purchaseorderconfirmedlist"><button type="button" class="btn btn-outline-info secondarybutton">Purchase Order List</button></Link>
+      <Link to="/purchaseorderhistory"><button type="button" class="btn btn-outline-info secondarybutton">Paid Purchase Orders</button></Link>
       <Link to="/"><button type="button" class="btn btn-outline-info secondarybutton">Stock In Purchase Order</button></Link>
       <Link to="/"><button type="button" class="btn btn-outline-info secondarybutton">Stock In Individual Item</button></Link>
       <Link to="/"><button type="button" class="btn btn-outline-info secondarybutton">Purchase Order Redeliver List</button></Link>

@@ -29,8 +29,10 @@ function Purchaseorderstockin() {
         })
     }, [i1])
     var id = 0
+    var id1
     function rowSelect(event) {
-      id = event;
+      id = event.po_id;
+      id1 = event.supply_id
       console.log(id)
     }
     var w, y, a
@@ -60,17 +62,25 @@ function Purchaseorderstockin() {
                 }
             }
             if (z === 0){
-                Axios.put("http://localhost:3001/purchaseorderstockin", {po_id: y, supply_id: a});
-                x && navigate(generatePath("/purchaseorderstockin/:x", { x }));
-                window.location.reload();
-                alert("Item Stocked In")
+                //Axios.put("http://localhost:3001/purchaseorderstockin", {po_id: y, supply_id: a});
+                //x && navigate(generatePath("/purchaseorderstockin/:x", { x }));
+                //window.location.reload();
+                //alert("Item Stocked In")
+                navigate(generatePath("/purchaseorderstockininputnotperishable/:x/:y", { x,y }));
             }
             else if (z === 1){
                 navigate(generatePath("/purchaseorderstockininput/:x/:y", { x,y }));
             }
         }
     };
-    console.log(purorderlist)
+    const handleProceedRedeliver = (e) => {
+      if (id == 0){
+        alert("Select a row to edit for redelivery.")
+      }
+      else {
+        navigate(generatePath("/purchaseorderredelivery/:x/:id/:id1", { x,id,id1 }));
+      }
+    };
     return (
       <div className='App'>
           <div class="headform">
@@ -79,6 +89,8 @@ function Purchaseorderstockin() {
         <main class="container-fluid">
         <Link to="/purchaseorderhistory"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>Stock In</button>
+        <button type="button" class="btn btn-outline-danger secondarybutton" onClick={handleProceedRedeliver}>Redeliver</button>
+        <button type="button" class="btn btn-outline-dark secondarybutton">Refund</button>
             <div class="tablediv">
                 <h4>Items List</h4>
                     <table class="table table-hover">
@@ -89,14 +101,14 @@ function Purchaseorderstockin() {
                           <th scope="col">Quantity</th>
                           <th scope="col">Units</th>
                           <th scope="col">Is Perishable</th>
-                          <th scope="col">Quantity Stocked In (for perishable items)</th>
+                          <th scope="col">Quantity Stocked In</th>
                         </tr>
                       </thead>
                     <tbody>
                       {purorderlist.map((val)=> {
-                        if(val.perishability == 1 && val.status != "Stocked In"){
+                        if(val.status != "Stocked In" && val.status !="Redelivery" && val.status != "Refund"){
                             return (
-                                <tr class="table-primary" onClick={rowSelect.bind(this, val.po_id)}>
+                                <tr class="table-primary" onClick={rowSelect.bind(this, val)}>
                                   <th scope="row">{val.po_id}</th>
                                   <th scope="row">{val.supply_name}</th>
                                   <th scope="row">{val.po_quantity}</th>
@@ -106,16 +118,29 @@ function Purchaseorderstockin() {
                                   </tr>
                               )
                         }
-                        else if(val.perishability == 0 && val.status != "Stocked In"){
-                            return (
-                                <tr class="table-primary" onClick={rowSelect.bind(this, val.po_id)}>
-                                  <th scope="row">{val.po_id}</th>
-                                  <th scope="row">{val.supply_name}</th>
-                                  <th scope="row">{val.po_quantity}</th>
-                                  <th scope="row">{val.units}</th>
-                                  <th scope="row">Not Perishable</th>
-                                  </tr>
-                              )
+                        else if(val.status == "Redelivery"){
+                          return (
+                            <tr class="table-danger" onClick={rowSelect.bind(this, val)}>
+                              <th scope="row">{val.po_id}</th>
+                              <th scope="row">{val.supply_name}</th>
+                              <th scope="row">{val.po_quantity}</th>
+                              <th scope="row">{val.units}</th>
+                              <th scope="row">Perishable</th>
+                              <th scope="row">{val.stocked_in_quantity}</th>
+                              </tr>
+                          )
+                        }
+                        else if(val.status == "Refund"){
+                          return (
+                            <tr class="table-dark" onClick={rowSelect.bind(this, val)}>
+                              <th scope="row">{val.po_id}</th>
+                              <th scope="row">{val.supply_name}</th>
+                              <th scope="row">{val.po_quantity}</th>
+                              <th scope="row">{val.units}</th>
+                              <th scope="row">Perishable</th>
+                              <th scope="row">{val.stocked_in_quantity}</th>
+                              </tr>
+                          )
                         }
                       })}
                       </tbody>

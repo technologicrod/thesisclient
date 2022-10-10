@@ -47,6 +47,7 @@ import Harvestcalendarinputactivity from './Harvestcalendarinputactivity';
 import Harvestinventory from './Harvestinventory';
 import Harvestcalendarharvested from './Harvestcalendarharvested';
 import Harvestcalendaronsale from './Harvestcalendaronsale';
+import Harvestcalendarstockouts from './Harvestcalendarstockouts';
 import Harvestinventoryinput from './Harvestinventoryinput';
 import Harvestinventoryinputvariations from './Harvestinventoryinputvariations';
 import Harvestinventorymedia from './Harvestinventorymedia';
@@ -56,6 +57,9 @@ import Harvestcalendarreadyforsale from './Harvestcalendarreadyforsale';
 import Iteminventory from './Iteminventory';
 import Iteminventoryadd from './Iteminventoryadd';
 import Iteminventoryedit from './Iteminventoryedit';
+import Iteminventorystockouthistory from './Iteminventorystockouthistory';
+import Iteminventorystockinhistoryfull from './Iteminventorystockinhistoryfull';
+import Iteminventorystockinhistorypartial from './Iteminventorystockinhistorypartial';
 import Purchaseorders from './Purchaseorders';
 import Supplierslist from './Supplierslist';
 import Suppliersadd from './Suppliersadd';
@@ -71,6 +75,10 @@ import Purchaseorderpayment from './Purchaseorderpayment';
 import Purchaseorderhistory from './Purchaseorderhistory';
 import Purchaseorderstockin from './Purchaseorderstockin';
 import Purchaseorderstockininput from './Purchaseorderstockininput';
+import Purchaseorderstockininputnotperishable from './Purchaseorderstockininputnotperishable';
+import Purchaseorderstockoutinventory from './Purchaseorderstockoutinventory';
+import Purchaseorderstockoutinput from './Purchaseorderstockoutinput';
+import Purchaseorderrelivery from './Purchaseorderredelivery';
 import { BrowserRouter as Router, Route, Routes, Outlet } from 'react-router-dom';
 import Crud from './Crud';
 import Test from './Test';
@@ -139,9 +147,13 @@ function App() {
               <Route exact path="/harvestcalendarharvested" element={< Harvestcalendarharvested />} />
               <Route exact path="/harvestcalendaronsale" element={< Harvestcalendaronsale />} />
               <Route exact path="/harvestcalendarreadyforsale" element={< Harvestcalendarreadyforsale />} />
+              <Route path="/harvestcalendarstockouts/:values" element={< Harvestcalendarstockouts />} />
               <Route exact path="/iteminventory" element={< Iteminventory />} />
               <Route exact path="/iteminventoryadd" element={< Iteminventoryadd />} />
               <Route path="/iteminventoryedit/:supply_id" element={< Iteminventoryedit />} />
+              <Route path="/iteminventorystockouthistory/:supply_id" element={< Iteminventorystockouthistory />} />
+              <Route path="/iteminventorystockinhistoryfull/:supply_id" element={< Iteminventorystockinhistoryfull />} />
+              <Route path="/iteminventorystockinhistorypartial/:supply_id" element={< Iteminventorystockinhistorypartial />} />
               <Route exact path="/purchaseorders" element={< Purchaseorders />} />
               <Route exact path="/supplierslist" element={< Supplierslist />} />
               <Route exact path="/suppliersadd" element={< Suppliersadd />} />
@@ -157,6 +169,10 @@ function App() {
               <Route exact path="/purchaseorderhistory" element={< Purchaseorderhistory />} />
               <Route path="/purchaseorderstockin/:final_po_id" element={< Purchaseorderstockin />} />
               <Route path="/purchaseorderstockininput/:final_po_id/:po_id" element={< Purchaseorderstockininput />} />
+              <Route path="/purchaseorderstockininputnotperishable/:final_po_id/:po_id" element={< Purchaseorderstockininputnotperishable />} />
+              <Route path="/purchaseorderstockoutinventory/:values/:assign_id" element={< Purchaseorderstockoutinventory />} />
+              <Route path="/purchaseorderstockoutinput/:values/:assign_id/:supply_id" element={< Purchaseorderstockoutinput />} />
+              <Route path="/purchaseorderredelivery/:final_po_id/:po_id/:supply_id" element={< Purchaseorderrelivery />} />
               <Route exact path="/crud" element={< Crud />} />
               <Route exact path="/test" element={< Test />} />
             </Route>

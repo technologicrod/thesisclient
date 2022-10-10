@@ -100,10 +100,10 @@ function Harvestcalendarmonitoringevent() {
             }
         }
       }
-    const handleProceedDiseases = (e) => {
-      var withbatchid = {"id":x, "startd":y, "endd": z, "actinc": ai, "batch_id": bid, "activities_id": i1}
-      withbatchid = JSON.stringify(withbatchid)
-      withbatchid && navigate(generatePath("/harvestcalendardiseases/:withbatchid", { withbatchid }));
+  const handleProceedDiseases = (e) => {
+    var withbatchid = {"id":x, "startd":y, "endd": z, "actinc": ai, "batch_id": bid, "activities_id": i1}
+    withbatchid = JSON.stringify(withbatchid)
+    withbatchid && navigate(generatePath("/harvestcalendardiseases/:withbatchid", { withbatchid }));
   };
   const handleProceedMortalities = (e) => {
     var withbatchid = {"id":x, "startd":y, "endd": z, "actinc": ai, "batch_id": bid, "activities_id": i1}
@@ -115,16 +115,36 @@ function Harvestcalendarmonitoringevent() {
     withbatchid = JSON.stringify(withbatchid)
     withbatchid && navigate(generatePath("/harvestcalendarinputactivity/:withbatchid", { withbatchid }));
   };  
+  const handleProceedView = (e) => {
+    var withbatchid = {"id":x, "startd":y, "endd": z, "actinc": ai, "batch_id": bid, "activities_id": i1}
+    withbatchid = JSON.stringify(withbatchid)
+    withbatchid && navigate(generatePath("/harvestcalendarstockouts/:withbatchid", { withbatchid }));
+  };
+  var id = 0
+  function rowSelect(event) {
+    id = event;
+    console.log(id)
+  }
+  const handleProceedStockout = (e) => {
+    if (id == 0){
+      alert("Select a plant activity.")
+    }
+    else {
+      navigate(generatePath("/purchaseorderstockoutinventory/:wnew/:id", { wnew,id }));
+    }
+  };
   return (
     <div className='App'>
         <div class="headform">
-        <h1 class="titleheadform">Plant Monitoring for Batch {x}</h1>
-        <h5>Activity Number: {ai}</h5>
+        <h1 class="titleheadform">Plant Monitoring for Batch {x}'s Activity {ai}</h1>
+        <h5>Plant Activity ID: {i1}</h5>
         </div>
         <main class="container-fluid">
         <h6>From: {y} To: {z}</h6>
         <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceed}>Back</button>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedActivity}>Input Daily Activities</button>
+        <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedStockout}>Input Stock Out in Daily Activity</button>
+        <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedView}>View Stockouts in This Monitoring</button>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedDiseases}>Update Plant Diseases</button>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedMortalities}>Input Mortality Info</button>
         <br></br>
@@ -173,7 +193,7 @@ function Harvestcalendarmonitoringevent() {
               <tbody>
                 {harvestactivitiesinfo.map((val)=> {
                   return (
-                    <tr>
+                    <tr class="table-primary tractive" onClick={rowSelect.bind(this, val.assign_id)}>
                     <td scope="row">{val.assign_id}</td>
                     <td scope="row">{val.activity}</td>
                     <td scope="row">{val.report}</td>
@@ -201,7 +221,7 @@ function Harvestcalendarmonitoringevent() {
               <tbody>
               {harvestdiseasesinfo.map((val)=> {
                   return (
-                    <tr>
+                    <tr class="table-primary tractive">
                     <td scope="row">{val.disease_act_id}</td>
                     <td scope="row">{val.num_of_plants_affected}</td>
                     <td scope="row">{val.date_occured}</td>
@@ -228,7 +248,7 @@ function Harvestcalendarmonitoringevent() {
               <tbody>
                 {harvestmortalitiesinfo.map((val)=> {
                   return (
-                    <tr>
+                    <tr class="table-primary tractive">
                     <td scope="row">{val.mortality_id}</td>
                     <td scope="row">{val.quantity_loss}</td>
                     <td scope="row">{val.units}</td>

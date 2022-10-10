@@ -42,7 +42,7 @@ function Purchaseorderadd() {
             <h1 class="titleheadform">Pending Purchase Order</h1>
             </div>
             <main class="container-fluid">
-            <Link to="/iteminventory"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+            <Link to="/purchaseorderlist"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
                 <form class="formdiv" name="myform" required>
                 <div class="form-group">
                     <label for="exampleSelect1" class="form-label mt-4">Select Supplier</label>

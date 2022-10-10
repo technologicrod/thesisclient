@@ -4,7 +4,7 @@ import { Link, useNavigate, useParams, generatePath } from 'react-router-dom';
 import Axios from 'axios';
 import DatePicker from "react-datepicker";
 
-function Purchaseorderstockininput() {
+function Purchaseorderstockininputnotperishable() {
     const navigate = useNavigate();
     const { final_po_id } = useParams()
     const x = final_po_id
@@ -38,12 +38,11 @@ function Purchaseorderstockininput() {
         }
       }
     var i4 = i1 - i3
-    const [stockquanti, setstockquanti] = useState()
-    const [exp_date, setexp_date] = useState({start: ""})
+    const [stockquanti1, setstockquanti] = useState()
+    var stockquanti
     const register = () => {
         var a = document.forms["myform"]["ainput"].value;
-        var c = document.forms["myform"]["ccinput"].value;
-        if (a == "" || c == "" ) {
+        if (a == "") {
           alert("Required fields must be filled out");
         }
         else if(a > i4) {
@@ -55,20 +54,27 @@ function Purchaseorderstockininput() {
         else{
             parseFloat(i1)
             parseFloat(i3)
-            parseFloat(stockquanti)
-            Axios.post("http://localhost:3001/purchaseorderstockinperishable", {supply_id: i5, po_id: y, quantity: stockquanti, units: i2, exp_date: exp_date.start, stocked_in_quantity: i3, po_quantity: i1});
-            navigate(generatePath("/purchaseorderstockin/:x", { x }));
-            window.location.reload();
-            alert("Perishable Items Stocked In")
+            stockquanti = parseFloat(stockquanti1)
+            Axios.post("http://localhost:3001/purchaseorderstockin", {supply_id: i5, po_id: y, quantity: stockquanti, units: i2, stocked_in_quantity: i3, po_quantity: i1});
+            //navigate(generatePath("/purchaseorderstockin/:x", { x }));
+            //window.location.reload();
+            //alert("Perishable Items Stocked In")
+            console.log("supply_id :", i5)
+            console.log("po_id :", y)
+            console.log("quantity :", stockquanti)
+            console.log("units :", i2)
+            console.log("stocked_in_quantity :", i3)
+            console.log("po_quantity :", i1)
+            alert("Success")
         }
       }
-      const handleProceed = (e) => {
+    const handleProceed = (e) => {
         x && navigate(generatePath("/purchaseorderstockin/:x", { x }));
     };
     return(
         <div className="App">
             <div class="headform">
-            <h1 class="titleheadform">Stock In Perishable Items per Expiration Date</h1>
+            <h1 class="titleheadform">Stock In Item's Quantity <em>(not perishable)</em></h1>
             </div>
             <main class="container-fluid">
             <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceed}>Back</button>
@@ -80,10 +86,6 @@ function Purchaseorderstockininput() {
                     <label class="col-form-label mt-4" for="inputDefault">Stock In Quantity</label>
                     <input name="ainput" type="number" class="form-control" placeholder="Stock In Quantity" id="inputDefault"  onChange={(e) =>{setstockquanti(e.target.value)}} required/>
                 </div>
-                <div class="form-group">
-                        <label class="col-form-label mt-4" for="inputDefault">Due Date:</label>
-                        <DatePicker name="ccinput" placeholderText='Due Date' style={{marginRight:"10px"}} selected={exp_date.start} onChange={(start) =>{setexp_date({...exp_date, start})}} />
-                    </div>
                 <button type="button" class="btn btn-outline-success submitbutton" onClick={register}>Submit</button>
                 </form>
             </main>
@@ -92,4 +94,4 @@ function Purchaseorderstockininput() {
     )
 }
 
-export default Purchaseorderstockininput;
+export default Purchaseorderstockininputnotperishable;

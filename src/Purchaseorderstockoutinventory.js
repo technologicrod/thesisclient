@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
 import './App.css';
-import { Link, useNavigate, generatePath } from 'react-router-dom';
+import { Link, useNavigate, generatePath, useParams } from 'react-router-dom';
 import Axios from 'axios';
 
-function Iteminventory() {
+function Purchaseorderstockoutinventory() {
+    const { values } = useParams()
+    const wnew = values
+    const { assign_id } = useParams()
+    const x = assign_id
   const [itemlist, setitemlist] = useState([]);
   useEffect(() =>{
-    Axios.get('http://localhost:3001/iteminventory').then((response) => {
+    Axios.get('http://localhost:3001/stockoutitems').then((response) => {
       setitemlist(response.data);
     })
   }, [])
@@ -18,30 +22,23 @@ function Iteminventory() {
   const navigate = useNavigate();
   const handleProceed = (e) => {
     if (id == 0){
-      alert("Select a row to edit.")
+      alert("Select an item for stock out.")
     }
     else {
-      id && navigate(generatePath("/iteminventoryedit/:id", { id }));
+        navigate(generatePath("/purchaseorderstockoutinput/:wnew/:x/:id", { wnew,x,id }));
     }
   };
-  const handleProceedHistory = (e) => {
-    if (id == 0){
-      alert("Select a row to view history.")
-    }
-    else {
-      id && navigate(generatePath("/iteminventorystockouthistory/:id", { id }));
-    }
+  const handleBack = (e) => {
+    navigate(generatePath("/harvestcalendarmonitoringevent/:wnew", { wnew }));
   };
   return (
     <div className='App'>
         <div class="headform">
-        <h1 class="titleheadform">Item Inventory</h1>
+        <h1 class="titleheadform">Stock Out Item for Daily Activity {x}</h1>
       </div>
       <main class="container-fluid">
-      <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
-        <Link to="/iteminventoryadd"><button type="button" class="btn btn-outline-info secondarybutton">Add</button></Link>
-        <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>Edit</button>
-        <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedHistory}>View History</button>
+      <button type="button" class="btn btn-outline-dark backbutton" onClick={handleBack}>Back</button>
+        <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>Select Item</button>
         <form class="d-flex">
             <input class="form-control me-sm-2" type="text" placeholder="Search ID" />
             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
@@ -90,6 +87,6 @@ function Iteminventory() {
   );
 }
 
-export default Iteminventory;
+export default Purchaseorderstockoutinventory;
 
 

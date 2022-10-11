@@ -29,36 +29,38 @@ function Purchaseorderstockin() {
         })
     }, [i1])
     var id = 0
-    var id1
+    var id1, id2
     function rowSelect(event) {
       id = event.po_id;
       id1 = event.supply_id
+      id2 = event.status
       console.log(id)
     }
     var w, y, a
     var z = 0
     console.log(z)
     const handleProceed = (e) => {
-        if (id == 0 ){
+        if (id2 != "Redelivery" && id2 != "Refund"){
+          if (id == 0 ){
             alert("Select Item to Stock In")
         }
-        else{
-            for(let i = 0; i < purorderlist.length; i++){
-                for (var key in purorderlist[i]) {
-                    if (purorderlist[i].hasOwnProperty(key)) {
-                        if (key === "po_id"){
-                            w = purorderlist[i][key]
-                        }
-                        if (w == id){
-                            if (key === "supply_id"){
-                                a = purorderlist[i][key]
-                            }
-                            if(key === "perishability"){
-                                z = purorderlist[i][key]
-                            }
-                            y = w
-                        }
-                    }
+          else{
+              for(let i = 0; i < purorderlist.length; i++){
+                  for (var key in purorderlist[i]) {
+                      if (purorderlist[i].hasOwnProperty(key)) {
+                          if (key === "po_id"){
+                              w = purorderlist[i][key]
+                          }
+                          if (w == id){
+                              if (key === "supply_id"){
+                                  a = purorderlist[i][key]
+                              }
+                              if(key === "perishability"){
+                                  z = purorderlist[i][key]
+                              }
+                              y = w
+                          }
+                      }
                 }
             }
             if (z === 0){
@@ -72,13 +74,38 @@ function Purchaseorderstockin() {
                 navigate(generatePath("/purchaseorderstockininput/:x/:y", { x,y }));
             }
         }
+        }
+        else if (id2 == "Redelivery") {
+          alert("Pending redelivery can not be stocked in.")
+        }
+        else if (id2 == "Refund") {
+          alert("Refunded quantity can not be stocked in.")
+        }
     };
     const handleProceedRedeliver = (e) => {
-      if (id == 0){
-        alert("Select a row to edit for redelivery.")
+      if (id2 == "Refund") {
+        alert("Refunded orders can not be processed for redelivery.")
       }
       else {
-        navigate(generatePath("/purchaseorderredelivery/:x/:id/:id1", { x,id,id1 }));
+        if (id == 0){
+          alert("Select a row to edit for redelivery.")
+        }
+        else {
+          navigate(generatePath("/purchaseorderredelivery/:x/:id/:id1", { x,id,id1 }));
+        }
+      }
+    };
+    const handleProceedRefund = (e) => {
+      if (id2 == "Refund" || id2 == "Redelivery") {
+        alert("Refunded and for redelivery orders can not be processed for refund again.")
+      }
+      else {
+        if (id == 0){
+          alert("Select a row to edit for refund.")
+        }
+        else {
+          navigate(generatePath("/purchaseorderrefund/:x/:id/:id1", { x,id,id1 }));
+        }
       }
     };
     return (
@@ -90,7 +117,7 @@ function Purchaseorderstockin() {
         <Link to="/purchaseorderhistory"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>Stock In</button>
         <button type="button" class="btn btn-outline-danger secondarybutton" onClick={handleProceedRedeliver}>Redeliver</button>
-        <button type="button" class="btn btn-outline-dark secondarybutton">Refund</button>
+        <button type="button" class="btn btn-outline-dark secondarybutton" onClick={handleProceedRefund}>Refund</button>
             <div class="tablediv">
                 <h4>Items List</h4>
                     <table class="table table-hover">

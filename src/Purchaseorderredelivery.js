@@ -73,7 +73,7 @@ function Purchaseorderrelivery() {
                 Axios.put("http://localhost:3001/updateredelivery", {po_id: y, redelivery_id: rdid, date_delivered: c, prev_status: i2});
                 navigate(generatePath("/purchaseorderstockin/:x", { x }));
                 window.location.reload();
-                alert("Redelivery Registered")
+                alert("Redelivery Updated")
             }
         }
       }

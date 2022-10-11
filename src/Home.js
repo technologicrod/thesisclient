@@ -17,11 +17,11 @@ function Home() {
       <Link class="mainbutton" to='/plantprofiles'>Plant Profiles</Link>
       <Link class="mainbutton" to='/harvestcalendarlist'>Harvest Calendars</Link>
       <Link class="mainbutton" to='/harvestinventory'>Harvest Inventory</Link>
-      <Link class="mainbutton" to='/'>Sales</Link>
+      <Link class="mainbutton" to='/availableplants'>Available and Wasted Plants</Link>
       <Link class="mainbutton" to='/iteminventory'>Item Inventory</Link>
       <Link class="mainbutton" to='/purchaseorders'>Purchase Orders</Link>
-      <Link class="mainbutton" to='/'>Other Expenses</Link>
-      <Link class="mainbutton" to='/'>Finance</Link>
+      <Link class="mainbutton" to='/otherexpenseslist'>Other Expenses</Link>
+      <Link class="mainbutton" to='/allexpensespo'>All Expenses</Link>
       <Link class="mainbutton" to='/employeeaccounts'>Employee Accounts</Link>
         </div>
       </main>

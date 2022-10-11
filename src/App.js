@@ -79,6 +79,15 @@ import Purchaseorderstockininputnotperishable from './Purchaseorderstockininputn
 import Purchaseorderstockoutinventory from './Purchaseorderstockoutinventory';
 import Purchaseorderstockoutinput from './Purchaseorderstockoutinput';
 import Purchaseorderrelivery from './Purchaseorderredelivery';
+import Purchaseorderrefund from './Purchaseorderrefund';
+import Availableplants from './Availableplants';
+import Availableplantswasted from './Availableplantswasted';
+import Otherexpenseslist from './Otherexpenseslist';
+import Otherexpensesadd from './Otherexpensesadd';
+import Otherexpensespaid from './Otherexpensespaid';
+import Otherexpensespayment from './Otherexpensespayment';
+import Allexpensespo from './Allexpensespo';
+import Allexpensesoe from './Allexpensesoe';
 import { BrowserRouter as Router, Route, Routes, Outlet } from 'react-router-dom';
 import Crud from './Crud';
 import Test from './Test';
@@ -173,6 +182,15 @@ function App() {
               <Route path="/purchaseorderstockoutinventory/:values/:assign_id" element={< Purchaseorderstockoutinventory />} />
               <Route path="/purchaseorderstockoutinput/:values/:assign_id/:supply_id" element={< Purchaseorderstockoutinput />} />
               <Route path="/purchaseorderredelivery/:final_po_id/:po_id/:supply_id" element={< Purchaseorderrelivery />} />
+              <Route path="/purchaseorderrefund/:final_po_id/:po_id/:supply_id" element={< Purchaseorderrefund />} />
+              <Route exact path="/availableplants" element={< Availableplants />} />
+              <Route exact path="/availableplantswasted" element={< Availableplantswasted />} />
+              <Route exact path="/otherexpenseslist" element={< Otherexpenseslist />} />
+              <Route exact path="/otherexpensesadd" element={< Otherexpensesadd />} />
+              <Route exact path="/otherexpensespaid" element={< Otherexpensespaid />} />
+              <Route path="/otherexpensespayment/:other_expenses_id" element={< Otherexpensespayment />} />
+              <Route exact path="/allexpensespo" element={< Allexpensespo />} />
+              <Route exact path="/allexpensesoe" element={< Allexpensesoe />} />
               <Route exact path="/crud" element={< Crud />} />
               <Route exact path="/test" element={< Test />} />
             </Route>

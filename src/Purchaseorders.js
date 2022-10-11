@@ -18,8 +18,6 @@ function Purchaseorders() {
       <Link to="/purchaseorderhistory"><button type="button" class="btn btn-outline-info secondarybutton">Stock In Paid Purchase Orders</button></Link>
       </p>
       <p>
-      <Link to="/"><button type="button" class="btn btn-outline-info secondarybutton">Purchase Order Redeliver List</button></Link>
-      <Link to="/"><button type="button" class="btn btn-outline-info secondarybutton">Purchase Order Refund List</button></Link>
       <Link to="/supplierslist"><button type="button" class="btn btn-outline-info secondarybutton">Suppliers</button></Link>
       </p>
 

@@ -18,11 +18,11 @@ function Nav() {
       <Link class="nav-link" to='/plantprofiles'><li class="nav-item">Plant Profiles</li></Link>
       <Link class="nav-link" to='/harvestcalendarlist'><li class="nav-item">Harvest Calendars</li></Link>
       <Link class="nav-link" to='/harvestinventory'><li class="nav-item">Harvest Inventory</li></Link>
-      <Link class="nav-link" to='/login'><li class="nav-item">Sales</li></Link>
+      <Link class="nav-link" to='/availableplants'><li class="nav-item">Available and Wasted Plants</li></Link>
       <Link class="nav-link" to='/iteminventory'><li class="nav-item">Items Inventory</li></Link>
       <Link class="nav-link" to='/purchaseorders'><li class="nav-item">Purchase Orders</li></Link>
-      <Link class="nav-link" to='/login'><li class="nav-item">Other Expenses</li></Link>
-      <Link class="nav-link" to='/login'><li class="nav-item">Finance</li></Link>
+      <Link class="nav-link" to='/otherexpenseslist'><li class="nav-item">Other Expenses</li></Link>
+      <Link class="nav-link" to='/allexpensespo'><li class="nav-item">All Expenses</li></Link>
       <Link class="nav-link" to='/employeeaccounts'><li class="nav-item">Employee Accounts</li></Link>
       </ul>
     </div>

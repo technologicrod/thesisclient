@@ -64,7 +64,7 @@ function Harvestcalendarinputmortalities() {
     if (a == "" ||b == "") {
         alert("Required fields must be filled out");
     }
-    if (a > i1){
+    else if (a > i1){
         alert("Invalid input. Quantity loss is greater than the batch's actual quantity.");
     }
     else {

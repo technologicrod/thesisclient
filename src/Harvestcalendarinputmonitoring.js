@@ -45,7 +45,7 @@ function Harvestcalendarinputmonitoring() {
     const batch_id = x
     const date_from = y
     const date_to = z
-    const survival_rate = 100
+    
     const [harvestmonitoringinfo, setharvestmonitoringinfo] = useState([]);
     useEffect(() =>{
       async function fetchData(){
@@ -88,7 +88,29 @@ function Harvestcalendarinputmonitoring() {
           }
         }
     }
-    console.log(i7)
+    const [batchinfo, setbatchinfo] = useState([]);
+    useEffect(() =>{
+      async function fetchData(){
+          await Axios.get(`http://localhost:3001/plantbatchinfo/${x}`).then((response) => {
+            setbatchinfo(response.data);
+      })
+      }
+      fetchData()
+    }, [x])
+    const ia = batchinfo[0]
+    var j1
+    for (var key in ia) {
+      if (ia.hasOwnProperty(key)) {
+          if (key === "quantity"){
+            j1 = ia[key]
+          }
+        }
+    }
+    if (i3 == null){
+      i3 = j1
+    }
+    const survival_rate = ((i3 / j1) * 100) //((quantity_loss / quantity_totoal) x 100) - 100 )
+    
     useEffect(() =>{
       setplant_stage(i1)
       setquantity(i3)
@@ -99,18 +121,18 @@ function Harvestcalendarinputmonitoring() {
     }, [i1, i2, i3, i4, i5, i6, i7])
     const register = () => {
       var a = document.forms["myform"]["ainput"].value;
-      var b = document.forms["myform"]["binput"].value;
+      //var b = document.forms["myform"]["binput"].value;
       var c = document.forms["myform"]["cinput"].value;
       var d = document.forms["myform"]["dinput"].value;
       var e = document.forms["myform"]["einput"].value;
-      if (a == "" ||b == "" || c == "" ||d == "" || e == "") {
+      if (a == "" || c == "" ||d == "" || e == "") {
         alert("Required fields must be filled out");
       }
       if (i1 == plant_stage && i3 == quantity && i4 == curr_height && i5 == curr_width && i6 == remarks) {
         alert("No changes of values detected.");
       }
       else {
-        Axios.post("http://localhost:3001/harvestcalendarmonitoringadd", {batch_id: batch_id, plant_stage: plant_stage, date_from: date_from, date_to: date_to, survival_rate: survival_rate, remarks: remarks, curr_height: curr_height, curr_width: curr_width, quantity: quantity, act_increment: act_increment});
+        Axios.post("http://localhost:3001/harvestcalendarmonitoringadd", {batch_id: batch_id, plant_stage: plant_stage, date_from: date_from, date_to: date_to, survival_rate: survival_rate, remarks: remarks, curr_height: curr_height, curr_width: curr_width, quantity: i3, act_increment: act_increment});
         console.log(batch_id)
         console.log(plant_stage)
         console.log(date_from)
@@ -121,6 +143,9 @@ function Harvestcalendarinputmonitoring() {
         console.log(curr_width)
         console.log(remarks)
         console.log(act_increment)
+        console.log("curr: ", i3)
+        console.log("total: ", j1)
+        console.log("sur: ", survival_rate)
         x && navigate(generatePath("/harvestcalendar/:x", { x }));
         window.location.reload();
         alert("Monitoring recorded.")
@@ -141,16 +166,16 @@ function Harvestcalendarinputmonitoring() {
                   <input name="ainput" type="text" class="form-control" placeholder="Plant Stage" id="inputDefault" onChange={(e) =>{setplant_stage(e.target.value)}} required/>
               </div>
               <div class="form-group">
-                  <label class="col-form-label mt-4" for="inputDefault">Quantity</label>
-                  <input name="binput" type="text" class="form-control" placeholder="Quantity" id="inputDefault" onChange={(e) =>{setquantity(e.target.value)}} required/>
+                  <label class="col-form-label mt-4" for="inputDefault">Quantity <em>(initialized quantity)</em></label>
+                  <h6>{i3}</h6>
               </div>
               <div class="form-group">
                   <label class="col-form-label mt-4" for="inputDefault">Average Height in Meters:</label>
-                  <input name="cinput" type="text" class="form-control" placeholder="Avg. Height in M" id="inputDefault" onChange={(e) =>{setcurr_height(e.target.value)}} required/>
+                  <input name="cinput" type="number" class="form-control" placeholder="Avg. Height in M" id="inputDefault" onChange={(e) =>{setcurr_height(e.target.value)}} required/>
               </div>
               <div class="form-group">
                   <label class="col-form-label mt-4" for="inputDefault">Average Width in Meters:</label>
-                  <input name="dinput" type="text" class="form-control" placeholder="Avg. Width in M" id="inputDefault" onChange={(e) =>{setcurr_width(e.target.value)}} required/>
+                  <input name="dinput" type="number" class="form-control" placeholder="Avg. Width in M" id="inputDefault" onChange={(e) =>{setcurr_width(e.target.value)}} required/>
               </div>
               <div class="form-group">
                   <label class="col-form-label mt-4" for="inputDefault">Remarks</label>
@@ -177,8 +202,8 @@ function Harvestcalendarinputmonitoring() {
                   <input name="ainput" type="text" class="form-control" placeholder={i1} defaultValue={i1} id="inputDefault" onChange={(e) =>{setplant_stage(e.target.value)}} required/>
               </div>
               <div class="form-group">
-                  <label class="col-form-label mt-4" for="inputDefault">Quantity</label>
-                  <input name="binput" type="text" class="form-control" placeholder={i3} defaultValue={i3} id="inputDefault" onChange={(e) =>{setquantity(e.target.value)}} required/>
+                  <label class="col-form-label mt-4" for="inputDefault">Quantity <em>(quantity changes for loss can be updated or inputted on mortalities later on)</em></label>
+                  <h6>{i3}</h6>
               </div>
               <div class="form-group">
                   <label class="col-form-label mt-4" for="inputDefault">Average Height in Meters:</label>
@@ -186,7 +211,7 @@ function Harvestcalendarinputmonitoring() {
               </div>
               <div class="form-group">
                   <label class="col-form-label mt-4" for="inputDefault">Average Width in Meters:</label>
-                  <input name="dinput" type="text" class="form-control" placeholder={i5} defaultValue={i5} id="inputDefault" onChange={(e) =>{setcurr_width(e.target.value)}} required/>
+                  <input name="dinput" type="number" class="form-control" placeholder={i5} defaultValue={i5} id="inputDefault" onChange={(e) =>{setcurr_width(e.target.value)}} required/>
               </div>
               <div class="form-group">
                   <label class="col-form-label mt-4" for="inputDefault">Remarks</label>

@@ -63,7 +63,6 @@ function Purchaseorderpayment() {
                 newdp_amount = i2*(dp_percentage*0.01)
                 Axios.post("http://localhost:3001/purchaseorderpayment", {final_po_id: x, due_date: due_date.start, dp_percentage: dp_percentage, dp_amount: newdp_amount, payment_method: payment_method, account_id: account_id, account_name: account_name, date_paid: today});
                 x && navigate(generatePath("/purchaseorderconfirmedinfo/:x", { x }));
-                window.location.reload();
                 alert("Payment Recorded")
             }
         }

@@ -19,7 +19,7 @@ function Plantutilitiessoiltype() {
   return (
     <div className='App'>
         <div class="headform">
-      <h1 class="titleheadform">Plant Utilities for Soil Type</h1>
+      <h1 class="titleheadform">Utilities for Soil Type</h1>
     </div>
     <main class="container-fluid">
     <Link to="/plantutilities"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>

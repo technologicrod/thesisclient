@@ -5,7 +5,6 @@ import Axios from 'axios';
 
 function Plantprofilesadd() {
   const [plantprofileplantname, setplantprofileplantname] = useState("")
-  const [plantprofilefarm, setplantprofilefarm] = useState("")
   const [plantprofilecategory, setplantprofilecategory] = useState("")
   const [plantprofilepscientificname, setplantprofilepscientificname] = useState("")
   const [plantprofilevariety, setplantprofilevariety] = useState("")
@@ -40,15 +39,27 @@ function Plantprofilesadd() {
     var e = document.forms["myform"]["einput"].value;
     var f = document.forms["myform"]["finput"].value;
     var g = document.forms["myform"]["ginput"].value;
-    var h = document.forms["myform"]["hinput"].value;
+    //var h = document.forms["myform"]["hinput"].value; farm unta diri
     var i = document.forms["myform"]["iinput"].value;
-    if (a == "" ||b == "" || c == "" ||d == "" || e == "" ||f == "" || g == "" ||h == "" ||i == "") {
+    if (a == "" ||b == "" || c == "" ||d == "" || e == "" ||f == "" || g == ""||i == "") {
       alert("Required fields must be filled out");
     }
     else {
-      Axios.post("http://localhost:3001/plantprofileadd", {plantprofileplantname : plantprofileplantname, plantprofilefarm: plantprofilefarm, plantprofilecategory: plantprofilecategory, plantprofilepscientificname: plantprofilepscientificname, plantprofilevariety: plantprofilevariety, plantprofileplanttype: plantprofileplanttype, plantprofilemonths: plantprofilemonths, plantprofilepicture: plantprofilepicture, plantprofiledescription: plantprofiledescription});
+      const formData = new FormData()
+      formData.append('profileImg', plantprofilepicture)
+      formData.append('plantprofileplantname', plantprofileplantname)
+      formData.append('plantprofilecategory', plantprofilecategory)
+      formData.append('plantprofilepscientificname', plantprofilepscientificname)
+      formData.append('plantprofilevariety', plantprofilevariety)
+      formData.append('plantprofileplanttype', plantprofileplanttype)
+      formData.append('plantprofilemonths', plantprofilemonths)
+      formData.append('plantprofiledescription', plantprofiledescription)
+      Axios.post("http://localhost:3001/plantprofileadd", formData);
       navigate('/plantprofiles', { replace: true });
       window.location.reload();
+      for (var key of formData.entries()) {
+        console.log(key[0] + ', ' + key[1]);
+    }
       alert("Plant Profile Registered");
     }
   }
@@ -59,26 +70,13 @@ function Plantprofilesadd() {
       </div>
       <main class="container-fluid">
       <Link to="/plantprofiles"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
-        <form class="formdiv" name="myform" required>
+        <form class="formdiv" enctype="multipart/form-data" name="myform" required>
             <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">Plant Name</label>
                 <input name="ainput" required type="text" class="form-control" placeholder="Plant Name" id="inputDefault" onChange={(e) =>{
           setplantprofileplantname(e.target.value)
         }}/>
               </div>
-              <div class="form-group">
-                    <label for="exampleSelect1" class="form-label mt-4">Assign Farm</label>
-                    <select  name="hinput" required class="form-select" id="exampleSelect1" onChange={(e) =>{
-          setplantprofilefarm(e.target.value)
-        }}>
-                        <option value="">Select Farm</option>
-                        {farmlist.map((val) => {
-                          return (
-                            <option value={val.farm_id}>{val.farm_id} {val.farm_name}</option>
-                          )
-                        })}
-                    </select>
-                    </div>
               <div class="form-group">
                     <label for="exampleSelect1" class="form-label mt-4">Category</label>
                     <select  name="binput" required class="form-select" id="exampleSelect1" onChange={(e) =>{
@@ -125,8 +123,8 @@ function Plantprofilesadd() {
               </div>
               <div class="form-group">
                 <label for="formFile" class="form-label mt-4">Plant Picture</label>
-                <input name="ginput" required class="form-control" type="text" id="formFile" onChange={(e) =>{
-          setplantprofilepicture(e.target.value)
+                <input name="ginput" required class="form-control" type="file" id="formFile" onChange={(e) =>{
+          setplantprofilepicture(e.target.files[0])
         }}/>
               </div>
               <div class="form-group">

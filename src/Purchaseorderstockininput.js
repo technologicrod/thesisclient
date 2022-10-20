@@ -81,8 +81,8 @@ function Purchaseorderstockininput() {
                     <input name="ainput" type="number" class="form-control" placeholder="Stock In Quantity" id="inputDefault"  onChange={(e) =>{setstockquanti(e.target.value)}} required/>
                 </div>
                 <div class="form-group">
-                        <label class="col-form-label mt-4" for="inputDefault">Due Date:</label>
-                        <DatePicker name="ccinput" placeholderText='Due Date' style={{marginRight:"10px"}} selected={exp_date.start} onChange={(start) =>{setexp_date({...exp_date, start})}} />
+                        <label class="col-form-label mt-4" for="inputDefault">Expiration Date:</label>
+                        <DatePicker name="ccinput" placeholderText='Expiration Date' style={{marginRight:"10px"}} selected={exp_date.start} onChange={(start) =>{setexp_date({...exp_date, start})}} />
                     </div>
                 <button type="button" class="btn btn-outline-success submitbutton" onClick={register}>Submit</button>
                 </form>

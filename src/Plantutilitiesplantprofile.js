@@ -19,7 +19,7 @@ function Plantutilitiesplantprofile() {
   return (
     <div className='App'>
         <div class="headform">
-      <h1 class="titleheadform">Plant Utilities for Plant Profile</h1>
+      <h1 class="titleheadform">Utilities for Plant Profile</h1>
     </div>
     <main class="container-fluid">
     <Link to="/plantutilities"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>

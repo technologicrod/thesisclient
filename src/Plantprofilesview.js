@@ -10,6 +10,9 @@ function Plantprofilesview() {
   const handleProceed = (e) => {
     x && navigate(generatePath("/plantprofilesedit/:x", { x }));
   };
+  const handleProceedImage = (e) => {
+    x && navigate(generatePath("/plantprofilespicedit/:x", { x }));
+  };
   var id = 0;
   function rowSelect(event) {
     id = event;
@@ -49,6 +52,7 @@ function Plantprofilesview() {
               <main class="container-fluid">
               <Link to="/plantprofiles"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
                 <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>Edit Profile</button>
+                <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedImage}>Edit Plant Image</button>
                 <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedDiseaseEdit}>Edit Disease</button>
                 <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedDiseaseAdd}>Add a Disease</button>
                 <br></br>
@@ -59,7 +63,9 @@ function Plantprofilesview() {
                     <p><h3><b>Variety: </b>{val.variety}</h3></p>
                     <p><h3><b>Estimated # of Months to be Harvested :</b>{val.num_of_mon_to_harvest} Months</h3></p>
                     <p><h3><b>Description: </b>{val.plant_desc}</h3></p>
-                    <p><h3><b>Google Map: </b>{val.img}</h3></p>
+                    <p><h3><b>Plant Image: </b></h3></p>
+                    <img class="viewimage" alt="plant picture" src={`data:image/jpeg;base64,${val.img}`}></img>
+                    <br></br>
                     <br></br>
                     <h2>Plant's Possible Diseases</h2>
                     <div class="tablediv">

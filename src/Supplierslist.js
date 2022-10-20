@@ -42,7 +42,7 @@ function Supplierslist() {
         <h1 class="titleheadform">Suppliers List</h1>
       </div>
       <main class="container-fluid">
-      <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+      <Link to="/home"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
         <Link to="/suppliersadd"><button type="button" class="btn btn-outline-info secondarybutton">Add</button></Link>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>Edit</button>
         <form class="d-flex">
@@ -65,13 +65,13 @@ function Supplierslist() {
                   <tbody>
                           {supplierslist.map((val)=> {
                             return (
-                              <tr class="table-primary tractive" onClick={rowSelect.bind(this, val.supplier_id)}>
+                              <tr class="table-active tractive" onClick={rowSelect.bind(this, val.supplier_id)}>
                               <th scope="row">{val.supplier_id}</th>
                               <th scope="row">{val.company_name}</th>
                               {addresslist.map((valo)=> {
                                 if(val.supplier_id == valo.supplier_id){
                                   return (
-                                    <th scope="row">Lot{valo.lot}, {valo.street} St., {valo.city} City, {valo.province}, {valo.zipcode}</th>
+                                    <td scope="row">Block {valo.block} Lot {valo.lot} {valo.street}, Brgy. {valo.barangay}, {valo.city}, {valo.province}, {valo.zipcode}</td>
                                   )
                                 }
                               })}

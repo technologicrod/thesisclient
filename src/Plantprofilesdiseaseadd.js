@@ -20,7 +20,7 @@ function Plantprofilesdiseaseadd() {
       const [plantdisease, setplantdisease] = useState("");
       const submitPlantDisease = () => {
         Axios.post("http://localhost:3001/plantprofilediseaseadd", {plant_id: x, diseases: plantdisease});
-        navigate('/plantprofiles', { replace: true });
+        x && navigate(generatePath("/plantprofilesview/:x", { x }));
       window.location.reload();
       alert("Plant Disease recorded")
       };

@@ -20,6 +20,13 @@ function Farmprofilesview() {
       console.log(farminfo)
     })
   }, [x])
+  const [farmpicsinfo, setfarmpicsinfo] = useState([]);
+  useEffect(() =>{
+    Axios.get(`http://localhost:3001/farmprofilepcicsget/${x}`).then((response) => {
+      setfarmpicsinfo(response.data);
+      console.log("pics:", farmpicsinfo)
+    })
+  }, [x])
   const [addressinfo, setaddressinfo] = useState([]);
   useEffect(() =>{
     Axios.get(`http://localhost:3001/farmaddress/${x}`).then((response) => {
@@ -58,6 +65,15 @@ function Farmprofilesview() {
   const handleProceedEdit = (e) => {
     x && navigate(generatePath("/farmprofilesedit/:x", { x }));
   };
+  const handleProceedImgMap = (e) => {
+    x && navigate(generatePath("/farmprofilesimagemap/:x", { x }));
+  };
+  const handleProceedGoogleMap = (e) => {
+    x && navigate(generatePath("/farmprofilesgooglemap/:x", { x }));
+  };
+  const handleProceedOrgChart = (e) => {
+    x && navigate(generatePath("/farmprofilesorgchart/:x", { x }));
+  };
   return (
     <div className='App'>
       {farminfo.map((val)=> {
@@ -73,23 +89,36 @@ function Farmprofilesview() {
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>Edit Owner Profile</button>
        <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedOwner}>Add New Owner</button>
         <br></br>
+        <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedImgMap}>Update Image Map</button>
+        <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedGoogleMap}>Update Google Map Image</button>
+        <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedOrgChart}>Update Organizational Chart Image</button>
+        <br></br>
         {addressinfo.map((value)=>{
           return (
             <div class="viewdiv">
             <p><b><h1>General Information</h1></b></p>
             <br></br>
-            <p><h3><b>Farm ID: </b>{val.farm_id}</h3></p>
             <p><h3><b>Name: </b>{val.farm_name}</h3></p>
             <p><h3><b>Address:</b></h3></p>
+            <p><h4><b>Block: </b>{value.block}</h4></p>
             <p><h4><b>Lot: </b>{value.lot}</h4></p>
             <p><h4><b>Street: </b>{value.street}</h4></p>
+            <p><h4><b>Barangay: </b>{value.barangay}</h4></p>
             <p><h4><b>City: </b>{value.city}</h4></p>
             <p><h4><b>Province: </b>{value.province}</h4></p>
             <p><h4><b>Zipcode: </b>{value.zipcode}</h4></p>
-            <p><h3><b>Size in Hectares: </b>{val.size}</h3></p>
-            <p><h3><b>Soil Type: </b>{val.soil_type}</h3></p>
-            <p><h3><b>Description: </b>{val.description}</h3></p>
-            <p><h3><b>Title: </b>{val.title}</h3></p>
+            {farmpicsinfo.map((valorant)=> {
+              return(
+                <div>
+                  <p><h4><b>Image Map:</b></h4></p>
+                  <img class="viewimage" alt="image map" src={`data:image/jpeg;base64,${valorant.img_map}`}></img>
+                  <p><h4><b>Google Map Image:</b></h4></p>
+                  <img class="viewimage" alt="google map image" src={`data:image/jpeg;base64,${valorant.google_map}`}></img>
+                  <p><h4><b>Organizational Chart:</b></h4></p>
+                  <img class="viewimage" alt="organizational chart" src={`data:image/jpeg;base64,${valorant.org_chart}`}></img>
+                  </div>
+              )
+            })}
             <br></br>
             <p><h1>Social Information</h1></p>
             <br></br>
@@ -98,8 +127,8 @@ function Farmprofilesview() {
                 <div>
                   <p><h3><b>Contact Person: </b>{vals.contact_person_name}</h3></p>
                   <p><h3><b>Position: </b>{vals.position}</h3></p>
-                  <p><h3><b>Contact Number :</b>{vals.contact_num}</h3></p>
-                  <p><h3><b>Contact Email :</b>{vals.contact_email}</h3></p>
+                  <p><h3><b>Contact Number: </b>{vals.contact_num}</h3></p>
+                  <p><h3><b>Contact Email: </b>{vals.contact_email}</h3></p>
                   </div>
               )
             })}
@@ -130,7 +159,7 @@ function Farmprofilesview() {
                           {owneraddressinfo.map((valo)=> {
                             if (valo.owner_id == values.owner_id){
                               return (
-                                <td scope="row">Lot {valo.lot} {valo.street} St., {valo.city}, {valo.province}, {valo.zipcode}</td>
+                                <td scope="row">Block {valo.block} Lot {valo.lot} {valo.street}, Brgy. {valo.barangay}, {valo.city}, {valo.province}, {valo.zipcode}</td>
                               )
                             }
                           })}

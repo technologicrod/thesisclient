@@ -1,73 +1,84 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
-import { Link } from 'react-router-dom';
+import Axios from 'axios';
+import { Link, useNavigate, generatePath } from 'react-router-dom';
 
 function Login() {
-  function openCity(evt, cityName) {
-  var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("tabcontent");
-  for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
+  const [username, setUsername] = useState("")
+  const [pass, setpass] = useState("")
+  const navigate = useNavigate();
+  const register = () => {
+    if(username == "" || pass == ""){
+      alert("No inputs")
+    }
+    else {
+      Axios.post("http://localhost:3001/auth", {username: username, pass: pass}).then((response)=>{
+        let rdata = response.data
+        if (rdata.length > 0){
+          alert("Hello, " + rdata)
+          navigate(generatePath("/home", {}));
+        }
+        else {
+          alert("Unknown inputted account.")
+        }
+      });
+    }
   }
-  tablinks = document.getElementsByClassName("tablinks");
-  for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
-  }
-  document.getElementById(cityName).style.display = "block";
-  evt.currentTarget.className += " active";
-
-  if(cityName == "User"){
-    document.body.style.backgroundColor = "#f4c2c2";
-  }
-  else{
-    document.body.style.backgroundColor = "#8ea6e4"; /* darkerblue: #2A3244*/
-  }
-
-
-}
-  return (
-    <div className="App">
-    <div class="maindiv">
-    <h1 class="company">Farm MIS</h1>
-<h2 class="datsys">Farm Management Information System</h2>
-    
-<div class="login_body">
-<center><div class="tab" >
-    <x><button class="tablinks" onclick={openCity('User')} id="user" >Log in as User</button></x>
-    <x class="tab2"><button class="tablinks" onclick={openCity('Admin')} id="admin" >Log in as Admin</button></x>
-</div></center>
-
-<div id = "User" class=" tabcontent">
-    <div class="login_box">
-      <form class="" method="POST" >
-        <input type="text" name="username" placeholder="Username" required />
-        <input type="password" name="password" placeholder="Password" required/>
-          <div class="outer">
-            <div class="inner"><input type="submit" value="Login"/></div> 
-          </div>
-        <p>--- Or Register using ---</p> 
-        <button type="button"  class="ff fa fa-android"></button>
-        <button type="button"  class="ff fa fa-google"></button>
-      </form>
-    </div>
-</div>
-    
-
-<div id="Admin"  class="tabcontent">
-    <div class="login_box_admin">
-    <form class=""  action="{% url 'login_admin' %}" method="POST" >
-        <input type="text" name="username" placeholder="Username" required />
-        <input type="password" name="password" placeholder="Password" required/>
-        <div class="outer">
-            <div class="inner"><input type="submit" value="Login"/></div>
+  const [userinfo, setuserinfo] = useState(0);
+  useEffect(() =>{
+    async function fetchData(){
+      await Axios.get(`http://localhost:3001/`).then((response) => {
+        setuserinfo(response.data);
+      })
+      }
+  fetchData()
+  }, [])
+  if (userinfo.length <= 0 || userinfo == undefined){
+    return (
+      <div className="App">
+        <div class="maindiv2">
+        <h1 class="login1">Admin System Login</h1>
+        <div class="form-group">
+          <label for="exampleInputEmail1" class="form-label mt-4"
+            >Username</label
+          >
+          <input
+            type="text"
+            class="form-control phcolor"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            placeholder="Enter username"
+            onChange={(e) =>{setUsername(e.target.value)}}
+          />
         </div>
-    </form>
-    </div>
-</div>
-</div>
-    </div>
-    </div>
-  );
+        <div class="form-group">
+          <label for="exampleInputPassword1" class="form-label mt-4"
+            >Password</label
+          >
+          <input
+            type="password"
+            class="form-control"
+            id="exampleInputPassword1"
+            placeholder="Password"
+            onChange={(e) =>{setpass(e.target.value)}}
+          />
+        </div>
+        <button type="button" class="btn btn-primary loginbutton" onClick={register}>Submit</button>
+        
+        </div>
+      </div>
+    );
+  }
+  else {
+    return (
+      <div class="App">
+        <div class="headform">
+        <h1 class="titleheadform">You are already logged in as {userinfo}.</h1>
+        </div>
+        <Link to="/home"><button type="button" class="btn btn-outline-primary">Home</button></Link>
+      </div>
+    )
+  }
 }
 
 export default Login;

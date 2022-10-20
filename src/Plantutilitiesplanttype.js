@@ -20,7 +20,7 @@ function Plantutilitiesplanttype() {
   return (
     <div className='App'>
         <div class="headform">
-      <h1 class="titleheadform">Plant Utilities for Plant Type</h1>
+      <h1 class="titleheadform">Utilities for Plant Type</h1>
     </div>
     <main class="container-fluid">
     <Link to="/plantutilities"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>

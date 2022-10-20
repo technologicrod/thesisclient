@@ -8,8 +8,10 @@ function Suppliersadd() {
     const navigate = useNavigate();
     const [company_name, setcompany_name] = useState("")
 
+    const [block, setblock] = useState("");
     const [lot, setlot] = useState("");
     const [street, setstreet] = useState("");
+    const [barangay, setbarangay] = useState("");
     const [city, setcity] = useState("");
     const [province, setprovince] = useState("");
     const [zipcode, setzip_code] = useState("");
@@ -18,7 +20,13 @@ function Suppliersadd() {
     const [position, setcontact_info_position] = useState("");
     const [contact_num, setcontact_info_contact_num] = useState("");
     const [contact_email, setcontact_info_contact_email] = useState("");
-
+    const validateEmail = (email) => {
+      return String(email)
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+    };
     const register = () => {
         var a = document.forms["myform"]["ainput"].value;
         var b = document.forms["myform"]["binput"].value;
@@ -30,11 +38,24 @@ function Suppliersadd() {
         var h = document.forms["myform"]["hinput"].value;
         var i = document.forms["myform"]["iinput"].value;
         var j = document.forms["myform"]["jinput"].value;
-        if (a == "" ||b == "" || c == "" ||d == "" || e =="" || f == "" ||g == "" || h == "" ||i == "" || j =="") {
+        var k = document.forms["myform"]["kinput"].value;
+        var l = document.forms["myform"]["linput"].value;
+        let checker =  /^\d+$/.test(contact_num);
+        let validemail = validateEmail(contact_email)
+        if (a == "" ||b == "" || c == "" ||d == "" || e =="" || f == "" ||g == "" || h == "" ||i == "" || j ==""||k == "" || l =="") {
           alert("Required fields must be filled out");
         }
+        else if(checker == false){
+          alert("Supplier contact number invalid input")
+        }
+        else if(contact_num.length != 11){
+          alert("Supplier contact number invalid input")
+        }
+        else if(validemail == null){
+          alert("Supplier contact email invalid input")
+        }
         else {
-            Axios.post("http://localhost:3001/suppliersadd", {company_name: company_name, contact_person_name: contact_person_name, position: position, contact_num: contact_num, contact_email: contact_email, lot: lot, street: street, city: city, province: province, zipcode: zipcode});
+            Axios.post("http://localhost:3001/suppliersadd", {company_name: company_name, contact_person_name: contact_person_name, position: position, contact_num: contact_num, contact_email: contact_email, block: block, lot: lot, street: street, barangay: barangay, city: city, province: province, zipcode: zipcode});
             navigate('/supplierslist', { replace: true });
             window.location.reload();
             alert("Supplier Registered")
@@ -54,12 +75,20 @@ function Suppliersadd() {
                 </div>
                 <label class="col-form-label mt-4" for="inputDefault"><h3>Address</h3></label>
               <div class="form-group">
+                <label class="col-form-label mt-4" for="inputDefault">Block</label>
+                <input name="kinput" type="text" class="form-control" placeholder="Block" id="inputDefault" onChange={(e) =>{setblock(e.target.value)}} required />
+              </div>
+              <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">Lot</label>
                 <input name="binput" type="text" class="form-control" placeholder="Lot" id="inputDefault" onChange={(e) =>{setlot(e.target.value)}} required />
               </div>
               <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">Street</label>
                 <input name="cinput" type="text" class="form-control" placeholder="Street" id="inputDefault" onChange={(e) =>{setstreet(e.target.value)}} />
+              </div>
+              <div class="form-group">
+                <label class="col-form-label mt-4" for="inputDefault">Barangay</label>
+                <input name="linput" type="text" class="form-control" placeholder="Barangay" id="inputDefault" onChange={(e) =>{setbarangay(e.target.value)}} />
               </div>
               <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">City</label>
@@ -76,7 +105,7 @@ function Suppliersadd() {
               <label class="col-form-label mt-4" for="inputDefault"><h3>Contact Information</h3></label>
               <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">Contact Person</label>
-                <input name ="ginput" type="text" class="form-control" placeholder="Contact Person" id="inputDefault" required onChange={(e) =>{setcontact_person_name(e.target.value)}}/>
+                <input name ="ginput" type="text" class="form-control" placeholder="format: First Name_Middle Initial_Last Name" id="inputDefault" required onChange={(e) =>{setcontact_person_name(e.target.value)}}/>
               </div>
               <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">Position</label>

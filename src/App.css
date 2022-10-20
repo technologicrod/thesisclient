@@ -2,11 +2,12 @@
   text-align: center;
 }
 
-nav {
+nav, .navi {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  min-height: 15vh;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 20px 50px;
+    box-shadow: 0 1px 8px #ddd;
   background-color: #0e3473;
   color: white;
 }
@@ -30,8 +31,25 @@ nav {
   border: 2px solid #0c60a6;
   color: black;
 }
+.maindiv2 {
+  width: 400px;
+  padding: 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background: #378DFC;
+  border-radius: 25px;
+  border: 2px solid #0c60a6;
+  color: white;
+}
+.maindiv2 h1 {
+  color: black
+}
 .loginbutton {
   margin: 20px;
+  border: 2px solid grey;
 }
 
 .headform {
@@ -76,8 +94,8 @@ nav {
   color: white;
 }
 .pubutton {
-  width: 300px;
-  height: 250px;
+  width: 400px;
+  height: 200px;
   margin: auto;
   border-radius: 10px;
   background-color: #0827d4;
@@ -125,6 +143,10 @@ nav {
   background: #123456;
   color: #fff;
   transition-delay: 2ms;
+}
+.viewimage {
+  height: 200px;
+  width: 200px;
 }
 
 
@@ -185,7 +207,7 @@ nav {
   color: #0E1117;
 }
 .login_body {
-  background-color: #f4c2c2;
+  background-color: red;
 }
 .login_box {
   width: 350px;
@@ -195,7 +217,7 @@ nav {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  background: #ede1ed;
+  background: red;
   border-radius: 25px;
   border: 2px solid grey;
 }

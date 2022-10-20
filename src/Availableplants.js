@@ -38,7 +38,7 @@ function Availableplants() {
         <div class="headform">
         <h1 class="titleheadform">Available Plants for Sale</h1>
         <main class="container-fluid">
-      <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+      <Link to="/home"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
       <button type="button" class="btn btn-outline-danger secondarybutton" onClick={handleProceed}>Mark as Wasted</button>
       <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleChange}>View Wasted Plants</button>
       <form class="d-flex">

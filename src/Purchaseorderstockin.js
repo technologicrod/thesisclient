@@ -23,9 +23,12 @@ function Purchaseorderstockin() {
             }
         }
       }
+    console.log("i1: ", i1)
+    const [isLoading, setLoading] = useState(true);
     useEffect(() =>{
         Axios.get(`http://localhost:3001/purchaseorderlistinfoconfirmed/${i1}`).then((response) => {
             setpurorderlist(response.data);
+            setLoading(false);
         })
     }, [i1])
     var id = 0
@@ -108,6 +111,9 @@ function Purchaseorderstockin() {
         }
       }
     };
+    if (isLoading) {
+      return <div className="App">Loading...</div>;
+    }
     return (
       <div className='App'>
           <div class="headform">
@@ -118,7 +124,7 @@ function Purchaseorderstockin() {
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>Stock In</button>
         <button type="button" class="btn btn-outline-danger secondarybutton" onClick={handleProceedRedeliver}>Redeliver</button>
         <button type="button" class="btn btn-outline-dark secondarybutton" onClick={handleProceedRefund}>Refund</button>
-            <div class="tablediv">
+        <div class="tablediv">
                 <h4>Items List</h4>
                     <table class="table table-hover">
                     <thead>

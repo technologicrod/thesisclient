@@ -27,12 +27,14 @@ function Farmprofilesowner() {
   const [position, setposition] = useState("");
   const [job_desc, setjob_desc] = useState("");
 
+  const [block, setblock] = useState("");
   const [lot, setowner_lot] = useState("");
   const [street, setowner_street] = useState("");
+  const [barangay, setbarangay] = useState("");
   const [city, setowner_city] = useState("");
   const [province, setowner_province] = useState("");
   const [zipcode, setowner_zip_code] = useState("");
-  var i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12 = "hey";
+  var i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i14, farm_id = "hey";
   const ea = ownerinfo[0]
   const oa = owneraddress[0]
   for (var key in ea) {
@@ -57,7 +59,9 @@ function Farmprofilesowner() {
         }
         if (key === "job_desc"){
           i7 = ea[key]
-        
+        }
+        if (key === "farm_id"){
+          farm_id = ea[key]
         }
       }
   }
@@ -78,13 +82,19 @@ function Farmprofilesowner() {
         if (key === "zipcode"){
           i12 = oa[key]
         }
+        if (key === "block"){
+          i13 = oa[key]
+        }
+        if (key === "barangay"){
+          i14 = oa[key]
+        }
       }
   }
   useEffect(() =>{
     setowner_name(i1)
-    setcontact_num(i2)
-    setcontact_email(i3)
-    setowner_type(i4)
+    setowner_type(i2)
+    setcontact_num(i3)
+    setcontact_email(i4)
     seteducational_attainment(i5)
     setposition(i6)
     setjob_desc(i7)
@@ -93,8 +103,19 @@ function Farmprofilesowner() {
     setowner_city(i10)
     setowner_province(i11)
     setowner_zip_code(i12)
-  }, [i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12])
+    setblock(i13)
+    setbarangay(i14)
+  }, [i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12, i13, i4])
   const navigate = useNavigate();
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+  let checker =  /^\d+$/.test(contact_num);
+  let validemail = validateEmail(contact_email)
   const register = () => {
     var i15 = document.forms["myform"]["input15"].value; //giisa ang owner name
     var i16 = document.forms["myform"]["input16"].value; //owner contact email
@@ -108,18 +129,29 @@ function Farmprofilesowner() {
     var i25 = document.forms["myform"]["input25"].value;
     var i26 = document.forms["myform"]["input26"].value;
     var i27 = document.forms["myform"]["input27"].value;
-    if (i15 == "" ||i16 == "" ||i17 == "" ||i18 == "" ||i19 == "" ||i20 == "" ||i21 == "" ||i22 == "" ||i23 == "" ||i25 == "" ||i26 == "" ||i27 == "") {
-      alert("Required fields must be filled out");
+    var i28 = document.forms["myform"]["input28"].value; //block
+    var i29 = document.forms["myform"]["input29"].value; //barangay
+    if (i15 == "" ||i16 == "" ||i17 == "" ||i18 == "" ||i19 == "" ||i20 == "" ||i21 == "" ||i22 == "" ||i23 == "" ||i25 == "" ||i26 == "" ||i27 == "" || i28 == "" || i29 == "") {
+      alert("All fields must be filled out");
+    }
+    else if(checker == false){
+      alert("Farm contact number invalid input")
+    }
+    else if(contact_num.length != 11){
+      alert("Farm contact number invalid input")
+    }
+    else if(validemail == null){
+      alert("Farm contact email invalid input")
     }
     else {
-      Axios.put("http://localhost:3001/ownersupdate", {owner_id: owner_id, owner_name: owner_name, contact_num: contact_num, contact_email: contact_email, owner_type: owner_type, educational_attainment: educational_attainment, position: position, job_desc: job_desc, lot: lot, street: street, city: city, province: province, zipcode: zipcode});
-      navigate('/farmprofiles', { replace: true });
+      Axios.put("http://localhost:3001/ownersupdate", {owner_id: owner_id, owner_name: owner_name, contact_num: contact_num, contact_email: contact_email, owner_type: owner_type, educational_attainment: educational_attainment, position: position, job_desc: job_desc, block: block, lot: lot, street: street, barangay: barangay, city: city, province: province, zipcode: zipcode});
+      x && navigate(generatePath("/farmprofilesview/:x", { x }));
       window.location.reload();
       alert("Owner updated");
     }
   }
   const handleProceed = (e) => {
-    x && navigate(generatePath("/farmprofiles/:x", { x }));
+    farm_id && navigate(generatePath("/farmprofilesview/:farm_id", { farm_id }));
   };
   return (
     <div className='App'>
@@ -131,7 +163,7 @@ function Farmprofilesowner() {
         <h1 class="titleheadform">Edit {val.owner_name}'s Owner Profile</h1>
       </div>
       <main class="container-fluid">
-      <Link to="/farmprofiles"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+      <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceed}>Back</button>
         <form class="formdiv" name="myform" required>
               <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">Owner Name</label>
@@ -150,6 +182,10 @@ function Farmprofilesowner() {
               {owneraddress.map((values)=> {
                 return (
                   <div>
+                <div class="form-group">
+                <label class="col-form-label mt-4" for="inputDefault">Block</label>
+                <input name ="input28" type="text" class="form-control" placeholder="Block" id="inputDefault" required placeHolder={values.block} defaultValue={values.block} onChange={(e) =>{setblock(e.target.value)}}/>
+                </div>
                     <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">Lot</label>
                 <input name ="input18" type="text" class="form-control" placeholder="Lot" id="inputDefault" required placeHolder={values.lot} defaultValue={values.lot} onChange={(e) =>{setowner_lot(e.target.value)}}/>
@@ -158,6 +194,10 @@ function Farmprofilesowner() {
                 <label class="col-form-label mt-4" for="inputDefault">Street</label>
                 <input name ="input19" type="text" class="form-control" placeholder="Street" id="inputDefault" required placeHolder={values.street} defaultValue={values.street} onChange={(e) =>{setowner_street(e.target.value)}}/>
               </div>
+              <div class="form-group">
+                <label class="col-form-label mt-4" for="inputDefault">Barangay</label>
+                <input name ="input29" type="text" class="form-control" placeholder="Barangay" id="inputDefault" required placeHolder={values.barangay} defaultValue={values.barangay} onChange={(e) =>{setbarangay(e.target.value)}}/>
+                </div>
               <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">City</label>
                 <input name ="input20" type="text" class="form-control" placeholder="City" id="inputDefault" required placeHolder={values.city} defaultValue={values.city} onChange={(e) =>{setowner_city(e.target.value)}}/>

@@ -69,7 +69,7 @@ function Harvestcalendarlist() {
         <div class="headform">
         <h1 class="titleheadform">Harvest Calendar List</h1>
         <main class="container-fluid">
-      <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+      <Link to="/home"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
       <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>View Harvest Calendar</button>
       <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedEdit}>Edit Batch Harvest</button>
       <Link to="/harvestcalendarlistinactive"><button type="button" class="btn btn-outline-info secondarybutton">View Inactive Batches</button></Link>
@@ -85,11 +85,11 @@ function Harvestcalendarlist() {
                     <tr>
                       <th scope="col">Batch ID</th>
                       <th scope="col">Plant Planted</th>
+                      <th scope="col">Status</th>
                       <th scope="col">Current Stage</th>
                       <th scope="col">Survival Rate</th>
                       <th scope="col">Current Count</th>
                       <th scope="col">Remarks</th>
-                      <th scope="col">Status</th>
                     </tr>
                   </thead>
                       <tbody>
@@ -98,6 +98,7 @@ function Harvestcalendarlist() {
                             <tr class="table-active tractive" onClick={rowSelect.bind(this, val.batch_id)}>
                             <td scope="row">{val.batch_id}</td>
                             <td scope="row">{val.plant_name}</td>
+                            <td scope="row">{val.batch_status}</td>
                             {latestlist.map((valo)=> {
                               if(valo.batch_id == val.batch_id){
                                 return(
@@ -126,7 +127,6 @@ function Harvestcalendarlist() {
                                 )
                               }
                             })}
-                            <td scope="row">{val.batch_status}</td>
                             </tr>
                           )
                         })}

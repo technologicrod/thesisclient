@@ -6,10 +6,11 @@ import Axios from 'axios';
 function Employeelistadd() {
 
   const [employeename, setemployeename] = useState("");
-  const [employeefarm, setemployeefarm] = useState("");
   const [employeecontact, setemployeecontact] = useState("");
+  const [employeeblock, setemployeeblock] = useState("");
   const [employeelot, setemployeelot] = useState("");
   const [employeestreet, setemployeestreet] = useState("");
+  const [employeebarangay, setemployeebarangay] = useState("");
   const [employeecity, setemployeecity] = useState("");
   const [employeeprovince, setemployeeprovince] = useState("");
   const [employeezipcode, setemployeezipcode] = useState("");
@@ -18,19 +19,6 @@ function Employeelistadd() {
   const [employeestatus, setemployeestatus] = useState("");
   const [employeejobdescription, setemployeejobdescription] = useState("");
   const [employeeidpicture, setemployeeidpicture] = useState("");
-  const [employeelist, setemployeelist] = useState([]);
-  console.log(employeefarm)
-  useEffect(() =>{
-    Axios.get('http://localhost:3001/employeelist').then((response) => {
-      setemployeelist(response.data);
-    })
-  }, [])
-  const [farmlist, setfarmlist] = useState([]);
-  useEffect(() =>{
-    Axios.get('http://localhost:3001/farmlist').then((response) => {
-      setfarmlist(response.data);
-    })
-  }, [])
   const navigate = useNavigate();
   const register = () => {
     var a = document.forms["myform"]["ainput"].value;
@@ -38,7 +26,7 @@ function Employeelistadd() {
     var c = document.forms["myform"]["cinput"].value;
     var d = document.forms["myform"]["dinput"].value;
     var e = document.forms["myform"]["einput"].value;
-    //var f = document.forms["myform"]["finput"].value; no f
+    var f = document.forms["myform"]["finput"].value;
     var g = document.forms["myform"]["ginput"].value;
     var h = document.forms["myform"]["hinput"].value;
     var i = document.forms["myform"]["iinput"].value;
@@ -46,11 +34,34 @@ function Employeelistadd() {
     var k = document.forms["myform"]["kinput"].value;
     var l = document.forms["myform"]["linput"].value;
     var m = document.forms["myform"]["minput"].value;
-    if (a == "" ||b == "" ||c == "" ||d == "" ||e == "" ||g == "" ||h == "" ||i == "" ||j == "" ||k == "" ||l == "" ||m == "") {
-      alert("Required fields must be filled out");
+    var n = document.forms["myform"]["ninput"].value;
+    let checker =  /^\d+$/.test(employeecontact);
+    if (a == "" ||b == "" ||c == "" ||d == "" ||e == "" || f == "" ||g == "" ||h == "" ||i == "" ||j == "" ||k == "" ||l == "" ||m == "" || n == "") {
+      alert("All fields must be filled out");
+    }
+    else if(checker == false){
+      alert("Employee contact number invalid input1")
+    }
+    else if(employeecontact.length != 11){
+      alert("Employee contact number invalid input2")
     }
     else {
-      Axios.post("http://localhost:3001/employeelistadd", {employeename: employeename, employeefarm: employeefarm, employeelot: employeelot, employeestreet: employeestreet, employeecity: employeecity, employeeprovince: employeeprovince, employeezipcode: employeezipcode, employeecontact: employeecontact, employeeeducationalattainment: employeeeducationalattainment, employeeposition: employeeposition, employeestatus: employeestatus, employeejobdescription: employeejobdescription, employeeidpicture : employeeidpicture});
+      const formData = new FormData()
+      formData.append('profileImg', employeeidpicture)
+      formData.append('employeename', employeename)
+      formData.append('employeeblock', employeeblock)
+      formData.append('employeelot', employeelot)
+      formData.append('employeestreet', employeestreet)
+      formData.append('employeebarangay', employeebarangay)
+      formData.append('employeecity', employeecity)
+      formData.append('employeeprovince', employeeprovince)
+      formData.append('employeezipcode', employeezipcode)
+      formData.append('employeecontact', employeecontact)
+      formData.append('employeeeducationalattainment', employeeeducationalattainment)
+      formData.append('employeeposition', employeeposition)
+      formData.append('employeestatus', employeestatus)
+      formData.append('employeejobdescription', employeejobdescription)
+      Axios.post("http://localhost:3001/employeelistadd", formData);
       navigate('/employeelist', { replace: true });
       window.location.reload();
       alert("Employee recorded");
@@ -63,26 +74,17 @@ function Employeelistadd() {
       </div>
       <main class="container-fluid">
       <Link to="/employeelist"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
-        <form class="formdiv" name="myform" required>
+        <form class="formdiv" enctype="multipart/form-data" name="myform" required>
           <label class="col-form-label mt-4" for="inputDefault"><h3>Employee Name</h3></label>
             <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">Employee Name</label>
                 <input name="ainput" type="text" class="form-control" placeholder="format: First Name_Middle Initial_Last Name" id="inputDefault" onChange={(e) =>{setemployeename(e.target.value)}} required/>
               </div>
-              <div class="form-group">
-                    <label for="exampleSelect1" class="form-label mt-4">Assign Farm</label>
-                    <select  name="binput" required class="form-select" id="exampleSelect1" onChange={(e) =>{
-          setemployeefarm(e.target.value)
-        }}>
-                        <option value="">Select Farm</option>
-                        {farmlist.map((val) => {
-                          return (
-                            <option value={val.farm_id}>{val.farm_id} {val.farm_name}</option>
-                          )
-                        })}
-                    </select>
-                    </div>
               <label class="col-form-label mt-4" for="inputDefault"><h3>Address</h3></label>
+              <div class="form-group">
+                <label class="col-form-label mt-4" for="inputDefault">Block</label>
+                <input name="binput" type="text" class="form-control" placeholder="Block" id="inputDefault" onChange={(e) =>{setemployeeblock(e.target.value)}} required />
+              </div>
               <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">Lot</label>
                 <input name="dinput" type="text" class="form-control" placeholder="Lot" id="inputDefault" onChange={(e) =>{setemployeelot(e.target.value)}} required />
@@ -90,6 +92,10 @@ function Employeelistadd() {
               <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">Street</label>
                 <input name="einput" type="text" class="form-control" placeholder="Street" id="inputDefault" onChange={(e) =>{setemployeestreet(e.target.value)}} />
+              </div>
+              <div class="form-group">
+                <label class="col-form-label mt-4" for="inputDefault">Barangay</label>
+                <input name="ninput" type="text" class="form-control" placeholder="Barangay" id="inputDefault" onChange={(e) =>{setemployeebarangay(e.target.value)}} />
               </div>
               <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">City</label>
@@ -136,7 +142,7 @@ function Employeelistadd() {
               </div>
               <div class="form-group">
                 <label for="formFile" class="form-label mt-4">ID Picture</label>
-                <input name="minput" class="form-control" type="text" id="formFile" onChange={(e) =>{setemployeeidpicture(e.target.value)}} required />
+                <input name="minput" class="form-control" type="file" id="formFile" onChange={(e) =>{setemployeeidpicture(e.target.files[0])}} required />
               </div>
               <button type="submit" value="Submit" class="btn btn-outline-success submitbutton" onClick={register}>Submit</button>
         </form>

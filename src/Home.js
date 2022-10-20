@@ -1,15 +1,32 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, generatePath, Navigate } from 'react-router-dom';
+import Axios from 'axios';
 
 function Home() {
+  const navigate = useNavigate();
+  const [userinfo, setuserinfo] = useState(0);
+  useEffect(() =>{
+    async function fetchData(){
+      await Axios.get(`http://localhost:3001/`).then((response) => {
+        setuserinfo(response.data);
+      })
+      }
+  fetchData()
+  }, [])
+  console.log(userinfo)
+  const handleLogout = (e) => {
+    Axios.post("http://localhost:3001/logout", {})
+    alert("Logged out")
+    navigate(generatePath("/", {}));
+  }
   return (
     <div className="App">
       <div class="headform">
-      <h1 class="titleheadform">Main Form</h1>
+      <h1 class="titleheadform">Hello, {userinfo}</h1>
     </div>
     <main class="container-fluid">
-    <Link to="/login"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+    <button type="button" class="btn btn-outline-dark backbutton" onClick={handleLogout}>Log Out</button>
       <div class="row">
       <Link class="mainbutton" to='/farmprofiles'>Farm Profiles</Link>
       <Link class="mainbutton" to='/employeelist'>Employees</Link>

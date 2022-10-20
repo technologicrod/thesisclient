@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import './App.css';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate, generatePath } from 'react-router-dom';
 import Axios from 'axios';
 
 function Farmprofilesowneradd() {
@@ -14,12 +14,23 @@ function Farmprofilesowneradd() {
   const [position, setposition] = useState("");
   const [job_desc, setjob_desc] = useState("");
 
+  const [block, setblock] = useState("");
   const [lot, setowner_lot] = useState("");
   const [street, setowner_street] = useState("");
+  const [barangay, setbarangay] = useState("");
   const [city, setowner_city] = useState("");
   const [province, setowner_province] = useState("");
   const [zipcode, setowner_zip_code] = useState("");
   const navigate = useNavigate();
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+  let checker =  /^\d+$/.test(contact_num);
+  let validemail = validateEmail(contact_email)
   const register = () => {
     var i15 = document.forms["myform"]["input15"].value; //giisa ang owner name
     var i16 = document.forms["myform"]["input16"].value; //owner contact email
@@ -36,25 +47,37 @@ function Farmprofilesowneradd() {
     if (i15 == "" ||i16 == "" ||i17 == "" ||i18 == "" ||i19 == "" ||i20 == "" ||i21 == "" ||i22 == "" ||i23 == "" ||i25 == "" ||i26 == "" ||i27 == "") {
       alert("Required fields must be filled out");
     }
+    else if(checker == false){
+      alert("Owner contact number invalid input")
+    }
+    else if(contact_num.length != 11){
+      alert("Owner contact number invalid input")
+    }
+    else if(validemail == null){
+      alert("Owner contact email invalid input")
+    }
     else {
-      Axios.post("http://localhost:3001/ownersadd", {farm_id: x, owner_name: owner_name, contact_num: contact_num, contact_email: contact_email, owner_type: owner_type, educational_attainment: educational_attainment, position: position, job_desc: job_desc, lot: lot, street: street, city: city, province: province, zipcode: zipcode});
-      navigate('/farmprofiles', { replace: true });
+      Axios.post("http://localhost:3001/ownersadd", {farm_id: x, owner_name: owner_name, contact_num: contact_num, contact_email: contact_email, owner_type: owner_type, educational_attainment: educational_attainment, position: position, job_desc: job_desc, block: block, lot: lot, street: street, barangay: barangay, city: city, province: province, zipcode: zipcode});
+      x && navigate(generatePath("/farmprofilesview/:x", { x }));
       window.location.reload();
       alert("Owner recorded");
     }
   }
+  const handleProceed = (e) => {
+    x && navigate(generatePath("/farmprofilesview/:x", { x }));
+  };
   return (
     <div className='App'>
         <div class="headform">
-        <h1 class="titleheadform">General Information</h1>
+        <h1 class="titleheadform">Add New Owner</h1>
       </div>
       <main class="container-fluid">
-      <Link to="/farmprofiles"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+      <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceed}>Back</button>
         <form class="formdiv" name="myform" required>
-              <h1 class="titleheadform">Owner Information</h1>
+        <label class="col-form-label mt-4" for="inputDefault"><h3>Owner Information</h3></label>
               <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">Owner Name</label>
-                <input name ="input15" type="text" class="form-control" placeholder="Last Name" id="inputDefault" required onChange={(e) =>{setowner_name(e.target.value)}}/>
+                <input name ="input15" type="text" class="form-control" placeholder="format: First Name_Middle Initial_Last Name" id="inputDefault" required onChange={(e) =>{setowner_name(e.target.value)}}/>
               </div>
               <div class="form-group">
                     <label for="exampleSelect1" class="form-label mt-4">Owner Type</label>
@@ -67,12 +90,20 @@ function Farmprofilesowneradd() {
                     </div>
               <label class="col-form-label mt-4" for="inputDefault"><h3>Address</h3></label>
               <div class="form-group">
+                <label class="col-form-label mt-4" for="inputDefault">Block</label>
+                <input name ="input28" type="text" class="form-control" placeholder="Block" id="inputDefault" required onChange={(e) =>{setblock(e.target.value)}}/>
+              </div>
+              <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">Lot</label>
                 <input name ="input18" type="text" class="form-control" placeholder="Lot" id="inputDefault" required onChange={(e) =>{setowner_lot(e.target.value)}}/>
               </div>
               <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">Street</label>
                 <input name ="input19" type="text" class="form-control" placeholder="Street" id="inputDefault" required onChange={(e) =>{setowner_street(e.target.value)}}/>
+              </div>
+              <div class="form-group">
+                <label class="col-form-label mt-4" for="inputDefault">Barangay</label>
+                <input name ="input29" type="text" class="form-control" placeholder="Barangay" id="inputDefault" required onChange={(e) =>{setbarangay(e.target.value)}}/>
               </div>
               <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">City</label>

@@ -32,12 +32,14 @@ function Plantprofilespicedit() {
   const register = (employeeid) => {
     var a = document.forms["myform"]["ainput"].value;
     if (a == "") {
-      alert("Required field must be filled out");
+      alert("Field must be filled out");
     }
     else {
-      Axios.put("http://localhost:3001/employeejobdescriptionupdate", {plantprofilepicture: plantprofilepicture, plantprofileid: plantprofileid});
-      setplantprofilepicture("");
-      navigate('/plantprofiles', { replace: true });
+      const formData = new FormData()
+        formData.append('profileImg', plantprofilepicture)
+        formData.append('plant_id', x)
+      Axios.put("http://localhost:3001/plantprofilepicedit", formData);
+      x && navigate(generatePath("/plantprofilesview/:x", { x }));
         window.location.reload();
         alert("Plant Picture Updated");
     }
@@ -48,14 +50,18 @@ function Plantprofilespicedit() {
             return (
                 <div>
                     <div class="headform">
-                    <h1 class="titleheadform">Edit {val.plantprofileplantnaime}'s Picture</h1>
+                    <h1 class="titleheadform">Edit {val.plant_name}'s Picture</h1>
                     </div>
                     <main class="container-fluid">
                     <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceed}>Back</button>
-                    <form class="formdiv" name="myform" required>
+                    <form class="formdiv" enctype="multipart/form-data" name="myform" required>
+                    <div>
+                      <p><h4><b>Plant Image:</b></h4></p>
+                      <img class="viewimage" alt="plant image" src={`data:image/jpeg;base64,${val.img}`}></img>
+                      </div>
                         <div class="form-group">
-                            <label for="formFile" class="form-label mt-4">Plant Picture *</label>
-                            <input name="ainput" class="form-control" type="file" id="formFile" onChange={(e) =>{setplantprofilepicture(e.target.value)}} required />
+                            <label for="formFile" class="form-label mt-4">Plant Picture</label>
+                            <input name="ainput" class="form-control" type="file" id="formFile" onChange={(e) =>{setplantprofilepicture(e.target.files[0])}} required />
                         </div>
                         <button type="submit" value="Submit" class="btn btn-outline-success submitbutton" onClick={register}>Submit</button>
                     </form>

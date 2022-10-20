@@ -37,7 +37,7 @@ function Otherexpenseslist() {
         <div class="headform">
         <h1 class="titleheadform">Pending Other Expenses</h1>
         <main class="container-fluid">
-      <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+      <Link to="/home"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
       <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleChange}>Add New Other Expense</button>
       <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>Pay Pending Other Expense</button>
       <button type="button" class="btn btn-outline-info secondarybutton" onClick={handlePaid}>View Paid Other Expenses</button>

@@ -19,7 +19,7 @@ function Allexpensespo() {
           <div class="headform">
           <h1 class="titleheadform">Purchase Orders Expenses</h1>
           <main class="container-fluid">
-        <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+        <Link to="/home"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleChange}>View Paid Other Expenses</button>
         <form class="d-flex">
                   <input class="form-control me-sm-2" type="text" placeholder="Search ID" />

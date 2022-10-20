@@ -10,6 +10,7 @@ import Employeelistpositionhistory from './Employeelistpositionhistory';
 import Employeelistedit from './Employeelistedit';
 import Employeeidpicedit from './Employeeidpicedit';
 import Employeejobdescriptionedit from './Employeejobdescriptionedit';
+import Employeeprofile from './Employeeprofile';
 import Employeeaccounts from './Employeeaccounts';
 import Employeeaccountsedit from './Employeeaccountsedit';
 import Employeeaccountsadd from './Employeeaccountsadd';
@@ -24,6 +25,9 @@ import Farmprofilesedit from './Farmprofilesedit';
 import Farmprofilesowner from './Farmprofilesowner';
 import Farmprofilesowneradd from './Farmprofilesowneradd';
 import Farmprofilesview from './Farmprofilesview';
+import Farmprofilesimagemap from './Farmprofilesimagemap';
+import Farmprofilesgooglemap from './Farmprofilesgooglemap';
+import Farmprofilesorgchart from './Farmprofilesorgchart';
 import Plantprofiles from './Plantprofiles';
 import Plantprofilesadd from './Plantprofilesadd';
 import Plantprofilesview from './Plantprofilesview';
@@ -105,7 +109,7 @@ function App() {
         <div className="App">
           <Routes>
             <Route element={<SidebarLayout/>}>
-              <Route exact path="/" element={<Home />} />
+              <Route exact path="/home" element={<Home />} />
               <Route path='*' element={<Notfound />} />
               <Route exact path="/employeelist" element={<Employeelist />} />
               <Route exact path="/employeelistadd" element={<Employeelistadd />} />
@@ -113,6 +117,7 @@ function App() {
               <Route path="/employeelistpositionhistory/:employeeid" element={<Employeelistpositionhistory  />} />
               <Route path="/employeeidpicedit/:employeeid" element={<Employeeidpicedit />} />
               <Route path="/employeejobdescriptionedit/:employeeid" element={<Employeejobdescriptionedit />} />
+              <Route path="/employeeprofile/:employeeid" element={<Employeeprofile />} />
               <Route exact path="/employeeaccounts" element={<Employeeaccounts />} />
               <Route path="/employeeaccountsedit/:employeeid" element={<Employeeaccountsedit />} />
               <Route exact path="/employeeaccountsadd" element={<Employeeaccountsadd />} />
@@ -127,6 +132,9 @@ function App() {
               <Route path="/farmprofilesowner/:owner_id" element={<Farmprofilesowner />} />
               <Route path="/farmprofilesowneradd/:farm_id" element={<Farmprofilesowneradd />} />
               <Route path="/farmprofilesview/:farm_id" element={<Farmprofilesview />} />
+              <Route path="/farmprofilesimagemap/:farm_id" element={<Farmprofilesimagemap />} />
+              <Route path="/farmprofilesgooglemap/:farm_id" element={<Farmprofilesgooglemap />} />
+              <Route path="/farmprofilesorgchart/:farm_id" element={<Farmprofilesorgchart />} />
               <Route exact path="/plantprofiles" element={<Plantprofiles />} />
               <Route exact path="/plantprofilesadd" element={<Plantprofilesadd />} />
               <Route path="/plantprofilesview/:plantprofileid" element={<Plantprofilesview />} />
@@ -194,6 +202,7 @@ function App() {
               <Route exact path="/crud" element={< Crud />} />
               <Route exact path="/test" element={< Test />} />
             </Route>
+            <Route exact path="/" element={<Login />} />
             <Route exact path="/login" element={<Login />} />
           </Routes>
         </div>

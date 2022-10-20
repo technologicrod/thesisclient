@@ -9,12 +9,14 @@ function Plantutilities() {
       <h1 class="titleheadform">Plant Utilities</h1>
     </div>
     <main class="container-fluid">
-    <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+    <Link to="/home"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
       <div class="row">
-      <Link class="pubutton" to='/plantutilitiessoiltype'>Soil Type <i>(for farm profile)</i></Link>
-      <Link class="pubutton" to='/plantutilitiesplantprofile'>Plant Category <i>(for plant profile)</i></Link>
-      <Link class="pubutton" to='/plantutilitiesplanttype'>Plant Type <i>(for plant profile)</i></Link>
-      <Link class="pubutton" to='/plantutilitiesotherexpense'>Other Expense Name <i>(for other expense)</i></Link>
+      <Link class="pubutton" to='/plantutilitiessoiltype'><b>Soil Type</b> <br></br> <i>(for farm profile)</i></Link>
+      <Link class="pubutton" to='/plantutilitiesplantprofile'><b>Plant Category</b> <br></br> <i>(for plant profile)</i></Link>
+      <Link class="pubutton" to='/plantutilitiesplanttype'><b>Plant Type</b> <br></br> <i>(for plant profile)</i></Link>
+      <Link class="pubutton" to='/plantutilitiesotherexpense'><b>Other Expense Type</b> <br></br> <i>(for other expense)</i></Link>
+      <Link class="pubutton" to='/plantutilitiesotherexpense'><b>Units of Measurement</b> <br></br> <i>(for measurements)</i></Link>
+      <Link class="pubutton" to='/plantutilitiesotherexpense'><b>Payment Methods</b> <br></br> <i>(for payments)</i></Link>
       </div>
       </main>
     </div>

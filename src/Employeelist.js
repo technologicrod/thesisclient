@@ -24,7 +24,7 @@ function Employeelist() {
   }
   const handleProceed = (e) => {
     if (id == 0){
-      alert("Select a row to view.")
+      alert("Select an employee row to view position history.")
     }
     else {
       id && navigate(generatePath("/employeelistpositionhistory/:id", { id }));
@@ -39,14 +39,24 @@ function Employeelist() {
       console.log(id)
     }
   };
+  const handleProceedView = (e) => {
+    if (id == 0){
+      alert("Select a row to view.")
+    }
+    else {
+      id && navigate(generatePath("/employeeprofile/:id", { id }));
+      console.log(id)
+    }
+  };
   return (
     <div className='App'>
         <div class="headform">
         <h1 class="titleheadform">Employees List</h1>
       </div>
       <main class="container-fluid">
-      <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
-        <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>View</button>
+      <Link to="/home"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+        <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedView}>View Profile</button>
+        <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>View Position History</button>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedEdit}>Edit</button>
         <Link to="/employeelistadd"><button type="button" class="btn btn-outline-info secondarybutton">Add</button></Link>
         <form class="d-flex">
@@ -66,7 +76,7 @@ function Employeelist() {
                           return(
                             <tr class="table-active tractive" onClick={rowSelect.bind(this, val.emp_id)}>
                             <td scope="row">{val.emp_name}</td>
-                            <td scope="row">{val.farm_id}</td>
+                            <td scope="row">{val.farm_name}</td>
                             </tr>
                               )
                       })}

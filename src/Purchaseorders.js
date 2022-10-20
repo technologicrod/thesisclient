@@ -10,7 +10,7 @@ function Purchaseorders() {
         <div class="headform">
         <h1 class="titleheadform">Purchase Orders</h1>
         <main class="container-fluid">
-      <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+      <Link to="/home"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
       <p>
       <Link to="/purchaseorderlist"><button type="button" class="btn btn-outline-info secondarybutton">New Purchase Order</button></Link>
       <Link to="/purchaseorderlistinfo"><button type="button" class="btn btn-outline-info secondarybutton">Purchase Order Cart</button></Link>

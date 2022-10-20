@@ -1,43 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { Link } from 'react-router-dom';
 
 function Login() {
-  return (
-    <div className="App">
-      <div class="maindiv">
-      <h1 class="login1">Login</h1>
-      <div class="form-group">
-        <label for="exampleInputEmail1" class="form-label mt-4"
-          >Email address</label
-        >
-        <input
-          type="email"
-          class="form-control"
-          id="exampleInputEmail1"
-          aria-describedby="emailHelp"
-          placeholder="Enter email"
-        />
-        <small id="emailHelp" class="form-text text-muted"
-          >We'll never share your email with anyone else.</small
-        >
-      </div>
-      <div class="form-group">
-        <label for="exampleInputPassword1" class="form-label mt-4"
-          >Password</label
-        >
-        <input
-          type="password"
-          class="form-control"
-          id="exampleInputPassword1"
-          placeholder="Password"
-        />
-      </div>
-      <Link class="nav-link" to='/'><button type="button" class="btn btn-primary loginbutton">Submit</button></Link>
+  const [opencity, setopencity] = useState("Admin")
+  const container = [1]
+  console.log(opencity)
+  if (opencity == "Admin"){
+    return (
+      <div className="App">
+      <div>
+      <h1 class="company">Farm ADMIN</h1>
+      <h2 class="datsys">Farm Management Information System</h2>
       
+        <body class="login_body">
+          <center>
+            <div class="tab" >
+              <button class="tablinks" value="User" onClick={(e) =>{setopencity(e.target.value)}}>User</button>
+              <button class="tablinks" value="Admin" onClick={(e) =>{setopencity(e.target.value)}}>Admin</button>
+              <div class=" tabcontent">
+                <div class="login_box">
+                  <form class="" method="POST" >
+                    <input type="text" name="username" placeholder="Username" required />
+                    <input type="password" name="password" placeholder="Password" required/>
+                    <div clas="outer">
+                      <div class="inner">
+                        <button type="button">Submit</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </center>
+        </body>
       </div>
     </div>
-  );
+    )
+  }
+  else if(opencity == "User"){
+    return(
+      <div className="App">
+      <div class="maindiv">
+      <h1 class="company">Farm MIS</h1>
+      <h2 class="datsys">Farm Management Information System</h2>
+      
+        <body class="login_body">
+          <center>
+            <div class="tab" >
+              <button class="tablinks" value="User" onClick={(e) =>{setopencity(e.target.value)}}>User</button>
+              <button class="tablinks" value="Admin" onClick={(e) =>{setopencity(e.target.value)}}>Admin</button>
+              <form class="" method="POST" >
+              <input type="text"class="form-control"id="exampleInputEmail1" name="username" placeholder="Username" required />
+                  <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password" required/>
+                  <button type="button" class="btn btn-primary loginbutton">Submit</button>
+              </form>
+            </div>
+          </center>
+        </body>
+      </div>
+    </div>
+    )
+  }
 }
 
 export default Login;

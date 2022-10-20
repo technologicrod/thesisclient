@@ -39,7 +39,7 @@ function Plantprofiles() {
         <h1 class="titleheadform">Plant Profiles</h1>
       </div>
       <main class="container-fluid">
-      <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+      <Link to="/home"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>View</button>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedEdit}>Edit</button>
         <Link to="/plantprofilesadd"><button type="button" class="btn btn-outline-info secondarybutton">Add</button></Link>
@@ -60,7 +60,7 @@ function Plantprofiles() {
                   <tbody>
                   {plantprofilelist.map((val) => {
                           return(
-                            <tr class="table-primary tractive" onClick={rowSelect.bind(this, val.plant_id)}>
+                            <tr class="table-active tractive" onClick={rowSelect.bind(this, val.plant_id)}>
                               <th scope="row">{val.plant_name}</th>
                               <th scope="row">{val.variety}</th>
                               <th scope="row">{val.category}</th>

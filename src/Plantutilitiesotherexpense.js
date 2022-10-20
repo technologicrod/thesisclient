@@ -20,7 +20,7 @@ function Plantutilitiesotherexpense() {
   return (
     <div className='App'>
         <div class="headform">
-      <h1 class="titleheadform">Plant Utilities for Other Expense</h1>
+      <h1 class="titleheadform">Utilities for Other Expense Type</h1>
     </div>
     <main class="container-fluid">
     <Link to="/plantutilities"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>

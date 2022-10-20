@@ -24,6 +24,7 @@ function Purchaseorderhistory() {
       }
       else {
         id && navigate(generatePath("/purchaseorderstockin/:id", { id }));
+        window.location.reload()
       }
     };
     return (
@@ -34,8 +35,6 @@ function Purchaseorderhistory() {
         <main class="container-fluid">
         <Link to="/purchaseorders"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>Stock In PO</button>
-        <button type="button" class="btn btn-outline-info secondarybutton">Redeliver PO</button>
-        <button type="button" class="btn btn-outline-info secondarybutton">Refund PO</button>
             <div class="tablediv">
                     <table class="table table-hover">
                     <thead>

@@ -38,7 +38,7 @@ function Iteminventory() {
         <h1 class="titleheadform">Item Inventory</h1>
       </div>
       <main class="container-fluid">
-      <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+      <Link to="/home"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
         <Link to="/iteminventoryadd"><button type="button" class="btn btn-outline-info secondarybutton">Add</button></Link>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>Edit</button>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedHistory}>View History</button>

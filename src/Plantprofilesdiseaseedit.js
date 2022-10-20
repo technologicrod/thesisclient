@@ -21,7 +21,7 @@ function Plantprofilesdiseaseedit() {
       const [plantdisease, setplantdisease] = useState("");
       const submitPlantDisease = () => {
         Axios.put("http://localhost:3001/plantprofilediseaseedit", {disease_id: x, diseases: plantdisease});
-        navigate(`/plantprofiles`, { replace: true});
+        i2 && navigate(generatePath("/plantprofilesview/:i2", { i2 }));
       window.location.reload();
       alert("Plant Disease updated")
       };
@@ -40,6 +40,7 @@ function Plantprofilesdiseaseedit() {
       useEffect(() =>{
         setplantdisease(i1)
       }, [i1])
+      
   return (
     <div className='App'>
         {diseaseinfo.map((val)=> {

@@ -18,9 +18,13 @@ function Farmprofiles() {
     if (ea.hasOwnProperty(key)) {
         if (key === "farm_id"){
           i1 = ea[key]
+          if (farmlist.length == undefined){
+            i1 = "i1"
+          }
         }
     }
   }
+  console.log(farmlist.length)
   function rowSelect(event) {
     id = event;
     console.log(id)
@@ -34,54 +38,72 @@ function Farmprofiles() {
     }
   };
 
-  return (
-    <div className='App'>
-        <div class="headform">
-        <h1 class="titleheadform">Farm Profiles</h1>
-      </div>
-      <main class="container-fluid">
-      <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
-        <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>View</button>
-        {farmlist.map((val)=> {
-          if (i1 == ""){
-            return(
-              <Link to="/farmprofilesadd"><button type="button" class="btn btn-outline-info secondarybutton">Add</button></Link>
-            )
-          }
-        })}
-        <form class="d-flex">
-            <input class="form-control me-sm-2" type="text" placeholder="Search ID" />
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-          </form>
-        <div class="tablediv">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                      <th scope="col">Farm ID</th>
-                      <th scope="col">Farm Name</th>
-                      <th scope="col">Size in Hectares</th>
-                      <th scope="col">Soil Type</th>
-                      <th scope="col">Primary Owner</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {farmlist.map((val) => {
-                      return (
-                        <tr class="table-active tractive" onClick={rowSelect.bind(this, val.farm_id)}>
-                        <th scope="row">{val.farm_id}</th>
-                        <th scope="row">{val.farm_name}</th>
-                        <th scope="row">{val.size}</th>
-                        <th scope="row">{val.soil_type}</th>
-                        <th scope="row">{val.main_owner}</th>
-                      </tr>
-                      )
-                    })}
-                  </tbody>
-            </table>
+  if(farmlist.length == 0){
+    return (
+      <div className='App'>
+          <div class="headform">
+          <h1 class="titleheadform">Farm Profile</h1>
         </div>
-        </main>
-      </div>
-  );
+        <main class="container-fluid">
+        <Link to="/home"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+          <Link to="/farmprofilesadd"><button type="button" class="btn btn-outline-info secondarybutton">Add</button></Link>
+          <div class="tablediv">
+              <table class="table table-hover">
+                  <thead>
+                      <tr>
+                        <th scope="col">Farm Name</th>
+                        <th scope="col">Size in Hectares</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {farmlist.map((val) => {
+                        return (
+                          <tr class="table-active tractive" onClick={rowSelect.bind(this, val.farm_id)}>
+                          <th scope="row">{val.farm_name}</th>
+                          <th scope="row">{val.size}</th>
+                        </tr>
+                        )
+                      })}
+                    </tbody>
+              </table>
+          </div>
+          </main>
+        </div>
+    );
+  }
+  else{
+    return (
+      <div className='App'>
+          <div class="headform">
+          <h1 class="titleheadform">Farm Profile</h1>
+        </div>
+        <main class="container-fluid">
+        <Link to="/home"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+          <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>View</button>
+          <div class="tablediv">
+              <table class="table table-hover">
+                  <thead>
+                      <tr>
+                        <th scope="col">Farm Name</th>
+                        <th scope="col">Size in Hectares</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {farmlist.map((val) => {
+                        return (
+                          <tr class="table-active tractive" onClick={rowSelect.bind(this, val.farm_id)}>
+                          <th scope="row">{val.farm_name}</th>
+                          <th scope="row">{val.size}</th>
+                        </tr>
+                        )
+                      })}
+                    </tbody>
+              </table>
+          </div>
+          </main>
+        </div>
+    );
+  }
 }
 
 export default Farmprofiles;

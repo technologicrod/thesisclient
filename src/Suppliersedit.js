@@ -12,8 +12,10 @@ function Suppliersedit() {
     
     const [company_name, setcompany_name] = useState("")
 
+    const [block, setblock] = useState("");
     const [lot, setlot] = useState("");
     const [street, setstreet] = useState("");
+    const [barangay, setbarangay] = useState("");
     const [city, setcity] = useState("");
     const [province, setprovince] = useState("");
     const [zipcode, setzip_code] = useState("");
@@ -41,7 +43,7 @@ function Suppliersedit() {
             setcontactinfoinfo(response.data);
         })
     }, [x])
-    var i1, i2, i3, i4, i5, i6, i7, i8, i9, i10
+    var i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12
     const ea = supplierinfo[0]
     const oa = addressinfo[0]
     const ua = contactinfoinfo[0]
@@ -68,6 +70,12 @@ function Suppliersedit() {
             }
             if (key === "zipcode"){
                 i6 = oa[key]
+            }
+            if (key === "block"){
+              i11 = oa[key]
+            }
+            if (key === "barangay"){
+              i12 = oa[key]
             }
         }
     }
@@ -98,7 +106,16 @@ function Suppliersedit() {
         setcontact_info_position(i8)
         setcontact_info_contact_num(i9)
         setcontact_info_contact_email(i10)
-      }, [i1, i2, i3, i4, i5, i6, i7, i8, i9, i10])
+        setblock(i11)
+        setbarangay(i12)
+      }, [i1, i2, i3, i4, i5, i6, i7, i8, i9, i10, i11, i12])
+      const validateEmail = (email) => {
+        return String(email)
+          .toLowerCase()
+          .match(
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          );
+      };
     const register = () => {
         var a = document.forms["myform"]["ainput"].value;
         var b = document.forms["myform"]["binput"].value;
@@ -110,11 +127,24 @@ function Suppliersedit() {
         var h = document.forms["myform"]["hinput"].value;
         var i = document.forms["myform"]["iinput"].value;
         var j = document.forms["myform"]["jinput"].value;
-        if (a == "" ||b == "" || c == "" ||d == "" || e =="" || f == "" ||g == "" || h == "" ||i == "" || j =="") {
-          alert("Required fields must be filled out");
+        var k = document.forms["myform"]["kinput"].value;
+        var l = document.forms["myform"]["linput"].value;
+        let checker =  /^\d+$/.test(contact_num);
+        let validemail = validateEmail(contact_email)
+        if (a == "" ||b == "" || c == "" ||d == "" || e =="" || f == "" ||g == "" || h == "" ||i == "" || j ==""||k == "" || l =="") {
+          alert("All fields must be filled out");
+        }
+        else if(checker == false){
+          alert("Supplier contact number invalid input")
+        }
+        else if(contact_num.length != 11){
+          alert("Supplier contact number invalid input")
+        }
+        else if(validemail == null){
+          alert("Supplier contact email invalid input")
         }
         else {
-            Axios.put("http://localhost:3001/suppliersupdate", {supplier_id: x, company_name: company_name, contact_person_name: contact_person_name, position: position, contact_num: contact_num, contact_email: contact_email, lot: lot, street: street, city: city, province: province, zipcode: zipcode});
+            Axios.put("http://localhost:3001/suppliersupdate", {supplier_id: x, company_name: company_name, contact_person_name: contact_person_name, position: position, contact_num: contact_num, contact_email: contact_email, block: block, lot: lot, street: street, barangay: barangay, city: city, province: province, zipcode: zipcode});
             navigate('/supplierslist', { replace: true });
             window.location.reload();
             alert("Supplier Updated")
@@ -123,7 +153,7 @@ function Suppliersedit() {
     return(
         <div className="App">
             <div class="headform">
-            <h1 class="titleheadform">Edit Supplier {x}</h1>
+            <h1 class="titleheadform">Edit Supplier {i1} Profile</h1>
             </div>
             <main class="container-fluid">
             <Link to="/supplierslist"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
@@ -140,6 +170,10 @@ function Suppliersedit() {
               {addressinfo.map((val)=> {
                 return (
                     <div>
+                      <div class="form-group">
+                      <label class="col-form-label mt-4" for="inputDefault">Block</label>
+                      <input name="kinput" type="text" class="form-control" placeholder={val.block} defaultValue={val.block} id="inputDefault" onChange={(e) =>{setblock(e.target.value)}} />
+                    </div>
                         <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">Lot</label>
                 <input name="binput" type="text" class="form-control" placeholder={val.lot} defaultValue={val.lot} id="inputDefault" onChange={(e) =>{setlot(e.target.value)}} required />
@@ -147,6 +181,10 @@ function Suppliersedit() {
               <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">Street</label>
                 <input name="cinput" type="text" class="form-control" placeholder={val.street} defaultValue={val.street} id="inputDefault" onChange={(e) =>{setstreet(e.target.value)}} />
+              </div>
+              <div class="form-group">
+                <label class="col-form-label mt-4" for="inputDefault">Barangay</label>
+                <input name="linput" type="text" class="form-control" placeholder={val.barangay} defaultValue={val.barangay} id="inputDefault" onChange={(e) =>{setbarangay(e.target.value)}} />
               </div>
               <div class="form-group">
                 <label class="col-form-label mt-4" for="inputDefault">City</label>

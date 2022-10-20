@@ -8,7 +8,6 @@ function Plantprofilesedit() {
   const x = plantprofileid
   console.log(x)
   const [plantprofileplantname, setplantprofileplantname] = useState("")
-  const [plantprofilefarm, setplantprofilefarm] = useState("")
   const [plantprofilecategory, setplantprofilecategory] = useState("")
   const [plantprofilescientificname, setplantprofilescientificname] = useState("")
   const [plantprofilevariety, setplantprofilevariety] = useState("")
@@ -32,7 +31,7 @@ function Plantprofilesedit() {
   }, [])
   console.log(plantprofilelist)
   const ea = plantprofilelist[0]
-  var i1, i2, i3, i4, i5, i6, i7, i8;
+  var i1, i2, i3, i4, i5, i6, i7;
   for (var key in ea) {
     if (ea.hasOwnProperty(key)) {
         if (key === "plant_name"){
@@ -56,13 +55,13 @@ function Plantprofilesedit() {
         if (key === "plant_desc"){
           i7 = ea[key]
         }
-        if (key === "farm_id"){
-          i8 = ea[key]
-        }
     }
   }
   const handleProceedPic = (e) => {
     x && navigate(generatePath("/plantprofilespicedit/:x", { x }));
+  };
+  const handleProceed = (e) => {
+    x && navigate(generatePath("/plantprofilesview/:x", { x }));
   };
   useEffect(() =>{
     setplantprofileplantname(i1)
@@ -72,8 +71,7 @@ function Plantprofilesedit() {
     setplantprofileplanttype(i5)
     setplantprofilemonths(i6)
     setplantprofiledescription(i7)
-    setplantprofilefarm(i8)
-  }, [i1, i2, i3, i4, i5, i6, i7, i8])
+  }, [i1, i2, i3, i4, i5, i6, i7])
   useEffect(() =>{
     Axios.get('http://localhost:3001/plantutilitiesplantprofile').then((response) => {
       setplantcategorylist(response.data);
@@ -92,13 +90,13 @@ function Plantprofilesedit() {
     var d = document.forms["myform"]["dinput"].value;
     var e = document.forms["myform"]["einput"].value;
     var f = document.forms["myform"]["finput"].value;
-    var h = document.forms["myform"]["hinput"].value; //naay sumting wrong sa pagpilig farm pero ok lang na wala sa if else
+    //var h = document.forms["myform"]["hinput"].value; //naay sumting wrong sa pagpilig farm pero ok lang na wala sa if else
     if (a == "" ||b == "" || c == "" ||d == "" || e == "" ||f == "" ) {
       alert("Required fields must be filled out");
     }
     else {
-        Axios.put("http://localhost:3001/plantprofileedit", {plantprofileid: x, plantprofileplantname: plantprofileplantname, plantprofilefarm: plantprofilefarm, plantprofilecategory: plantprofilecategory, plantprofilescientificname: plantprofilescientificname, plantprofilevariety: plantprofilevariety, plantprofileplanttype: plantprofileplanttype, plantprofilemonths: plantprofilemonths, plantprofiledescription: plantprofiledescription});
-        navigate('/plantprofiles', { replace: true });
+        Axios.put("http://localhost:3001/plantprofileedit", {plantprofileid: x, plantprofileplantname: plantprofileplantname, plantprofilecategory: plantprofilecategory, plantprofilescientificname: plantprofilescientificname, plantprofilevariety: plantprofilevariety, plantprofileplanttype: plantprofileplanttype, plantprofilemonths: plantprofilemonths, plantprofiledescription: plantprofiledescription});
+        x && navigate(generatePath("/plantprofilesview/:x", { x }));
         window.location.reload();
         alert("Plant Profile Updated");
     }
@@ -109,10 +107,10 @@ function Plantprofilesedit() {
             return (
                 <div>
                     <div class="headform">
-        <h1 class="titleheadform">Edit {val.plantprofileplantname}</h1>
+        <h1 class="titleheadform">Edit {val.plant_name}</h1>
       </div>
       <main class="container-fluid">
-      <Link to="/plantprofiles"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+      <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceed}>Back</button>
       <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedPic}>Edit Plant Picture File</button>
         <form class="formdiv" name="myform" required>
             <div class="form-group">
@@ -121,19 +119,6 @@ function Plantprofilesedit() {
           setplantprofileplantname(e.target.value)
         }}/>
               </div>
-              <div class="form-group">
-                    <label for="exampleSelect1" class="form-label mt-4">Assign Farm</label>
-                    <select  name="hinput" required class="form-select" id="exampleSelect1" onChange={(e) =>{
-          setplantprofilefarm(e.target.value)
-        }}>
-                        <option value={val.farm_id}>{val.farm_id}</option>
-                        {farmlist.map((valo) => {
-                          return (
-                            <option value={valo.farm_id}>{valo.farm_id} {valo.farm_name}</option>
-                          )
-                        })}
-                    </select>
-                    </div>
               <div class="form-group">
                     <label for="exampleSelect1" class="form-label mt-4">Category</label>
                     <select  name="binput" required class="form-select" id="exampleSelect1" onChange={(e) =>{

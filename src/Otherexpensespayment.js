@@ -29,6 +29,12 @@ function Otherexpensespayment() {
           setemployeelist(response.data);
         })
       }, [])
+    const [pmlist, setpmlist] = useState([]);
+    useEffect(() =>{
+      Axios.get('http://localhost:3001/plantutilitiespaymentmethod').then((response) => {
+          setpmlist(response.data);
+      })
+    }, [])
     const ea = otherexpensesinfo[0]
     var i1, i2, i3
     for (var key in ea) {
@@ -63,6 +69,11 @@ function Otherexpensespayment() {
             window.location.reload();
         }
       }
+      const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'PHP',
+      });
+      var cdate = (new Date(i2)).toLocaleDateString();
     return(
         <div className="App">
             <div class="headform">
@@ -71,8 +82,8 @@ function Otherexpensespayment() {
             <main class="container-fluid">
             <Link to="/otherexpenseslist"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
                 <h4>Expense Type: {i3}</h4>
-                <h4>Due Date: {i2}</h4>
-                <h4>Amount to Pay: Php {i1}</h4>
+                <h4>Due Date: {cdate}</h4>
+                <h4>Amount to Pay: {formatter.format(i1)}</h4>
                 <form class="formdiv" name="myform" required>
                 <div class="form-group">
                     <label for="exampleSelect1" class="form-label mt-4">Select Managing Employee</label>
@@ -93,20 +104,29 @@ function Otherexpensespayment() {
                     <label class="col-form-label mt-4" for="inputDefault">Date Paid: </label>
                         <DatePicker name="ccinput" placeholderText='Date Paid' style={{marginRight:"10px"}} selected={date_paid.start} onChange={(start) =>{setdate_paid({...date_paid, start})}} />
                     </div>
-                <div class="form-group">
-                    <label class="col-form-label mt-4" for="inputDefault">Payment Method</label>
-                    <input name="dinput" type="text" class="form-control" placeholder="Payment Method" id="inputDefault" onChange={(e) =>{setpayment_method (e.target.value)}} required/>
-                </div>
+                    <div class="form-group">
+                    <label for="exampleSelect1" class="col-form-label mt-4">Payment Method: Bank Name/Digital Wallet Name <em>(you can add new payment method in utilities)</em></label>
+                    <select  name="dinput" required class="form-select" id="exampleSelect1" onChange={(e) =>{
+          setpayment_method(e.target.value)
+        }}>
+                        <option value="">Select Payment Method</option>
+                        {pmlist.map((val) => {
+                          return (
+                            <option value={val.paymentmethod_name}>{val.paymentmethod_name}</option>
+                          )
+                        })}
+                    </select>
+                    </div>
                 <div class="form-group">
                     <label class="col-form-label mt-4" for="inputDefault">Paid Amount</label>
                     <input name="einput" type="number" class="form-control" placeholder="Paid Amount" id="inputDefault" onChange={(e) =>{settotal_payment (e.target.value)}} required/>
                 </div>
                 <div class="form-group">
-                    <label class="col-form-label mt-4" for="inputDefault">Account ID <em>(can be leave as blank if payment method is done in personal transaction)</em></label>
+                    <label class="col-form-label mt-4" for="inputDefault">Account ID <em>(input none if paid with cash)</em></label>
                     <input type="text" class="form-control" placeholder="Account ID" id="inputDefault" onChange={(e) =>{setaccount_id (e.target.value)}} required/>
                 </div>
                 <div class="form-group">
-                    <label class="col-form-label mt-4" for="inputDefault">Account Name <em>(can be leave as blank if payment method is done in personal transaction)</em></label>
+                    <label class="col-form-label mt-4" for="inputDefault">Account Name <em>(input none if paid with cash)</em></label>
                     <input type="text" class="form-control" placeholder="Account Name" id="inputDefault" onChange={(e) =>{setaccount_name  (e.target.value)}} required/>
                 </div>
                 <button type="button" class="btn btn-outline-success submitbutton" onClick={register}>Submit</button>

@@ -33,6 +33,10 @@ function Availableplantswasted() {
   const handleChange = (e) => {
     navigate('/availableplants', { replace: true });
   }
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'PHP',
+  });
   return (
     <div className='App'>
         <div class="headform">
@@ -69,7 +73,7 @@ function Availableplantswasted() {
                             <td scope="row">{val.grade}</td>
                             <td scope="row">{val.quantity_harvested}</td>
                             <td scope="row">{val.units}</td>
-                            <td scope="row">{val.price_per_unit}</td>
+                            <td scope="row">{formatter.format(val.price_per_unit)}</td>
                             <td scope="row">{val.var_status}</td>
                             </tr>
                           )

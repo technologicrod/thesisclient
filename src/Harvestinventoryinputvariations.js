@@ -22,6 +22,12 @@ function Harvestinventoryinputvariations() {
             }
           }
       }
+    const [unitlist, setunitlist] = useState([]);
+    useEffect(() =>{
+        Axios.get('http://localhost:3001/plantutilitiesunitsofmeasurement').then((response) => {
+          setunitlist(response.data);
+        })
+      }, [])
     const navigate = useNavigate()
     const a_grade = "A"
     const [a_quantity_harvested, seta_quantity_harvested] = useState("")
@@ -148,8 +154,15 @@ function Harvestinventoryinputvariations() {
                         <input type="number" class="form-control" placeholder="Quantity Harvested" id="inputDefault" onChange={(e) =>{seta_quantity_harvested(e.target.value)}} required/>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label mt-4" for="inputDefault">Units <em>(ex: kilograms, pieces)</em></label>
-                        <input type="text" class="form-control" placeholder="Units" id="inputDefault" onChange={(e) =>{seta_units(e.target.value)}} required/>
+                    <label for="exampleSelect1" class="col-form-label mt-4">Unit of measurement <em>(you can add new units of measurement in utilities)</em></label>
+                    <select  required class="form-select" id="exampleSelect1" onChange={(e) =>{seta_units(e.target.value)}}>
+                        <option value="">Select Unit of Measurement</option>
+                        {unitlist.map((val) => {
+                          return (
+                            <option value={val.unit_name}>{val.unit_name}</option>
+                          )
+                        })}
+                    </select>
                     </div>
                     <div class="form-group">
                         <label class="col-form-label mt-4" for="inputDefault">Price per Unit in Peso</label>
@@ -162,8 +175,15 @@ function Harvestinventoryinputvariations() {
                         <input type="number" class="form-control" placeholder="Quantity Harvested" id="inputDefault" onChange={(e) =>{setb_quantity_harvested(e.target.value)}} required/>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label mt-4" for="inputDefault">Units <em>(ex: kilograms, pieces)</em></label>
-                        <input type="text" class="form-control" placeholder="Units" id="inputDefault" onChange={(e) =>{setb_units(e.target.value)}} required/>
+                    <label for="exampleSelect1" class="col-form-label mt-4">Unit of measurement <em>(you can add new units of measurement in utilities)</em></label>
+                    <select  required class="form-select" id="exampleSelect1" onChange={(e) =>{setb_units(e.target.value)}}>
+                        <option value="">Select Unit of Measurement</option>
+                        {unitlist.map((val) => {
+                          return (
+                            <option value={val.unit_name}>{val.unit_name}</option>
+                          )
+                        })}
+                    </select>
                     </div>
                     <div class="form-group">
                         <label class="col-form-label mt-4" for="inputDefault">Price per Unit in Peso</label>
@@ -176,8 +196,15 @@ function Harvestinventoryinputvariations() {
                         <input type="number" class="form-control" placeholder="Quantity Harvested" id="inputDefault" onChange={(e) =>{setc_quantity_harvested(e.target.value)}} required/>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label mt-4" for="inputDefault">Units <em>(ex: kilograms, pieces)</em></label>
-                        <input type="text" class="form-control" placeholder="Units" id="inputDefault" onChange={(e) =>{setc_units(e.target.value)}} required/>
+                    <label for="exampleSelect1" class="col-form-label mt-4">Unit of measurement <em>(you can add new units of measurement in utilities)</em></label>
+                    <select  required class="form-select" id="exampleSelect1" onChange={(e) =>{setc_units(e.target.value)}}>
+                        <option value="">Select Unit of Measurement</option>
+                        {unitlist.map((val) => {
+                          return (
+                            <option value={val.unit_name}>{val.unit_name}</option>
+                          )
+                        })}
+                    </select>
                     </div>
                     <div class="form-group">
                         <label class="col-form-label mt-4" for="inputDefault">Price per Unit in Peso</label>
@@ -190,8 +217,15 @@ function Harvestinventoryinputvariations() {
                         <input type="number" class="form-control" placeholder="Quantity Harvested" id="inputDefault" onChange={(e) =>{setd_quantity_harvested(e.target.value)}} required/>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label mt-4" for="inputDefault">Units <em>(ex: kilograms, pieces)</em></label>
-                        <input type="text" class="form-control" placeholder="Units" id="inputDefault" onChange={(e) =>{setd_units(e.target.value)}} required/>
+                    <label for="exampleSelect1" class="col-form-label mt-4">Unit of measurement <em>(you can add new units of measurement in utilities)</em></label>
+                    <select  required class="form-select" id="exampleSelect1" onChange={(e) =>{setd_units(e.target.value)}}>
+                        <option value="">Select Unit of Measurement</option>
+                        {unitlist.map((val) => {
+                          return (
+                            <option value={val.unit_name}>{val.unit_name}</option>
+                          )
+                        })}
+                    </select>
                     </div>
                     <div class="form-group">
                         <label class="col-form-label mt-4" for="inputDefault">Price per Unit in Peso</label>

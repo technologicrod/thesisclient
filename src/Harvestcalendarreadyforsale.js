@@ -12,6 +12,7 @@ function Harvestcalendarreadyforsale() {
         setbatchlist(response.data);
     })
     }, [batch_status])
+    console.log("batch", batchlist)
     var id = 0
     const navigate = useNavigate();
     function rowSelect(event) {
@@ -68,12 +69,13 @@ function Harvestcalendarreadyforsale() {
                     </thead>
                         <tbody>
                             {batchlist.map((val)=> {
+                              var cdatey = (new Date(val.date_harvested)).toLocaleDateString();
                             return(
                                 <tr class="table-active tractive" onClick={rowSelect.bind(this, val.harvest_id)}>
                                 <td scope="row">{val.harvest_id}</td>
                                 <td scope="row">{val.batch_id}</td>
                                 <td scope="row">{val.plant_name}</td>
-                                <td scope="row">{val.date_harvested}</td>
+                                <td scope="row">{cdatey}</td>
                                 <td scope="row">{val.batch_quality}</td>
                                 <td scope="row">{val.remarks}</td>
                                 </tr>

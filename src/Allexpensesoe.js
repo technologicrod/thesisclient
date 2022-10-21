@@ -15,6 +15,10 @@ function Allexpensesoe() {
     const handleChange = (e) => {
       navigate('/allexpensespo', { replace: true });
     }
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'PHP',
+    });
     return (
       <div className='App'>
           <div class="headform">
@@ -39,13 +43,14 @@ function Allexpensesoe() {
                     </thead>
                         <tbody>
                           {oelist.map((val)=> {
+                            var cdate1 = (new Date(val.date_paid)).toLocaleDateString();
                             return(
-                              <tr class="table-primary tractive">
+                              <tr class="table-active tractive">
                               <td scope="row">{val.other_expenses_id}</td>
                               <td scope="row">{val.otherexpensesname}</td>
                               <td scope="row">{val.barcode_or_receipt}</td>
-                              <td scope="row">{val.date_paid}</td>
-                              <td scope="row">{val.total_payment}</td>
+                              <td scope="row">{cdate1}</td>
+                              <td scope="row">{formatter.format(val.total_payment)}</td>
                               </tr>
                             )
                           })}

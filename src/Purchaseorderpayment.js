@@ -16,6 +16,12 @@ function Purchaseorderpayment() {
         setpolist(response.data);
       })
     }, [x])
+    const [pmlist, setpmlist] = useState([]);
+    useEffect(() =>{
+      Axios.get('http://localhost:3001/plantutilitiespaymentmethod').then((response) => {
+          setpmlist(response.data);
+      })
+    }, [])
     const ea = polist[0]
     for (var key in ea) {
         if (ea.hasOwnProperty(key)) {
@@ -43,6 +49,12 @@ function Purchaseorderpayment() {
     var newdp_percentage, newdp_amount
     var today = new Date();
     console.log("am: ",dp_amount)
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'PHP',
+      });
+    let amount1 = i2 - i4
+    let amount2 = formatter.format(amount1)
     const register = () => {
         if (selectinput == "Percentage"){
             var a = document.forms["myform"]["aainput"].value;
@@ -105,9 +117,9 @@ function Purchaseorderpayment() {
             </div>
             <main class="container-fluid">
             <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceed}>Back</button>
-            <h5><strong>Total Amount</strong>: Php {i2}</h5>
-            <h5><strong>Paid Amount</strong>: Php {i4}</h5>
-            <h5><strong>Balance Amount</strong>: Php {i2 - i4}</h5>
+            <h5><strong>Total Amount</strong>: {formatter.format(i2)}</h5>
+            <h5><strong>Paid Amount</strong>: {formatter.format(i4)}</h5>
+            <h5><strong>Balance Amount</strong>: {amount2}</h5>
                 <form class="formdiv" name="myform" required>
                     <div class="form-group">
                         <label class="col-form-label mt-4" for="inputDefault">Due Date:</label>
@@ -159,15 +171,24 @@ function Purchaseorderpayment() {
                         }
                     })}
                     <div class="form-group">
-                        <label class="col-form-label mt-4" for="inputDefault">Payment Method: Bank Name/Digital Wallet Name</label>
-                        <input name="dinput" type="text" class="form-control" placeholder="Payment Method" id="inputDefault" onChange={(e) =>{setpayment_method(e.target.value)}} required />
+                    <label for="exampleSelect1" class="col-form-label mt-4">Payment Method: Bank Name/Digital Wallet Name <em>(you can add new payment method in utilities)</em></label>
+                    <select  name="dinput" required class="form-select" id="exampleSelect1" onChange={(e) =>{
+          setpayment_method(e.target.value)
+        }}>
+                        <option value="">Select Payment Method</option>
+                        {pmlist.map((val) => {
+                          return (
+                            <option value={val.paymentmethod_name}>{val.paymentmethod_name}</option>
+                          )
+                        })}
+                    </select>
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label mt-4" for="inputDefault">Account ID</label>
+                        <label class="col-form-label mt-4" for="inputDefault">Account ID <em>(input none if paid with cash)</em></label>
                         <input name="einput" type="text" class="form-control" placeholder="Account ID" id="inputDefault" onChange={(e) =>{setaccount_id(e.target.value)}} required />
                     </div>
                     <div class="form-group">
-                        <label class="col-form-label mt-4" for="inputDefault">Account Name</label>
+                        <label class="col-form-label mt-4" for="inputDefault">Account Name <em>(input none if paid with cash)</em></label>
                         <input name="finput" type="text" class="form-control" placeholder="Account Name" id="inputDefault" onChange={(e) =>{setaccount_name(e.target.value)}} required />
                     </div>
                 <button type="button" class="btn btn-outline-success submitbutton" onClick={register}>Submit</button>

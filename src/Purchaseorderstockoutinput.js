@@ -127,11 +127,12 @@ function Purchaseorderstockoutinput() {
                 <tbody>
                 {perishablelist.map((val)=> {
                   if(i3 == 1){
+                    var cdatey = (new Date(val.exp_date)).toLocaleDateString();
                     return (
                       <tr class="table-primary tractive" onClick={rowSelect.bind(this, val)}>
                         <th scope="row">{val.perishable_items_id}</th>
                         <th scope="row">{val.quantity}</th>
-                        <th scope="row">{val.exp_date}</th>
+                        <th scope="row">{cdatey}</th>
                       </tr>
                     )
                   }

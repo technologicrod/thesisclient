@@ -56,7 +56,8 @@ function Purchaseorderstockininput() {
             parseFloat(i1)
             parseFloat(i3)
             parseFloat(stockquanti)
-            Axios.post("http://localhost:3001/purchaseorderstockinperishable", {supply_id: i5, po_id: y, quantity: stockquanti, units: i2, exp_date: exp_date.start, stocked_in_quantity: i3, po_quantity: i1});
+            var today = new Date();
+            Axios.post("http://localhost:3001/purchaseorderstockinperishable", {supply_id: i5, po_id: y, quantity: stockquanti, units: i2, exp_date: exp_date.start, stocked_in_quantity: i3, po_quantity: i1, date: today});
             navigate(generatePath("/purchaseorderstockin/:x", { x }));
             window.location.reload();
             alert("Perishable Items Stocked In")

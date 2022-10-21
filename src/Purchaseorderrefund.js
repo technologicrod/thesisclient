@@ -26,6 +26,12 @@ function Purchaseorderrefund() {
             setpoinfo(response.data);
         })
       }, [y])
+    const [pmlist, setpmlist] = useState([]);
+    useEffect(() =>{
+      Axios.get('http://localhost:3001/plantutilitiespaymentmethod').then((response) => {
+          setpmlist(response.data);
+      })
+    }, [])
     const ea = poinfo[0]
     var i1, i2, i3, expected_amount
     for (var key in ea) {
@@ -50,6 +56,21 @@ function Purchaseorderrefund() {
     expected_amount = (i1 - i3) * i2
     expected_amount = parseFloat(expected_amount)
     console.log(i1, i2, i3)
+    const [iteminfo, setiteminfo] = useState([]);
+    useEffect(() =>{
+        Axios.get(`http://localhost:3001/iteminventoryinfo/${z}`).then((response) => {
+            setiteminfo(response.data);
+        })
+      }, [z])
+    var j1
+    const ia = iteminfo[0]
+    for (var key in ia) {
+      if (ia.hasOwnProperty(key)) {
+          if (key === "supply_name"){
+            j1 = ia[key]
+          }
+      }
+    }
     const handleProceedBack = (e) => {
         navigate(generatePath("/purchaseorderstockin/:x", { x }));
       };
@@ -61,7 +82,7 @@ function Purchaseorderrefund() {
         var e = document.forms["myform"]["einput"].value;
         var f = document.forms["myform"]["finput"].value;
         if (a == "" || b == "" || c == "" || d == "" || e == "" || f == "") {
-            alert("Required fields must be filled out");
+            alert("All fields must be filled out");
         }
         else{
             Axios.post("http://localhost:3001/inputrefund", {supply_id: z, po_id: y, amount: a, remarks: b, date: c, payment_method: d, account_id: e, account_name: f});
@@ -70,11 +91,15 @@ function Purchaseorderrefund() {
             alert("Refund Registered")
         }
       }
+      const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'PHP',
+      });
     return(
         <div className="App">
             <div class="headform">
-            <h1 class="titleheadform">Input Refund for Purchase Order {y} of Supply {z}</h1>
-            <h4><strong>Amount Expected from Stocks Left Multiplied by Price: </strong>Php {expected_amount}</h4>
+            <h1 class="titleheadform">Input Refund for Purchase Order {y} of Supply {j1}</h1>
+            <h4><strong>Amount Expected from Stocks Left Multiplied by Price: </strong>{formatter.format(expected_amount)}</h4>
             </div>
             <main class="container-fluid">
             <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceedBack}>Back</button>
@@ -87,16 +112,25 @@ function Purchaseorderrefund() {
                         <label class="col-form-label mt-4" for="inputDefault">Date Refunded:</label>
                             <DatePicker name="ccinput" placeholderText='Date Refunded' style={{marginRight:"10px"}} selected={ref_date.start} onChange={(start) =>{setref_date({...ref_date, start})}} />
                         </div>
+                        <div class="form-group">
+                    <label for="exampleSelect1" class="col-form-label mt-4">Payment Method: Bank Name/Digital Wallet Name <em>(you can add new payment method in utilities)</em></label>
+                    <select  name="dinput" required class="form-select" id="exampleSelect1" onChange={(e) =>{
+          setpayment_method(e.target.value)
+        }}>
+                        <option value="">Select Payment Method</option>
+                        {pmlist.map((val) => {
+                          return (
+                            <option value={val.paymentmethod_name}>{val.paymentmethod_name}</option>
+                          )
+                        })}
+                    </select>
+                    </div>
                 <div class="form-group">
-                    <label class="col-form-label mt-4" for="inputDefault">Payment Method: Bank Name/Digital Wallet Name</label>
-                    <input name="dinput" type="text" class="form-control" placeholder="Payment Method" id="inputDefault" onChange={(e) =>{setpayment_method(e.target.value)}} required />
-                </div>
-                <div class="form-group">
-                    <label class="col-form-label mt-4" for="inputDefault">Account ID</label>
+                    <label class="col-form-label mt-4" for="inputDefault">Account ID <em>(input none if paid with cash)</em></label>
                     <input name="einput" type="text" class="form-control" placeholder="Account ID" id="inputDefault" onChange={(e) =>{setaccount_id(e.target.value)}} required />
                 </div>
                 <div class="form-group">
-                    <label class="col-form-label mt-4" for="inputDefault">Account Name</label>
+                    <label class="col-form-label mt-4" for="inputDefault">Account Name <em>(input none if paid with cash)</em></label>
                     <input name="finput" type="text" class="form-control" placeholder="Account Name" id="inputDefault" onChange={(e) =>{setaccount_name(e.target.value)}} required />
                 </div>
                 <div class="form-group">

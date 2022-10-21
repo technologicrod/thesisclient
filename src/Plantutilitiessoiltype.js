@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 
 function Plantutilitiessoiltype() {
@@ -11,11 +11,38 @@ function Plantutilitiessoiltype() {
       setsoiltypelist(response.data);
     })
   }, [])
+  const navigate = useNavigate();
   const submitSoilType = () => {
-    Axios.post("http://localhost:3001/plantutilitiessoiltypeadd", {soiltypename: soiltypename});
-    setsoiltypelist([...soiltypelist, {soiltypename: soiltypename}]);
+    var a = document.forms["myform"]["ainput"].value;
+    if (a == ""){
+      alert("No input")
+    }
+    else{
+      let checker = 0
+      for (let i = 0; i < soiltypelist.length; i++){
+        for (var key in soiltypelist[i]){
+          if(soiltypelist[i].hasOwnProperty(key)){
+            if(key === "soiltypename"){
+              if (soiltypelist[i][key] == soiltypename){
+                checker = 1
+              }
+            }
+        }
+      }
+      }
+      if (checker == 0){
+        Axios.post("http://localhost:3001/plantutilitiessoiltypeadd", {soiltypename: soiltypename});
+        setsoiltypelist([...soiltypelist, {soiltypename: soiltypename}]);
+        navigate('/plantutilitiessoiltype', { replace: true });
+        window.location.reload();
+        alert("Soil Type Recorded")
+      }
+      else {
+        alert("Soil type already existed.")
+      }
+    }
+    
   };
-  console.log(soiltypelist)
   return (
     <div className='App'>
         <div class="headform">
@@ -24,12 +51,14 @@ function Plantutilitiessoiltype() {
     <main class="container-fluid">
     <Link to="/plantutilities"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
         <div class="formdiv">
+            <form class="formdiv" name="myform" required>
             <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Soil Type" aria-label="Recipient's username" aria-describedby="button-addon2"onChange={(e) =>{
+            <input name="ainput" type="text" class="form-control" placeholder="Soil Type" aria-label="Recipient's username" aria-describedby="button-addon2"onChange={(e) =>{
           setsoiltypename(e.target.value)
         }}/>
             <button class="btn btn-primary" type="button" id="button-addon2" onClick={submitSoilType}>Add</button>
         </div>
+            </form>
         </div>
         <div class="tablediv">
             <table class="table table-hover">

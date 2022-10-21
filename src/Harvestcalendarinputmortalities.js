@@ -54,32 +54,33 @@ function Harvestcalendarinputmortalities() {
         }
       }
     const [quantity_loss, setquantity_loss] = useState("")
-    const [units, setunits] = useState("")
+    //const [units, setunits] = useState("")
     const activities_id = aid
     const date = y
     const batch_id = x
     const register = () => {
     var a = document.forms["myform"]["ainput"].value;
-    var b = document.forms["myform"]["binput"].value;
-    if (a == "" ||b == "") {
-        alert("Required fields must be filled out");
+    //var b = document.forms["myform"]["binput"].value;
+    if (a == "") {
+        alert("Field must be filled out");
     }
     else if (a > i1){
         alert("Invalid input. Quantity loss is greater than the batch's actual quantity.");
     }
     else {
-        Axios.post("http://localhost:3001/harvestinputmortalities", {activities_id: activities_id, batch_id: batch_id, quantity_loss: quantity_loss, units: units, date: date});
+        Axios.post("http://localhost:3001/harvestinputmortalities", {activities_id: activities_id, batch_id: batch_id, quantity_loss: quantity_loss, date: date});
         wnew && navigate(generatePath("/harvestcalendarmonitoringevent/:wnew", { wnew }));
         window.location.reload();
-        alert("Plant Disease recorded");
+        alert("Plant Mortality recorded");
     }
       }
-    
+      var cdatey = (new Date(y)).toLocaleDateString();
+      var cdatez = (new Date(z)).toLocaleDateString()
     return (
         <div className="App">
             <div class="headform">
             <h1 class="titleheadform">Input Mortalities for Batch {x}</h1>
-            <h6>From: {y} To: {z}</h6>
+            <h6>From: {cdatey} To: {cdatez}</h6>
             </div>
             <main class="container-fluid">
             <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceed}>Back</button>
@@ -88,10 +89,6 @@ function Harvestcalendarinputmortalities() {
                 <div class="form-group">
                     <label class="col-form-label mt-4" for="inputDefault">New Quantity Loss <em>(input another quantity loss. not the total quantity loss including the last inputs.)</em></label>
                     <input name="ainput" type="number" class="form-control" placeholder="Quantity Loss" id="inputDefault" onChange={(e) =>{setquantity_loss(e.target.value)}} required/>
-                </div>
-                <div class="form-group">
-                    <label class="col-form-label mt-4" for="inputDefault">Unit <em>(ex: kilograms, pieces, etc.)</em></label>
-                    <input name="binput" type="text" class="form-control" placeholder="Unit" id="inputDefault" onChange={(e) =>{setunits(e.target.value)}} required/>
                 </div>
                 <button type="button" class="btn btn-outline-success submitbutton" onClick={register}>Submit</button>
             </form>

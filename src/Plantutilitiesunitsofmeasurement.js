@@ -3,12 +3,12 @@ import './App.css';
 import { Link, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 
-function Plantutilitiesplanttype() {
-  const [planttypename, setplanttypename] = useState("")
-  const [planttypelist, setplanttypelist] = useState([]);
+function Plantutilitiesunitsofmeasurement() {
+  const [unitname, setunitname] = useState("")
+  const [unitslist, setunitslist] = useState([]);
   useEffect(() =>{
-    Axios.get('http://localhost:3001/plantutilitiesplanttype').then((response) => {
-      setplanttypelist(response.data);
+    Axios.get('http://localhost:3001/plantutilitiesunitsofmeasurement').then((response) => {
+        setunitslist(response.data);
     })
   }, [])
   const navigate = useNavigate();
@@ -19,11 +19,11 @@ function Plantutilitiesplanttype() {
     }
     else{
       let checker = 0
-      for (let i = 0; i < planttypelist.length; i++){
-        for (var key in planttypelist[i]){
-          if(planttypelist[i].hasOwnProperty(key)){
-            if(key === "planttypename"){
-              if (planttypelist[i][key] == planttypename){
+      for (let i = 0; i < unitslist.length; i++){
+        for (var key in unitslist[i]){
+          if(unitslist[i].hasOwnProperty(key)){
+            if(key === "unit_name"){
+              if (unitslist[i][key] == unitname){
                 checker = 1
               }
             }
@@ -31,23 +31,22 @@ function Plantutilitiesplanttype() {
       }
       }
       if (checker == 0){
-        Axios.post("http://localhost:3001/plantutilitiesplanttypeadd", {planttypename: planttypename});
-        setplanttypelist([...planttypelist, {planttypename: planttypename}]);
-        navigate('/plantutilitiesplanttype', { replace: true });
+        Axios.post("http://localhost:3001/plantutilitiesunitsofmeasurementadd", {unit_name: unitname});
+        setunitslist([...unitslist, {unit_name: unitname}]);
+        navigate('/plantutilitiesunitsofmeasurement', { replace: true });
         window.location.reload();
-        alert("Plant Type Recorded")
+        alert("Unit of Measurement Recorded")
       }
       else {
-        alert("Plant type already existed.")
+        alert("Unit of measurement already existed.")
       }
     }
     
   };
-  console.log(planttypelist)
   return (
     <div className='App'>
         <div class="headform">
-      <h1 class="titleheadform">Utilities for Plant Type</h1>
+      <h1 class="titleheadform">Utilities for Units of Measurement</h1>
     </div>
     <main class="container-fluid">
     <Link to="/plantutilities"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
@@ -55,7 +54,7 @@ function Plantutilitiesplanttype() {
             <form class="formdiv" name="myform" required>
             <div class="input-group mb-3">
             <input name="ainput" type="text" class="form-control" placeholder="Plant Type" aria-label="Recipient's username" aria-describedby="button-addon2" onChange={(e) =>{
-          setplanttypename(e.target.value)
+          setunitname(e.target.value)
         }}/>
             <button class="btn btn-primary" type="button" id="button-addon2" onClick={submitPlantType}>Add</button>
         </div>
@@ -65,14 +64,14 @@ function Plantutilitiesplanttype() {
             <table class="table table-hover">
                 <thead>
                     <tr>
-                      <th scope="col">Registered Plant Types</th>
+                      <th scope="col">Registered Units of Measurement</th>
                     </tr>
                   </thead>
                   <tbody>
-                  {planttypelist.map((val) => {
+                  {unitslist.map((val) => {
                           return(
                             <tr class="table-active tractive">
-                            <td scope="row">{val.planttypename}</td>
+                            <td scope="row">{val.unit_name}</td>
                             </tr>
                               )
                       })}
@@ -84,4 +83,4 @@ function Plantutilitiesplanttype() {
   );
 }
 
-export default Plantutilitiesplanttype;
+export default Plantutilitiesunitsofmeasurement;

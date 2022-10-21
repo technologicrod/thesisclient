@@ -27,6 +27,10 @@ function Purchaseorderhistory() {
         window.location.reload()
       }
     };
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'PHP',
+    });
     return (
       <div className='App'>
           <div class="headform">
@@ -48,12 +52,13 @@ function Purchaseorderhistory() {
                       </thead>
                       <tbody>
                       {polist.map((val)=> {
+                        var cdate = (new Date(val.date_paid)).toLocaleDateString();
                         return (
-                            <tr class="table-primary tractive" onClick={rowSelect.bind(this, val.final_po_id)}>
+                            <tr class="table-active tractive" onClick={rowSelect.bind(this, val.final_po_id)}>
                             <th scope="row">{val.final_po_id}</th>
                             <th scope="row">{val.company_name}</th>
-                            <th scope="row">Php {val.total_amount}</th>
-                            <th scope="row">{val.date_paid}</th>
+                            <th scope="row">{formatter.format(val.total_amount)}</th>
+                            <th scope="row">{cdate}</th>
                             <th scope="row">{val.po_status}</th>
                             </tr>
                         )

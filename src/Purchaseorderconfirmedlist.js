@@ -25,6 +25,10 @@ function Purchaseorderconfirmedlist() {
         id && navigate(generatePath("/purchaseorderconfirmedinfo/:id", { id }));
       }
     };
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'PHP',
+    });
     return (
       <div className='App'>
           <div class="headform">
@@ -49,12 +53,13 @@ function Purchaseorderconfirmedlist() {
                     </thead>
                     <tbody>
                     {polist.map((val)=> {
+                      var cdate = (new Date(val.date_confirmed)).toLocaleDateString();
                         return (
-                            <tr class="table-primary tractive" onClick={rowSelect.bind(this, val.final_po_id)}>
+                            <tr class="table-active tractive" onClick={rowSelect.bind(this, val.final_po_id)}>
                             <th scope="row">{val.final_po_id}</th>
                             <th scope="row">{val.company_name}</th>
-                            <th scope="row">Php {val.total_amount}</th>
-                            <th scope="row">{val.date_confirmed}</th>
+                            <th scope="row">{formatter.format(val.total_amount)}</th>
+                            <th scope="row">{cdate}</th>
                             </tr>
                         )
                       })}

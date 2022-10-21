@@ -56,16 +56,16 @@ function Purchaseorderstockininputnotperishable() {
             parseFloat(i3)
             stockquanti = parseFloat(stockquanti1)
             Axios.post("http://localhost:3001/purchaseorderstockin", {supply_id: i5, po_id: y, quantity: stockquanti, units: i2, stocked_in_quantity: i3, po_quantity: i1});
-            //navigate(generatePath("/purchaseorderstockin/:x", { x }));
-            //window.location.reload();
-            //alert("Perishable Items Stocked In")
+            navigate(generatePath("/purchaseorderstockin/:x", { x }));
+            window.location.reload();
+            alert("Perishable Items Stocked In")
             console.log("supply_id :", i5)
             console.log("po_id :", y)
             console.log("quantity :", stockquanti)
             console.log("units :", i2)
             console.log("stocked_in_quantity :", i3)
             console.log("po_quantity :", i1)
-            alert("Success")
+            //alert("Success")
         }
       }
     const handleProceed = (e) => {

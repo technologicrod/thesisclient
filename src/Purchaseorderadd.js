@@ -14,22 +14,42 @@ function Purchaseorderadd() {
             setsupplierlist(response.data);
         })
       }, [])
+    const [iteminfo, setiteminfo] = useState([]);
+    useEffect(() =>{
+        Axios.get(`http://localhost:3001/iteminventoryinfo/${x}`).then((response) => {
+            setiteminfo(response.data);
+        })
+    }, [x])
+    const ea = iteminfo[0]
+    var i1
+    for (var key in ea) {
+        if (ea.hasOwnProperty(key)) {
+            if (key === "units"){
+              i1 = ea[key]
+            }
+        }
+      }
     const [supplier_id, setsupplier_id] = useState("")
     const [quantity, setquantity] = useState("")
     const [units, setunits] = useState("")
     const [price_per_unit, setprice_per_unit] = useState("")
+    useEffect(() =>{
+        setunits(i1)
+      }, [i1])
     var total_payment
     const status = "Pending"
     const register = () => {
         var a = document.forms["myform"]["ainput"].value;
         var b = document.forms["myform"]["binput"].value;
-        var c = document.forms["myform"]["cinput"].value;
+        //var c = document.forms["myform"]["cinput"].value;
         var d = document.forms["myform"]["dinput"].value;
-        if (a == "" ||b == "" || c == "" ||d == "") {
+        if (a == "" ||b == "" ||d == "") {
           alert("Required fields must be filled out");
         }
         else {
-            total_payment = quantity*price_per_unit
+            let quantity1 = parseFloat(quantity)
+            let price_per_unit1 = parseFloat(price_per_unit)
+            total_payment = quantity1*price_per_unit1
             Axios.post("http://localhost:3001/purchaseorderadd", {supply_id: x, supplier_id: supplier_id, quantity: quantity, units: units, price_per_unit: price_per_unit, total_payment: total_payment, status: status});
             navigate('/purchaseorderlistinfo', { replace: true });
             window.location.reload();
@@ -60,8 +80,8 @@ function Purchaseorderadd() {
                     <input name="binput" type="number" class="form-control" placeholder="Quantity" id="inputDefault" onChange={(e) =>{setquantity(e.target.value)}} required/>
                 </div>
                 <div class="form-group">
-                    <label class="col-form-label mt-4" for="inputDefault">Units of Measurement</label>
-                    <input name="cinput" type="text" class="form-control" placeholder="Unit of Measurement" id="inputDefault" onChange={(e) =>{setunits(e.target.value)}} required/>
+                    <label class="col-form-label mt-4" for="inputDefault">Units of Measurement: </label>
+                    <h5>{units}</h5>
                 </div>
                 <div class="form-group">
                     <label class="col-form-label mt-4" for="inputDefault">Price per Unit in Peso</label>

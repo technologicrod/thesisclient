@@ -3,17 +3,14 @@ import './App.css';
 import { Link, useNavigate, generatePath } from 'react-router-dom';
 import Axios from 'axios';
 
-function Allexpensespo() {
-    const [polist, setpolist] = useState([])
+function Redeliverylist() {
+    const [redlist, setredlist] = useState([])
     useEffect(() =>{
-      Axios.get(`http://localhost:3001/purchaseorderexpenses`).then((response) => {
-        setpolist(response.data);
+      Axios.get(`http://localhost:3001/redeliverylist`).then((response) => {
+        setredlist(response.data);
       })
     }, [])
     const navigate = useNavigate();
-    const handleChange = (e) => {
-      navigate('/allexpensesoe', { replace: true });
-    }
     const formatter = new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'PHP',
@@ -21,10 +18,10 @@ function Allexpensespo() {
     return (
       <div className='App'>
           <div class="headform">
-          <h1 class="titleheadform">Purchase Orders Expenses</h1>
+          <h1 class="titleheadform">Redelivery List</h1>
           <main class="container-fluid">
         <Link to="/home"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
-        <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleChange}>View Paid Other Expenses</button>
+        <br></br>
         <form class="d-flex">
                   <input class="form-control me-sm-2" type="text" placeholder="Search ID" />
                   <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
@@ -33,18 +30,22 @@ function Allexpensespo() {
               <table class="table table-hover">
                   <thead>
                       <tr>
-                        <th scope="col">Payment PO ID</th>
-                        <th scope="col">Amount</th>
-                        <th scope="col">Date Paid</th>
+                        <th scope="col">Redelivery ID</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Supplier</th>
+                        <th scope="col">Remarks</th>
+                        <th scope="col">Date Redelivered</th>
                       </tr>
                     </thead>
                         <tbody>
-                          {polist.map((val)=> {
-                            var cdate1 = (new Date(val.date_paid)).toLocaleDateString();
+                          {redlist.map((val)=> {
+                            var cdate1 = (new Date(val.date_delivered)).toLocaleDateString();
                             return(
                               <tr class="table-active tractive">
-                              <td scope="row">{val.payment_po_id}</td>
-                              <td scope="row">{formatter.format(val.dp_amount)}</td>
+                              <td scope="row">{val.redelivery_id}</td>
+                              <td scope="row">{val.supply_name}</td>
+                              <td scope="row">{val.company_name}</td>
+                              <td scope="row">{val.remarks}</td>
                               <td scope="row">{cdate1}</td>
                               </tr>
                             )
@@ -58,6 +59,6 @@ function Allexpensespo() {
     );
 }
 
-export default Allexpensespo;
+export default Redeliverylist;
 
 

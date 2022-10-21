@@ -43,9 +43,10 @@ function Iteminventorystockouthistory() {
                   </thead>
                   <tbody>
                     {itemlist.map((val)=> {
+                      var cdate = (new Date(val.stockout_id)).toLocaleDateString();
                         return (
                             <tr class="table-active tractive">
-                                <th scope="col">{val.stockout_id}</th>
+                                <th scope="col">{cdate}</th>
                                 <th scope="col">{val.quantity}</th>
                                 <th scope="col">{val.date}</th>
                             </tr>

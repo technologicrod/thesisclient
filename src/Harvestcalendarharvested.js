@@ -65,6 +65,7 @@ function Harvestcalendarharvested() {
                     </thead>
                         <tbody>
                             {batchlist.map((val)=> {
+                            var cdatey = (new Date(val.date_harvested)).toLocaleDateString();
                             return(
                                 <tr class="table-active tractive" onClick={rowSelect.bind(this, val.batch_id)}>
                                 <td scope="row">{val.batch_id}</td>
@@ -76,7 +77,7 @@ function Harvestcalendarharvested() {
                                     )
                                 }
                                 })}
-                                <td scope="row">{val.date_harvested}</td>
+                                <td scope="row">{cdatey}</td>
                                 {latestlist.map((valo)=> {
                                 if(valo.batch_id == val.batch_id){
                                     return(

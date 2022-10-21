@@ -9,7 +9,7 @@ function Harvestcalendarmonitoringevent() {
     const w = JSON.parse(values)
     const wnew = JSON.stringify(w)
     console.log("wnew: ",wnew)
-  var x,y,z, ai // x for id, y for start date, z for start, ai for title or act_increment
+  var x,y,z, ai, remarks // x for id, y for start date, z for start, ai for title or act_increment
   console.log("wnew: ",wnew)
   for (var key in w) {
     if (w.hasOwnProperty(key)) {
@@ -24,7 +24,10 @@ function Harvestcalendarmonitoringevent() {
         }
         if (key === "actinc"){
             ai = w[key]
-          }
+        }
+        if (key === "remarks"){
+          remarks = w[key]
+        }
     }
   }
     console.log("ai: ", ai)
@@ -133,14 +136,16 @@ function Harvestcalendarmonitoringevent() {
       navigate(generatePath("/purchaseorderstockoutinventory/:wnew/:id", { wnew,id }));
     }
   };
+  var cdatey = (new Date(y)).toLocaleDateString();
+  var cdatez = (new Date(z)).toLocaleDateString()
   return (
     <div className='App'>
         <div class="headform">
         <h1 class="titleheadform">Plant Monitoring for Batch {x}'s Activity {ai}</h1>
-        <h5>Plant Activity ID: {i1}</h5>
+        <h5>Remarks: {remarks}</h5>
         </div>
         <main class="container-fluid">
-        <h6>From: {y} To: {z}</h6>
+        <h6>From: {cdatey} To: {cdatez}</h6>
         <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceed}>Back</button>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedActivity}>Input Daily Activities</button>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedStockout}>Input Stock Out in Daily Activity</button>
@@ -172,7 +177,7 @@ function Harvestcalendarmonitoringevent() {
                 <p><h2>Stage: {val.plant_stage}</h2></p>
                 <p><h2>Survival Rate: {val.survival_rate}%</h2></p>
                 <p><h2>Average Height of Plants in Meters: {val.curr_height}m</h2></p>
-                <p><h2>Average Width of Plants in Meters:{val.curr_width}m</h2></p>
+                <p><h2>Average Width of Plants in Meters: {val.curr_width}m</h2></p>
                 <p><h2>Remarks: {val.remarks}</h2></p>
               </div>
             )
@@ -220,12 +225,20 @@ function Harvestcalendarmonitoringevent() {
               </thead>
               <tbody>
               {harvestdiseasesinfo.map((val)=> {
+                let cdatey1 = (new Date(val.date_occured)).toLocaleDateString();
+                let cdatez2
+                if (val.date_cured != null){
+                  cdatez2 = (new Date(val.date_cured)).toLocaleDateString()
+                }
+                else {
+                  cdatez2 = ""
+                }
                   return (
                     <tr class="table-primary tractive">
                     <td scope="row">{val.disease_act_id}</td>
                     <td scope="row">{val.num_of_plants_affected}</td>
-                    <td scope="row">{val.date_occured}</td>
-                    <td scope="row">{val.date_cured}</td>
+                    <td scope="row">{cdatey1}</td>
+                    <td scope="row">{cdatez2}</td>
                     <td scope="row">{val.disease_desc}</td>
                     <td scope="row">{val.dis_status}</td>
                     </tr>
@@ -241,18 +254,17 @@ function Harvestcalendarmonitoringevent() {
                 <tr>
                   <th scope="col">Mortality ID</th>
                   <th scope="col">Quantity Loss</th>
-                  <th scope="col">Units</th>
                   <th scope="col">Date</th>
                 </tr>
               </thead>
               <tbody>
                 {harvestmortalitiesinfo.map((val)=> {
+                  let cdatey3 = (new Date(val.date)).toLocaleDateString();
                   return (
                     <tr class="table-primary tractive">
                     <td scope="row">{val.mortality_id}</td>
                     <td scope="row">{val.quantity_loss}</td>
-                    <td scope="row">{val.units}</td>
-                    <td scope="row">{val.date}</td>
+                    <td scope="row">{cdatey3}</td>
                   </tr>
                   )
                 })}

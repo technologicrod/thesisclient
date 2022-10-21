@@ -8,7 +8,7 @@ function Notfound() {
       <div class="headform">
       <h1>Error: Not Found</h1>
       </div>
-      <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back to Home</button></Link>
+      <Link to="/home"><button type="button" class="btn btn-outline-dark backbutton">Back to Home</button></Link>
     </div>
   );
 }

@@ -88,12 +88,20 @@ function Harvestcalendardiseases() {
               </thead>
               <tbody>
               {harvestdiseasesinfo.map((val)=> {
+                  var cdatey = (new Date(val.date_occured)).toLocaleDateString();
+                  var cdatez
+                  if (val.date_cured != null){
+                    cdatez = (new Date(val.date_cured)).toLocaleDateString()
+                  }
+                  else {
+                    cdatez = ""
+                  }
                   return (
                     <tr class="table-active tractive" onClick={rowSelect.bind(this, val.disease_act_id)}>
                     <td scope="row">{val.disease_act_id}</td>
                     <td scope="row">{val.num_of_plants_affected}</td>
-                    <td scope="row">{val.date_occured}</td>
-                    <td scope="row">{val.date_cured}</td>
+                    <td scope="row">{cdatey}</td>
+                    <td scope="row">{cdatez}</td>
                     <td scope="row">{val.disease_desc}</td>
                     <td scope="row">{val.dis_status}</td>
                     </tr>

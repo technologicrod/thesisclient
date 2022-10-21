@@ -29,7 +29,6 @@ function Harvestinventoryinput() {
           }
       }
     const [batch_img, setbatch_img] = useState("")
-    const [batch_vid, setbatch_vid] = useState("")
     const [batch_quality, setbatch_quality] = useState("")
     const [remarks, setremarks] = useState("")
     const register = () => {
@@ -38,7 +37,14 @@ function Harvestinventoryinput() {
           alert("Harvested Batch Quality must be filled out");
         }
         else {
-            Axios.post("http://localhost:3001/harvestbatchinput", {batch_id: batch_id, batch_img: batch_img, batch_vid: batch_vid, date_harvested: date_harvested, batch_quality: batch_quality, remarks: remarks, batch_status: batch_status});
+            const formData = new FormData()
+            formData.append('profileImg', batch_img)
+            formData.append('batch_id', batch_id)
+            formData.append('date_harvested', date_harvested)
+            formData.append('batch_quality', batch_quality)
+            formData.append('remarks', remarks)
+            formData.append('batch_status', batch_status)
+            Axios.post("http://localhost:3001/harvestbatchinput", formData);
             navigate('/harvestcalendarharvested', { replace: true });
             window.location.reload();
             alert("Batch updated");
@@ -51,7 +57,7 @@ function Harvestinventoryinput() {
             </div>
             <main class="container-fluid">
             <Link to="/harvestcalendarharvested"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
-                <form class="formdiv" name="myform" required>
+                <form class="formdiv" enctype="multipart/form-data" name="myform" required>
                 <fieldset name="ainput" class="form-group" onChange={(e) =>{setbatch_quality(e.target.value)}} required>
                             <legend class="mt-4">Harvested Batch Quality</legend>
                             <div class="form-check">
@@ -81,11 +87,7 @@ function Harvestinventoryinput() {
                     </fieldset>
                     <div class="form-group">
                         <label class="col-form-label mt-4" for="inputDefault">Image</label>
-                        <input type="text" class="form-control" placeholder="Image" id="inputDefault" onChange={(e) =>{setbatch_img(e.target.value)}} required/>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-form-label mt-4" for="inputDefault">Video</label>
-                        <input type="text" class="form-control" placeholder="Video" id="inputDefault" onChange={(e) =>{setbatch_vid(e.target.value)}} required/>
+                        <input required class="form-control" type="file" id="formFile" onChange={(e) =>{setbatch_img(e.target.files[0]) }}/>
                     </div>
                     <div class="form-group">
                         <label class="col-form-label mt-4" for="inputDefault">Remarks</label>

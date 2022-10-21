@@ -68,13 +68,14 @@ function Harvestcalendar() {
         values && navigate(generatePath("/harvestcalendarmonitoring/:values", { values }));
     }
     var eventvalues = {id: "", startd: "", endd: "", actinc: ""}
-    const handleEventSelection = ({title,start,end,resourceId}) =>{
+    const handleEventSelection = ({title,start,end,act_increment,resourceId}) =>{
         y = start
         z = end
         eventvalues["id"] = x
         eventvalues["startd"] = y
         eventvalues["endd"] = z
-        eventvalues["actinc"] = title
+        eventvalues["actinc"] = act_increment
+        eventvalues["remarks"] = title
         eventvalues = JSON.stringify(eventvalues)
         var yy = new Date(y);
         var zz = new Date(z);
@@ -120,8 +121,9 @@ function Harvestcalendar() {
                 harvestcalendarinfo.forEach((info)=>{
                     const datef = new Date(info.date_from)
                     const datet = new Date(info.date_to)
+                    const remarks = info.remarks
                     const act_increment = info.act_increment
-                    var newState = {title: act_increment, start: datef, end: datet}
+                    var newState = {title: remarks, start: datef, end: datet, act_increment: act_increment}
                     setnewEvent(newState)
                     console.log("event: ", newEvent)
                     setallEvents (prevState => [...prevState, newState])
@@ -149,6 +151,7 @@ function Harvestcalendar() {
           },
         }
     }
+   if (latestinfo.length > 0) {
     return (
         <div className='App'>
             <h1>Harvest Calendar of Batch {x}</h1>
@@ -190,6 +193,34 @@ function Harvestcalendar() {
             onDoubleClickEvent={handleEventSelection} />
         </div>
     )
+   }
+   else {
+    return (
+        <div className='App'>
+            <h1>Harvest Calendar of Batch {x}</h1>
+            <br></br>
+            <h3><em>No data yet</em></h3>
+            <Link to="/harvestcalendarlist"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+            {/*<div>
+                <input type="text" placeholder='Add Title' style={{width:"20%", marginRight:"10px"}} value={newEvent.title} onChange={(e) => setnewEvent({...newEvent, title: e.target.value})} />
+            </div>
+            <DatePicker placeholderText='Start Date' style={{marginRight:"10px"}} selected={newEvent.start} onChange={(start) => setnewEvent({...newEvent, start})} />
+            <DatePicker placeholderText='End Date' selected={newEvent.end} onChange={(end) => setnewEvent({...newEvent, end})} />
+            <button style={{marginTop:"10px"}} onClick={handleAddEvent}>Add Event</button> */}
+            <Calendar 
+            localizer={localizer} 
+            events={allEvents} 
+            startAccessor="start" 
+            endAccessor="end" 
+            dayPropGetter={calendarStyle}
+            style={{height: 500, margin: "50px"}} 
+            selectable views={['month', 'day']} 
+            onSelectSlot={handleSelectSlot} 
+            onSelectEvent={handleEventSelection}
+            onDoubleClickEvent={handleEventSelection} />
+        </div>
+    )
+   }
 }
 
 

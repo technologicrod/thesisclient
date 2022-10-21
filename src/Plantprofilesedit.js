@@ -120,7 +120,7 @@ function Plantprofilesedit() {
         }}/>
               </div>
               <div class="form-group">
-                    <label for="exampleSelect1" class="form-label mt-4">Category</label>
+                    <label for="exampleSelect1" class="col-form-label mt-4">Category <em>(you can add new plant category in utilities)</em></label>
                     <select  name="binput" required class="form-select" id="exampleSelect1" onChange={(e) =>{
           setplantprofilecategory(e.target.value)
         }}>
@@ -145,7 +145,7 @@ function Plantprofilesedit() {
         }}/>
               </div>
               <div class="form-group">
-                    <label for="exampleSelect1" class="form-label mt-4">Plant Type</label>
+                    <label for="exampleSelect1" class="col-form-label mt-4">Plant Type <em>(you can add new plant type in utilities)</em></label>
                     <select name="einput" required class="form-select" id="exampleSelect1"onChange={(e) =>{
           setplantprofileplanttype(e.target.value)
         }}>

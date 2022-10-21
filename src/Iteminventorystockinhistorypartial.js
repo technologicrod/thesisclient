@@ -20,6 +20,10 @@ function Iteminventorystockinhistorypartial() {
   const handleProceedFull = (e) => {
     x && navigate(generatePath("/iteminventorystockinhistoryfull/:x", { x }));
   };
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'PHP',
+  });
   return (
     <div className='App'>
         <div class="headform">
@@ -41,16 +45,19 @@ function Iteminventorystockinhistorypartial() {
                       <th scope="col">Ordered Quantity</th>
                       <th scope="col">Price per Unit</th>
                       <th scope="col">Stocked In Quantity</th>
+                      {/* <th scope="col">Date</th> */}
                     </tr>
                   </thead>
                   <tbody>
                     {itemlist.map((val)=> {
+                      var cdate = (new Date(val.date)).toLocaleDateString();
                         return (
                             <tr class="table-active tractive">
                                 <th scope="col">{val.po_id}</th>
                                 <th scope="col">{val.po_quantity}</th>
-                                <th scope="col">{val.price_per_unit}</th>
+                                <th scope="col">{formatter.format(val.price_per_unit)}</th>
                                 <th scope="col">{val.stocked_in_quantity}</th>
+                                {/*<th scope="col">{cdate}</th>*/}
                             </tr>
                         )
                     })}

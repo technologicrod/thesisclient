@@ -65,6 +65,10 @@ function Purchaseorderlistinfo() {
     const handleProceedConfirm = (sid) => {
       sid && navigate(generatePath("/purchaseorderconfirmation/:sid", { sid }));
     };
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'PHP',
+    });
     return (
       <div className='App'>
           <div class="headform">
@@ -96,6 +100,7 @@ function Purchaseorderlistinfo() {
                       
                       {polist.map((val)=> {
                         if(valo.company_name == val.company_name){
+                          
                           return (
                             <tbody>
                             <tr class="table-primary tractive" onClick={rowSelect.bind(this, val.po_id)}>
@@ -103,8 +108,8 @@ function Purchaseorderlistinfo() {
                               <th scope="row">{val.supply_name}</th>
                               <th scope="row">{val.po_quantity}</th>
                               <th scope="row">{val.units}</th>
-                              <th scope="row">{val.price_per_unit}</th>
-                              <th scope="row">{val.total_payment}</th>
+                              <th scope="row">{formatter.format(val.price_per_unit)}</th>
+                              <th scope="row">{formatter.format(val.total_payment)}</th>
                               </tr>
                               </tbody>
                           )

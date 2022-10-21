@@ -151,12 +151,14 @@ function Harvestcalendarinputmonitoring() {
         alert("Monitoring recorded.")
       }
     }
+    var cdatey = (new Date(y)).toLocaleDateString();
+    var cdatez = (new Date(z)).toLocaleDateString();
     if(i1 == null){
       return(
         <div className="App">
             <div class="headform">
             <h1 class="titleheadform">Input Monitoring for Batch {x}</h1>
-            <h6>From: {y} To: {z}</h6>
+            <h6>From: {cdatey} To: {cdatez}</h6>
             </div>
             <main class="container-fluid">
             <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceed}>Back</button>
@@ -192,7 +194,7 @@ function Harvestcalendarinputmonitoring() {
         <div className="App">
             <div class="headform">
             <h1 class="titleheadform">Input Monitoring for Batch {x}</h1>
-            <h6>From: {y} To: {z}</h6>
+            <h6>From: {cdatey} To: {cdatez}</h6>
             </div>
             <main class="container-fluid">
             <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceed}>Back</button>

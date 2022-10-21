@@ -3,12 +3,12 @@ import './App.css';
 import { Link, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 
-function Plantutilitiesplanttype() {
-  const [planttypename, setplanttypename] = useState("")
-  const [planttypelist, setplanttypelist] = useState([]);
+function Plantutilitiespaymentmethod() {
+  const [pmname, setpmname] = useState("")
+  const [pmlist, setpmlist] = useState([]);
   useEffect(() =>{
-    Axios.get('http://localhost:3001/plantutilitiesplanttype').then((response) => {
-      setplanttypelist(response.data);
+    Axios.get('http://localhost:3001/plantutilitiespaymentmethod').then((response) => {
+        setpmlist(response.data);
     })
   }, [])
   const navigate = useNavigate();
@@ -19,11 +19,11 @@ function Plantutilitiesplanttype() {
     }
     else{
       let checker = 0
-      for (let i = 0; i < planttypelist.length; i++){
-        for (var key in planttypelist[i]){
-          if(planttypelist[i].hasOwnProperty(key)){
-            if(key === "planttypename"){
-              if (planttypelist[i][key] == planttypename){
+      for (let i = 0; i < pmlist.length; i++){
+        for (var key in pmlist[i]){
+          if(pmlist[i].hasOwnProperty(key)){
+            if(key === "paymentmethod_name"){
+              if (pmlist[i][key] == pmname){
                 checker = 1
               }
             }
@@ -31,23 +31,22 @@ function Plantutilitiesplanttype() {
       }
       }
       if (checker == 0){
-        Axios.post("http://localhost:3001/plantutilitiesplanttypeadd", {planttypename: planttypename});
-        setplanttypelist([...planttypelist, {planttypename: planttypename}]);
-        navigate('/plantutilitiesplanttype', { replace: true });
+        Axios.post("http://localhost:3001/plantutilitiespaymentmethodadd", {paymentmethod_name: pmname});
+        setpmlist([...pmlist, {paymentmethod_name: pmname}]);
+        navigate('/plantutilitiespaymentmethod', { replace: true });
         window.location.reload();
-        alert("Plant Type Recorded")
+        alert("Payment Method Recorded")
       }
       else {
-        alert("Plant type already existed.")
+        alert("Payment method already existed.")
       }
     }
     
   };
-  console.log(planttypelist)
   return (
     <div className='App'>
         <div class="headform">
-      <h1 class="titleheadform">Utilities for Plant Type</h1>
+      <h1 class="titleheadform">Utilities for Payment Method</h1>
     </div>
     <main class="container-fluid">
     <Link to="/plantutilities"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
@@ -55,7 +54,7 @@ function Plantutilitiesplanttype() {
             <form class="formdiv" name="myform" required>
             <div class="input-group mb-3">
             <input name="ainput" type="text" class="form-control" placeholder="Plant Type" aria-label="Recipient's username" aria-describedby="button-addon2" onChange={(e) =>{
-          setplanttypename(e.target.value)
+          setpmname(e.target.value)
         }}/>
             <button class="btn btn-primary" type="button" id="button-addon2" onClick={submitPlantType}>Add</button>
         </div>
@@ -65,14 +64,14 @@ function Plantutilitiesplanttype() {
             <table class="table table-hover">
                 <thead>
                     <tr>
-                      <th scope="col">Registered Plant Types</th>
+                      <th scope="col">Registered Payment Method</th>
                     </tr>
                   </thead>
                   <tbody>
-                  {planttypelist.map((val) => {
+                  {pmlist.map((val) => {
                           return(
                             <tr class="table-active tractive">
-                            <td scope="row">{val.planttypename}</td>
+                            <td scope="row">{val.paymentmethod_name}</td>
                             </tr>
                               )
                       })}
@@ -84,4 +83,4 @@ function Plantutilitiesplanttype() {
   );
 }
 
-export default Plantutilitiesplanttype;
+export default Plantutilitiespaymentmethod;

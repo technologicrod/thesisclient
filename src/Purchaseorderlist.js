@@ -42,6 +42,7 @@ function Purchaseorderlist() {
                       <tr>
                         <th scope="col">Item ID</th>
                         <th scope="col">Item Name</th>
+                        <th scope="col">Category</th>
                         <th scope="col">Quantity On-Hand</th>
                         <th scope="col">Reorder Level Quantity</th>
                         <th scope="col">Unit of Measurement</th>
@@ -54,6 +55,7 @@ function Purchaseorderlist() {
                             <tr class="table-danger tractive" onClick={rowSelect.bind(this, val.supply_id)}>
                             <th scope="row">{val.supply_id}</th>
                             <th scope="row">{val.supply_name}</th>
+                            <th scope="row">{val.category}</th>
                             <th scope="row">{val.quantity}</th>
                             <th scope="row">{val.re_order_lvl}</th>
                             <th scope="row">{val.units}</th>
@@ -62,9 +64,10 @@ function Purchaseorderlist() {
                         }
                         else {
                           return (
-                            <tr class="table-primary tractive" onClick={rowSelect.bind(this, val.supply_id)}>
+                            <tr class="table-active tractive" onClick={rowSelect.bind(this, val.supply_id)}>
                             <th scope="row">{val.supply_id}</th>
                             <th scope="row">{val.supply_name}</th>
+                            <th scope="row">{val.category}</th>
                             <th scope="row">{val.quantity}</th>
                             <th scope="row">{val.re_order_lvl}</th>
                             <th scope="row">{val.units}</th>

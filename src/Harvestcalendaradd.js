@@ -28,19 +28,19 @@ function Harvestcalendaradd() {
         var a = document.forms["myform"]["ainput"].value;
         var b = document.forms["myform"]["binput"].value;
         var c = document.forms["myform"]["ccinput"].value;
-        var d = document.forms["myform"]["ddinput"].value;
+        //var d = document.forms["myform"]["ddinput"].value;
         var e = document.forms["myform"]["einput"].value;
         var f = document.forms["myform"]["finput"].value;
-        if (a == "" ||b == "" || c == "" ||d == "" || e == "" ||f == "") {
+        if (a == "" ||b == "" || c == "" || e == "" ||f == "") {
           alert("Required fields must be filled out");
         }
-        if (c > d){
+        /*if (c > d){
             alert("Planting period is expected to happen first before the harvest period. Please check both dates.");
-        }
+        }*/
         else {
-            Axios.post("http://localhost:3001/plantbatchadd", {plantid: harvestplantname, batchstatus: harveststatus, periodstart: newEvent.start, periodend: newEvent.end, quantity: harvestquantity, measurement: harvestmeasurement});
-            navigate('/harvestcalendarlist', { replace: true });
-            window.location.reload();
+            Axios.post("http://localhost:3001/plantbatchadd", {plantid: harvestplantname, batchstatus: harveststatus, periodstart: newEvent.start, quantity: harvestquantity, measurement: harvestmeasurement});
+            //navigate('/harvestcalendarlist', { replace: true });
+            //window.location.reload();
             alert("Batch recorded");
         }
       }
@@ -81,10 +81,6 @@ function Harvestcalendaradd() {
                 <div class="form-group">
                     <label class="col-form-label mt-4" for="inputDefault">Planting Period:</label>
                     <DatePicker name="ccinput" placeholderText='Start Date' style={{marginRight:"10px"}} selected={newEvent.start} onChange={(start) => setnewEvent({...newEvent, start})} />
-                </div>
-                <div class="form-group">
-                    <label class="col-form-label mt-4" for="inputDefault">Expected Harvest Period:</label>
-                    <DatePicker name="ddinput" placeholderText='End Date' selected={newEvent.end} onChange={(end) => setnewEvent({...newEvent, end})} />
                 </div>
                 <div class="form-group">
                     <label class="col-form-label mt-4" for="inputDefault">Quantity</label>

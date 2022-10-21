@@ -62,11 +62,13 @@ function Harvestcalendarinputactivity() {
             alert("Activity recorded");
         }
       }
+      var cdatey = (new Date(y)).toLocaleDateString();
+      var cdatez = (new Date(z)).toLocaleDateString()
     return (
         <div className="App">
             <div class="headform">
             <h1 class="titleheadform">Input Activity for Batch {x}</h1>
-            <h6>From: {y} To: {z}</h6>
+            <h6>From: {cdatey} To: {cdatez}</h6>
             </div>
             <main class="container-fluid">
             <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceed}>Back</button>

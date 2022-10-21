@@ -50,12 +50,15 @@ function Purchaseorderconfirmation() {
         window.location.reload();
         alert("Purchase Order Confirmed");
     }
-    
+    const formatter = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'PHP',
+    });
     return (
       <div className='App'>
           <div class="headform">
           <h1 class="titleheadform">Confirmation for Pending POs On Supplier {company_name}</h1>
-          <h4>Total Amount: Php {totalamount}</h4>
+          <h4>Total Amount: {formatter.format(totalamount)}</h4>
         </div>
         <main class="container-fluid">
         <Link to="/purchaseorderlistinfo"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
@@ -80,8 +83,8 @@ function Purchaseorderconfirmation() {
                               <th scope="row">{val.supply_name}</th>
                               <th scope="row">{val.po_quantity}</th>
                               <th scope="row">{val.units}</th>
-                              <th scope="row">{val.price_per_unit}</th>
-                              <th scope="row">{val.total_payment}</th>
+                              <th scope="row">{formatter.format(val.price_per_unit)}</th>
+                              <th scope="row">{formatter.format(val.total_payment)}</th>
                               </tr>
                               </tbody>
                           )

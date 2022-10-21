@@ -19,6 +19,10 @@ function Otherexpensespaid() {
   const handlePending = (e) => {
     navigate('/otherexpenseslist', { replace: true });
   }
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'PHP',
+  });
   return (
     <div className='App'>
         <div class="headform">
@@ -38,8 +42,7 @@ function Otherexpensespaid() {
                       <th scope="col">Other Expenses ID</th>
                       <th scope="col">Other Expenses Type</th>
                       <th scope="col">Total Amount</th>
-                      <th scope="col">Period From</th>
-                      <th scope="col">Period To</th>
+                      <th scope="col">Period</th>
                       <th scope="col">Due Date</th>
                       <th scope="col">Barcode/Receipt No.</th>
                       <th scope="col">Managed by</th>
@@ -53,19 +56,22 @@ function Otherexpensespaid() {
                   </thead>
                       <tbody>
                         {oelist.map((val)=> {
+                          var cdate1 = (new Date(val.period_from)).toLocaleDateString();
+                          var cdate2 = (new Date(val.period_to)).toLocaleDateString();
+                          var cdate3 = (new Date(val.due_date)).toLocaleDateString();
+                          var cdate4 = (new Date(val.date_paid)).toLocaleDateString();
                           return(
-                            <tr class="table-primary tractive">
+                            <tr class="table-active tractive">
                             <td scope="row">{val.other_expenses_id}</td>
                             <td scope="row">{val.otherexpensesname}</td>
-                            <td scope="row">Php {val.total_amount}</td>
-                            <td scope="row">{val.period_from}</td>
-                            <td scope="row">{val.period_to}</td>
-                            <td scope="row">{val.due_date}</td>
+                            <td scope="row">{formatter.format(val.total_amount)}</td>
+                            <td scope="row">{cdate1} - {cdate2}</td>
+                            <td scope="row">{cdate3}</td>
                             <td scope="row">{val.barcode_or_receipt}</td>
                             <td scope="row">{val.emp_name}</td>
                             <td scope="row">{val.paid_to}</td>
-                            <td scope="row">Php {val.total_payment}</td>
-                            <td scope="row">{val.date_paid}</td>
+                            <td scope="row">{formatter.format(val.total_payment)}</td>
+                            <td scope="row">{cdate4}</td>
                             <td scope="row">{val.payment_method}</td>
                             <td scope="row">{val.account_id}</td>
                             <td scope="row">{val.account_name}</td>

@@ -30,28 +30,30 @@ function Nav() {
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Profiles</a>
             <div class="dropdown-menu">
-            <Link class="nav-link" to='/farmprofiles'><li class="nav-item">Farm</li></Link>
-            <Link class="nav-link" to='/employeelist'><li class="nav-item">Employees</li></Link>
-            <Link class="nav-link" to='/iteminventory'><li class="nav-item">Items</li></Link>
-            <Link class="nav-link" to='/plantprofiles'><li class="nav-item">Plants</li></Link>
-            <Link class="nav-link" to='/supplierslist'><li class="nav-item">Suppliers</li></Link>
-            <Link class="nav-link" to='/plantutilities'><li class="nav-item">Utilities</li></Link>
+            <Link class="nav-link" to='/farmprofiles'><li class="dropdown-item">Farm</li></Link> {/* nav-item for superhero*/}
+            <Link class="nav-link" to='/employeelist'><li class="dropdown-item">Employees</li></Link>
+            <Link class="nav-link" to='/iteminventory'><li class="dropdown-item">Items</li></Link>
+            <Link class="nav-link" to='/plantprofiles'><li class="dropdown-item">Plants</li></Link>
+            <Link class="nav-link" to='/supplierslist'><li class="dropdown-item">Suppliers</li></Link>
+            <Link class="nav-link" to='/plantutilities'><li class="dropdown-item">Utilities</li></Link>
             </div>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Harvests</a>
             <div class="dropdown-menu">
-            <Link class="nav-link" to='/harvestcalendarlist'><li class="nav-item">Harvest Calendars</li></Link>
-            <Link class="nav-link" to='/harvestinventory'><li class="nav-item">Harvest Inventory</li></Link>
-            <Link class="nav-link" to='/availableplants'><li class="nav-item">Available and Wasted Plants</li></Link>
+            <Link class="nav-link" to='/harvestcalendarlist'><li class="dropdown-item">Harvest Calendars</li></Link>
+            <Link class="nav-link" to='/harvestinventory'><li class="dropdown-item">Harvest Inventory</li></Link>
+            <Link class="nav-link" to='/availableplants'><li class="dropdown-item">Available and Wasted Plants</li></Link>
             </div>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Expenses</a>
             <div class="dropdown-menu">
-            <Link class="nav-link" to='/purchaseorders'><li class="nav-item">Purchase Orders</li></Link>
-            <Link class="nav-link" to='/otherexpenseslist'><li class="nav-item">Other Expenses</li></Link>
-            <Link class="nav-link" to='/allexpensespo'><li class="nav-item">All Expenses</li></Link>
+            <Link class="nav-link" to='/purchaseorders'><li class="dropdown-item">Purchase Orders</li></Link>
+            <Link class="nav-link" to='/otherexpenseslist'><li class="dropdown-item">Other Expenses</li></Link>
+            <Link class="nav-link" to='/allexpensespo'><li class="dropdown-item">All Expenses</li></Link>
+            <Link class="nav-link" to='/redeliverylist'><li class="dropdown-item">Redelivery List</li></Link>
+            <Link class="nav-link" to='/refundlist'><li class="dropdown-item">Refund List</li></Link>
             </div>
           </li>
         <Link class="nav-link" to='/employeeaccounts'><li class="nav-item">Employee Accounts</li></Link>

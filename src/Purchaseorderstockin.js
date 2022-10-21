@@ -31,6 +31,14 @@ function Purchaseorderstockin() {
             setLoading(false);
         })
     }, [i1])
+    const [rdlist, setrdlist] = useState([]);
+    useEffect(() =>{
+      Axios.get(`http://localhost:3001/redeliverylist/${i1}`).then((response) => {
+        setrdlist(response.data);
+          setLoading(false);
+      })
+  }, [i1])
+  console.log("red", rdlist)
     var id = 0
     var id1, id2
     function rowSelect(event) {
@@ -41,6 +49,13 @@ function Purchaseorderstockin() {
     }
     var w, y, a
     var z = 0
+    var zz
+    if (z == 0){
+      zz = "Not Perishable"
+    }
+    else if (z == 1){
+      zz = "Perishable"
+    }
     console.log(z)
     const handleProceed = (e) => {
         if (id2 != "Redelivery" && id2 != "Refund"){
@@ -141,12 +156,12 @@ function Purchaseorderstockin() {
                       {purorderlist.map((val)=> {
                         if(val.status != "Stocked In" && val.status !="Redelivery" && val.status != "Refund"){
                             return (
-                                <tr class="table-primary" onClick={rowSelect.bind(this, val)}>
+                                <tr class="table-active" onClick={rowSelect.bind(this, val)}>
                                   <th scope="row">{val.po_id}</th>
                                   <th scope="row">{val.supply_name}</th>
                                   <th scope="row">{val.po_quantity}</th>
                                   <th scope="row">{val.units}</th>
-                                  <th scope="row">Perishable</th>
+                                  <th scope="row">{zz}</th>
                                   <th scope="row">{val.stocked_in_quantity}</th>
                                   </tr>
                               )
@@ -158,7 +173,7 @@ function Purchaseorderstockin() {
                               <th scope="row">{val.supply_name}</th>
                               <th scope="row">{val.po_quantity}</th>
                               <th scope="row">{val.units}</th>
-                              <th scope="row">Perishable</th>
+                              <th scope="row">{zz}</th>
                               <th scope="row">{val.stocked_in_quantity}</th>
                               </tr>
                           )
@@ -170,7 +185,7 @@ function Purchaseorderstockin() {
                               <th scope="row">{val.supply_name}</th>
                               <th scope="row">{val.po_quantity}</th>
                               <th scope="row">{val.units}</th>
-                              <th scope="row">Perishable</th>
+                              <th scope="row">{zz}</th>
                               <th scope="row">{val.stocked_in_quantity}</th>
                               </tr>
                           )
@@ -179,7 +194,6 @@ function Purchaseorderstockin() {
                       </tbody>
                 </table>
               </div>
-              
           </main>
         </div>
     );

@@ -33,24 +33,29 @@ function Plantprofiles() {
       id && navigate(generatePath("/plantprofilesedit/:id", { id }));
     }
   };
+  const handleProceedHome = (e) => {
+    navigate(generatePath("/home"));
+    window.location.reload();
+  };
+  const [searchinput, setsearchinput] = useState("");
   return (
     <div className='App'>
         <div class="headform">
         <h1 class="titleheadform">Plant Profiles</h1>
       </div>
       <main class="container-fluid">
-      <Link to="/home"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+      <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceedHome}>Back</button>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>View</button>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedEdit}>Edit</button>
         <Link to="/plantprofilesadd"><button type="button" class="btn btn-outline-info secondarybutton">Add</button></Link>
         <form class="d-flex">
-            <input class="form-control me-sm-2" type="text" placeholder="Search ID" />
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            <input class="form-control me-sm-2" type="text" placeholder="Search ID or Name" onChange={(e) =>{setsearchinput(e.target.value)}}/>
           </form>
         <div class="tablediv">
             <table class="table table-hover">
                 <thead>
                     <tr>
+                      <th scope="col">Plant ID</th>
                       <th scope="col">Name</th>
                       <th scope="col">Variety</th>
                       <th scope="col">Category</th>
@@ -58,9 +63,20 @@ function Plantprofiles() {
                     </tr>
                   </thead>
                   <tbody>
-                  {plantprofilelist.map((val) => {
+                  {plantprofilelist.filter((val)=>{
+                        if(searchinput == ""){
+                          return val
+                        }
+                        else if(val.plant_name.toLowerCase().includes(searchinput.toLowerCase())){
+                          return val
+                        }
+                        else if(val.plant_id == searchinput){
+                          return val
+                        }
+                      }).map((val) => {
                           return(
                             <tr class="table-active tractive" onClick={rowSelect.bind(this, val.plant_id)}>
+                              <th scope="row">{val.plant_id}</th>
                               <th scope="row">{val.plant_name}</th>
                               <th scope="row">{val.variety}</th>
                               <th scope="row">{val.category}</th>

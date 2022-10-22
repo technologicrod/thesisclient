@@ -1,15 +1,20 @@
 import React from 'react';
 import './App.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, generatePath } from 'react-router-dom';
 
 function Plantutilities() {
+  const navigate = useNavigate();
+  const handleProceedHome = (e) => {
+    navigate(generatePath("/home"));
+    window.location.reload();
+  };
   return (
     <div className='App'>
         <div class="headform">
       <h1 class="titleheadform">Plant Utilities</h1>
     </div>
     <main class="container-fluid">
-    <Link to="/home"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+    <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceedHome}>Back</button>
       <div class="row">
       <Link class="pubutton" to='/plantutilitiessoiltype'><b>Soil Type</b> <br></br> <i>(for farm profile)</i></Link>
       <Link class="pubutton" to='/plantutilitiesplantprofile'><b>Plant Category</b> <br></br> <i>(for plant profile)</i></Link>

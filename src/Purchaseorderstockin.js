@@ -150,11 +150,15 @@ function Purchaseorderstockin() {
                           <th scope="col">Units</th>
                           <th scope="col">Is Perishable</th>
                           <th scope="col">Quantity Stocked In</th>
+                          <th scope="col">Available Quantity for Stock In</th>
                         </tr>
                       </thead>
                     <tbody>
                       {purorderlist.map((val)=> {
                         if(val.status != "Stocked In" && val.status !="Redelivery" && val.status != "Refund"){
+                          let quanti = parseInt(val.po_quantity)
+                          let siquanti = parseInt(val.stocked_in_quantity)
+                          let avail = quanti - siquanti
                             return (
                                 <tr class="table-active" onClick={rowSelect.bind(this, val)}>
                                   <th scope="row">{val.po_id}</th>
@@ -163,10 +167,14 @@ function Purchaseorderstockin() {
                                   <th scope="row">{val.units}</th>
                                   <th scope="row">{zz}</th>
                                   <th scope="row">{val.stocked_in_quantity}</th>
+                                  <th scope="row">{avail}</th>
                                   </tr>
                               )
                         }
                         else if(val.status == "Redelivery"){
+                          let quanti = parseInt(val.po_quantity)
+                          let siquanti = parseInt(val.stocked_in_quantity)
+                          let avail = quanti - siquanti
                           return (
                             <tr class="table-danger" onClick={rowSelect.bind(this, val)}>
                               <th scope="row">{val.po_id}</th>
@@ -175,10 +183,14 @@ function Purchaseorderstockin() {
                               <th scope="row">{val.units}</th>
                               <th scope="row">{zz}</th>
                               <th scope="row">{val.stocked_in_quantity}</th>
+                              <th scope="row">{avail}</th>
                               </tr>
                           )
                         }
                         else if(val.status == "Refund"){
+                          let quanti = parseInt(val.po_quantity)
+                          let siquanti = parseInt(val.stocked_in_quantity)
+                          let avail = quanti - siquanti
                           return (
                             <tr class="table-dark" onClick={rowSelect.bind(this, val)}>
                               <th scope="row">{val.po_id}</th>
@@ -187,6 +199,7 @@ function Purchaseorderstockin() {
                               <th scope="row">{val.units}</th>
                               <th scope="row">{zz}</th>
                               <th scope="row">{val.stocked_in_quantity}</th>
+                              <th scope="row">{avail}</th>
                               </tr>
                           )
                         }

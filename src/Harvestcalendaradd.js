@@ -14,7 +14,7 @@ function Harvestcalendaradd() {
     const [harveststart, setharveststart] = useState("")
     const [harvestend, setharvestend] = useState("")
     const [harvestquantity, setharvestquantity] = useState("")
-    const [harvestmeasurement, setharvestmeasurement] = useState("")
+    const [area_id, setarea_id] = useState("")
     const [plantprofilelist, setplantprofilelist] = useState([]);
     useEffect(() =>{
         Axios.get('http://localhost:3001/plantprofile').then((response) => {
@@ -24,6 +24,12 @@ function Harvestcalendaradd() {
     useEffect(()=>{
        setharveststatus("Active")
     })
+    const [arealist, setarealist] = useState([]);
+    useEffect(() =>{
+      Axios.get(`http://localhost:3001/farmareaslist`).then((response) => {
+          setarealist(response.data);
+      })
+    }, [])
     const register = () => {
         var a = document.forms["myform"]["ainput"].value;
         var b = document.forms["myform"]["binput"].value;
@@ -38,9 +44,9 @@ function Harvestcalendaradd() {
             alert("Planting period is expected to happen first before the harvest period. Please check both dates.");
         }*/
         else {
-            Axios.post("http://localhost:3001/plantbatchadd", {plantid: harvestplantname, batchstatus: harveststatus, periodstart: newEvent.start, quantity: harvestquantity, measurement: harvestmeasurement});
-            //navigate('/harvestcalendarlist', { replace: true });
-            //window.location.reload();
+            Axios.post("http://localhost:3001/plantbatchadd", {plantid: harvestplantname, batchstatus: harveststatus, periodstart: newEvent.start, quantity: harvestquantity, area_id: area_id});
+            navigate('/harvestcalendarlist', { replace: true });
+            window.location.reload();
             alert("Batch recorded");
         }
       }
@@ -87,9 +93,16 @@ function Harvestcalendaradd() {
                     <input name="einput" type="text" class="form-control" placeholder="Quantity" id="inputDefault" onChange={(e) =>{setharvestquantity(e.target.value)}} required/>
                 </div>
                 <div class="form-group">
-                    <label class="col-form-label mt-4" for="inputDefault">Measurement</label>
-                    <input name="finput" type="text" class="form-control" placeholder="Measurement" id="inputDefault" onChange={(e) =>{setharvestmeasurement(e.target.value)}} required/>
-                </div>
+                    <label for="exampleSelect1" class="col-form-label mt-4">Area <em>(you can add new area in farm profiles)</em></label>
+                    <select  name="finput" required class="form-select" id="exampleSelect1" onChange={(e) =>{ setarea_id(e.target.value) }}>
+                        <option value="">Select Area</option>
+                        {arealist.map((val) => {
+                          return (
+                            <option value={val.area_id}>{val.area_name} size: {val.size} hectares</option>
+                          )
+                        })}
+                    </select>
+                    </div>
                 <button type="button" class="btn btn-outline-success submitbutton" onClick={register}>Submit</button>
                 </form>
             </main>

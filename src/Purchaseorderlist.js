@@ -24,6 +24,7 @@ function Purchaseorderlist() {
         id && navigate(generatePath("/purchaseorderadd/:id", { id }));
       }
     };
+    const [searchinput, setsearchinput] = useState("");
     return (
       <div className='App'>
           <div class="headform">
@@ -33,9 +34,8 @@ function Purchaseorderlist() {
         <Link to="/purchaseorders"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
           <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>Add</button>
           <form class="d-flex">
-              <input class="form-control me-sm-2" type="text" placeholder="Search ID" />
-              <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-            </form>
+            <input class="form-control me-sm-2" type="text" placeholder="Search ID, Name, or Category" onChange={(e) =>{setsearchinput(e.target.value)}}/>
+          </form>
           <div class="tablediv">
               <table class="table table-hover">
                   <thead>
@@ -49,7 +49,20 @@ function Purchaseorderlist() {
                       </tr>
                     </thead>
                     <tbody>
-                    {itemlist.map((val)=> {
+                    {itemlist.filter((val)=>{
+                        if(searchinput == ""){
+                          return val
+                        }
+                        else if(val.supply_name.toLowerCase().includes(searchinput.toLowerCase())){
+                          return val
+                        }
+                        else if(val.category.toLowerCase().includes(searchinput.toLowerCase())){
+                          return val
+                        }
+                        else if(val.supply_id == searchinput){
+                          return val
+                        }
+                      }).map((val)=> {
                         if (val.quantity <= val.re_order_lvl) {
                           return (
                             <tr class="table-danger tractive" onClick={rowSelect.bind(this, val.supply_id)}>

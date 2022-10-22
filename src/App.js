@@ -31,6 +31,9 @@ import Farmprofilesview from './Farmprofilesview';
 import Farmprofilesimagemap from './Farmprofilesimagemap';
 import Farmprofilesgooglemap from './Farmprofilesgooglemap';
 import Farmprofilesorgchart from './Farmprofilesorgchart';
+import Farmprofilesareas from './Farmprofilesareas';
+import Farmprofilesareasadd from './Farmprofilesareasadd';
+import Farmprofilesareasedit from './Farmprofilesareasedit';
 import Plantprofiles from './Plantprofiles';
 import Plantprofilesadd from './Plantprofilesadd';
 import Plantprofilesview from './Plantprofilesview';
@@ -89,6 +92,7 @@ import Purchaseorderrelivery from './Purchaseorderredelivery';
 import Purchaseorderrefund from './Purchaseorderrefund';
 import Availableplants from './Availableplants';
 import Availableplantswasted from './Availableplantswasted';
+import Availableplantseditprice from './Availableplantseditprice';
 import Otherexpenseslist from './Otherexpenseslist';
 import Otherexpensesadd from './Otherexpensesadd';
 import Otherexpensespaid from './Otherexpensespaid';
@@ -143,6 +147,9 @@ function App() {
               <Route path="/farmprofilesimagemap/:farm_id" element={<Farmprofilesimagemap />} />
               <Route path="/farmprofilesgooglemap/:farm_id" element={<Farmprofilesgooglemap />} />
               <Route path="/farmprofilesorgchart/:farm_id" element={<Farmprofilesorgchart />} />
+              <Route path="/farmprofilesareas/:farm_id" element={<Farmprofilesareas />} />
+              <Route path="/farmprofilesareasadd/:farm_id" element={<Farmprofilesareasadd />} />
+              <Route path="/farmprofilesareasedit/:area_id" element={<Farmprofilesareasedit />} />
               <Route exact path="/plantprofiles" element={<Plantprofiles />} />
               <Route exact path="/plantprofilesadd" element={<Plantprofilesadd />} />
               <Route path="/plantprofilesview/:plantprofileid" element={<Plantprofilesview />} />
@@ -201,6 +208,7 @@ function App() {
               <Route path="/purchaseorderrefund/:final_po_id/:po_id/:supply_id" element={< Purchaseorderrefund />} />
               <Route exact path="/availableplants" element={< Availableplants />} />
               <Route exact path="/availableplantswasted" element={< Availableplantswasted />} />
+              <Route path="/availableplantseditprice/:quantity_id" element={< Availableplantseditprice />} />
               <Route exact path="/otherexpenseslist" element={< Otherexpenseslist />} />
               <Route exact path="/otherexpensesadd" element={< Otherexpensesadd />} />
               <Route exact path="/otherexpensespaid" element={< Otherexpensespaid />} />

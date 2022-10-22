@@ -13,10 +13,10 @@ function Employeeidpicedit() {
     };
     const [employeelist, setemployeelist] = useState([]);
     useEffect(() =>{
-      Axios.get('http://localhost:3001/employeelist').then((response) => {
+      Axios.get(`http://localhost:3001/employeelistpositionhistory/${x}`).then((response) => {
         setemployeelist(response.data);
       })
-    }, [])
+    }, [x])
   const [employeeidpicture, setemployeeidpicture] = useState("");
   const register = (employeeid) => {
     var a = document.forms["myform"]["ainput"].value;

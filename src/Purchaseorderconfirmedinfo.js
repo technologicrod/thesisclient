@@ -143,7 +143,8 @@ function Purchaseorderconfirmedinfo() {
                       {paymentlist.map((val)=> {
                         var cdate1 = (new Date(val.due_date)).toLocaleDateString();
                         var cdate2 = (new Date(val.date_paid)).toLocaleDateString();
-                        return (
+                        if (cdate1 > cdate2){
+                          return (
                             <tbody>
                             <tr class="table-active">
                               <th scope="row">{val.payment_po_id}</th>
@@ -157,6 +158,23 @@ function Purchaseorderconfirmedinfo() {
                               </tr>
                               </tbody>
                           )
+                        }
+                        else {
+                          return (
+                            <tbody>
+                            <tr class="table-danger">
+                              <th scope="row">{val.payment_po_id}</th>
+                              <th scope="row">{cdate1}</th>
+                              <th scope="row">{val.dp_percentage} %</th>
+                              <th scope="row">{formatter.format(val.dp_amount)}</th>
+                              <th scope="row">{val.payment_method}</th>
+                              <th scope="row">{val.account_id}</th>
+                              <th scope="row">{val.account_name}</th>
+                              <th scope="row">{cdate2}</th>
+                              </tr>
+                              </tbody>
+                          )
+                        }
                       })}
                 </table>
                 <br></br>

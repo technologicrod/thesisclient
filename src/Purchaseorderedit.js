@@ -76,8 +76,8 @@ function Purchaseorderedit() {
                     <input name="binput" type="number" class="form-control" placeholder={val.po_quantity} defaultValue={val.po_quantity} id="inputDefault" onChange={(e) =>{setquantity(e.target.value)}} required/>
                 </div>
                 <div class="form-group">
-                    <label class="col-form-label mt-4" for="inputDefault">Units of Measurement</label>
-                    <input name="cinput" type="text" class="form-control" placeholder={val.units} defaultValue={val.units} id="inputDefault" onChange={(e) =>{setunits(e.target.value)}} required/>
+                    <label class="col-form-label mt-4" for="inputDefault">Units of Measurement: </label>
+                    <h5>{i2}</h5>
                 </div>
                 <div class="form-group">
                     <label class="col-form-label mt-4" for="inputDefault">Price per Unit in Peso</label>

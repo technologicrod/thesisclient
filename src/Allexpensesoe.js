@@ -19,6 +19,7 @@ function Allexpensesoe() {
       style: 'currency',
       currency: 'PHP',
     });
+    const [searchinput, setsearchinput] = useState("");
     return (
       <div className='App'>
           <div class="headform">
@@ -27,27 +28,41 @@ function Allexpensesoe() {
         <Link to="/allexpensespo"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleChange}>View Purchase Order Expenses</button>
         <form class="d-flex">
-                  <input class="form-control me-sm-2" type="text" placeholder="Search ID" />
-                  <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-              </form>
+            <input class="form-control me-sm-2" type="text" placeholder="Search ID, Type, or Paid to" onChange={(e) =>{setsearchinput(e.target.value)}}/>
+          </form>
               <div class="tablediv">
               <table class="table table-hover">
                   <thead>
                       <tr>
                         <th scope="col">Other Expenses ID</th>
                         <th scope="col">Other Expenses Type</th>
+                        <th scope="col">Paid to</th>
                         <th scope="col">Barcode/Receipt No.</th>
                         <th scope="col">Date Paid</th>
                         <th scope="col">Amount Paid</th>
                       </tr>
                     </thead>
                         <tbody>
-                          {oelist.map((val)=> {
+                          {oelist.filter((val)=>{
+                        if(searchinput == ""){
+                          return val
+                        }
+                        else if(val.otherexpensesname.toLowerCase().includes(searchinput.toLowerCase())){
+                          return val
+                        }
+                        else if(val.paid_to.toLowerCase().includes(searchinput.toLowerCase())){
+                          return val
+                        }
+                        else if(val.other_expenses_id == searchinput){
+                          return val
+                        }
+                      }).map((val)=> {
                             var cdate1 = (new Date(val.date_paid)).toLocaleDateString();
                             return(
                               <tr class="table-active tractive">
                               <td scope="row">{val.other_expenses_id}</td>
                               <td scope="row">{val.otherexpensesname}</td>
+                              <td scope="row">{val.paid_to}</td>
                               <td scope="row">{val.barcode_or_receipt}</td>
                               <td scope="row">{cdate1}</td>
                               <td scope="row">{formatter.format(val.total_payment)}</td>

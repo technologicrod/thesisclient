@@ -31,6 +31,7 @@ function Purchaseorderhistory() {
       style: 'currency',
       currency: 'PHP',
     });
+    const [searchinput, setsearchinput] = useState("");
     return (
       <div className='App'>
           <div class="headform">
@@ -39,6 +40,9 @@ function Purchaseorderhistory() {
         <main class="container-fluid">
         <Link to="/purchaseorders"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>Stock In PO</button>
+        <form class="d-flex">
+            <input class="form-control me-sm-2" type="text" placeholder="Search ID or Name" onChange={(e) =>{setsearchinput(e.target.value)}}/>
+          </form>
             <div class="tablediv">
                     <table class="table table-hover">
                     <thead>
@@ -51,7 +55,17 @@ function Purchaseorderhistory() {
                         </tr>
                       </thead>
                       <tbody>
-                      {polist.map((val)=> {
+                      {polist.filter((val)=>{
+                        if(searchinput == ""){
+                          return val
+                        }
+                        else if(val.company_name.toLowerCase().includes(searchinput.toLowerCase())){
+                          return val
+                        }
+                        else if(val.final_po_id == searchinput){
+                          return val
+                        }
+                      }).map((val)=> {
                         var cdate = (new Date(val.date_paid)).toLocaleDateString();
                         return (
                             <tr class="table-active tractive" onClick={rowSelect.bind(this, val.final_po_id)}>

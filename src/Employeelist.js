@@ -48,35 +48,51 @@ function Employeelist() {
       console.log(id)
     }
   };
+  const handleProceedHome = (e) => {
+    navigate(generatePath("/home"));
+    window.location.reload();
+  };
+  const [searchinput, setsearchinput] = useState("");
   return (
     <div className='App'>
         <div class="headform">
         <h1 class="titleheadform">Employees List</h1>
       </div>
       <main class="container-fluid">
-      <Link to="/home"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+      <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceedHome}>Back</button>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedView}>View Profile</button>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>View Position History</button>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedEdit}>Edit</button>
         <Link to="/employeelistadd"><button type="button" class="btn btn-outline-info secondarybutton">Add</button></Link>
         <form class="d-flex">
-            <input class="form-control me-sm-2" type="text" placeholder="Search ID" />
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            <input class="form-control me-sm-2" type="text" placeholder="Search ID or Name" onChange={(e) =>{setsearchinput(e.target.value)}}/>
           </form>
             <div class="tablediv">
             <table class="table table-hover">
                 <thead>
                     <tr>
+                      <th scope="col">Employee ID</th>
                       <th scope="col">Employee Name</th>
-                      <th scope="col">Farm Name</th>
+                      <th scope="col">Position</th>
                     </tr>
                   </thead>
                       <tbody>
-                      {employeelist.map((val) => {
+                      {employeelist.filter((val)=>{
+                        if(searchinput == ""){
+                          return val
+                        }
+                        else if(val.emp_name.toLowerCase().includes(searchinput.toLowerCase())){
+                          return val
+                        }
+                        else if(val.emp_id == searchinput){
+                          return val
+                        }
+                      }).map((val) => {
                           return(
                             <tr class="table-active tractive" onClick={rowSelect.bind(this, val.emp_id)}>
+                            <td scope="row">{val.emp_id}</td>
                             <td scope="row">{val.emp_name}</td>
-                            <td scope="row">{val.farm_name}</td>
+                            <td scope="row">{val.emp_pos}</td>
                             </tr>
                               )
                       })}

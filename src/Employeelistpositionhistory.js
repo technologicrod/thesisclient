@@ -37,10 +37,6 @@ function Employeelistpositionhistory() {
       <br></br>
       <main class="container-fluid">
       <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceed}>Back</button>
-        <form class="d-flex">
-            <input class="form-control me-sm-2" type="text" placeholder="Search ID" />
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-          </form>
         <div class="tablediv">
             <table class="table table-hover">
                 <thead>

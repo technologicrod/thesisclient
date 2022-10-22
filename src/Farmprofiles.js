@@ -37,7 +37,18 @@ function Farmprofiles() {
       id && navigate(generatePath("/farmprofilesview/:id", { id }));
     }
   };
-
+  const handleProceedArea = (e) => {
+    if (id == 0){
+      alert("Select a row to view.")
+    }
+    else {
+      id && navigate(generatePath("/farmprofilesareas/:id", { id }));
+    }
+  };
+  const handleProceedHome = (e) => {
+    navigate(generatePath("/home"));
+    window.location.reload();
+  };
   if(farmlist.length == 0){
     return (
       <div className='App'>
@@ -45,7 +56,7 @@ function Farmprofiles() {
           <h1 class="titleheadform">Farm Profile</h1>
         </div>
         <main class="container-fluid">
-        <Link to="/home"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+        <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceedHome}>Back</button>
           <Link to="/farmprofilesadd"><button type="button" class="btn btn-outline-info secondarybutton">Add</button></Link>
           <div class="tablediv">
               <table class="table table-hover">
@@ -58,9 +69,9 @@ function Farmprofiles() {
                     <tbody>
                       {farmlist.map((val) => {
                         return (
-                          <tr class="table-active tractive" onClick={rowSelect.bind(this, val.farm_id)}>
-                          <th scope="row">{val.farm_name}</th>
-                          <th scope="row">{val.size}</th>
+                          <tr class="table-primary tractive" onClick={rowSelect.bind(this, val.farm_id)}>
+                          <td scope="row">{val.farm_name}</td>
+                          <td scope="row">{val.size}</td>
                         </tr>
                         )
                       })}
@@ -80,6 +91,7 @@ function Farmprofiles() {
         <main class="container-fluid">
         <Link to="/home"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
           <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>View</button>
+          <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedArea}>Farm Areas</button>
           <div class="tablediv">
               <table class="table table-hover">
                   <thead>

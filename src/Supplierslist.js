@@ -36,18 +36,22 @@ function Supplierslist() {
       id && navigate(generatePath("/suppliersedit/:id", { id }));
     }
   };
+  const handleProceedHome = (e) => {
+    navigate(generatePath("/home"));
+    window.location.reload();
+  };
+  const [searchinput, setsearchinput] = useState("");
   return (
     <div className='App'>
         <div class="headform">
         <h1 class="titleheadform">Suppliers List</h1>
       </div>
       <main class="container-fluid">
-      <Link to="/home"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+      <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceedHome}>Back</button>
         <Link to="/suppliersadd"><button type="button" class="btn btn-outline-info secondarybutton">Add</button></Link>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>Edit</button>
         <form class="d-flex">
-            <input class="form-control me-sm-2" type="text" placeholder="Search ID" />
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            <input class="form-control me-sm-2" type="text" placeholder="Search ID or Name" onChange={(e) =>{setsearchinput(e.target.value)}}/>
           </form>
         <div class="tablediv">
             <table class="table table-hover">
@@ -63,7 +67,17 @@ function Supplierslist() {
                     </tr>
                   </thead>
                   <tbody>
-                          {supplierslist.map((val)=> {
+                          {supplierslist.filter((val)=>{
+                        if(searchinput == ""){
+                          return val
+                        }
+                        else if(val.company_name.toLowerCase().includes(searchinput.toLowerCase())){
+                          return val
+                        }
+                        else if(val.supplier_id == searchinput){
+                          return val
+                        }
+                      }).map((val)=> {
                             return (
                               <tr class="table-active tractive" onClick={rowSelect.bind(this, val.supplier_id)}>
                               <th scope="row">{val.supplier_id}</th>

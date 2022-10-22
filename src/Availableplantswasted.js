@@ -37,18 +37,18 @@ function Availableplantswasted() {
     style: 'currency',
     currency: 'PHP',
   });
+  const [searchinput, setsearchinput] = useState("");
   return (
     <div className='App'>
         <div class="headform">
-        <h1 class="titleheadform">Available Plants for Sale</h1>
+        <h1 class="titleheadform">Wasted Plants</h1>
         <main class="container-fluid">
-      <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+      <Link to="/availableplants"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
       <button type="button" class="btn btn-outline-success secondarybutton" onClick={handleProceed}>Revert to Active</button>
       <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleChange}>View Active Plants</button>
       <form class="d-flex">
-                <input class="form-control me-sm-2" type="text" placeholder="Search ID" />
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-            </form>
+            <input class="form-control me-sm-2" type="text" placeholder="Search ID, Name, or Quality" onChange={(e) =>{setsearchinput(e.target.value)}}/>
+          </form>
             <div class="tablediv">
             <table class="table table-hover">
                 <thead>
@@ -64,7 +64,23 @@ function Availableplantswasted() {
                     </tr>
                   </thead>
                       <tbody>
-                        {batchlist.map((val)=> {
+                        {batchlist.filter((val)=>{
+                        if(searchinput == ""){
+                          return val
+                        }
+                        else if(val.plant_name.toLowerCase().includes(searchinput.toLowerCase())){
+                          return val
+                        }
+                        else if(val.harvest_id == searchinput){
+                          return val
+                        }
+                        else if(val.quantity_id == searchinput){
+                          return val
+                        }
+                        else if(val.grade.toLowerCase().includes(searchinput.toLowerCase())){
+                          return val
+                        }
+                      }).map((val)=> {
                           return(
                             <tr class="table-primary tractive" onClick={rowSelect.bind(this, val.quantity_id)}>
                             <td scope="row">{val.quantity_id}</td>

@@ -19,6 +19,7 @@ function Iteminventorystockouthistory() {
   const handleProceedPartial = (e) => {
     x && navigate(generatePath("/iteminventorystockinhistorypartial/:x", { x }));
   };
+  const [searchinput, setsearchinput] = useState("");
   return (
     <div className='App'>
         <div class="headform">
@@ -29,8 +30,7 @@ function Iteminventorystockouthistory() {
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>View Fully Stocked In History</button>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedPartial}>View Partial Stocked In History</button>
         <form class="d-flex">
-            <input class="form-control me-sm-2" type="text" placeholder="Search ID" />
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            <input class="form-control me-sm-2" type="text" placeholder="Search ID" onChange={(e) =>{setsearchinput(e.target.value)}}/>
           </form>
         <div class="tablediv">
             <table class="table table-hover">
@@ -42,13 +42,20 @@ function Iteminventorystockouthistory() {
                     </tr>
                   </thead>
                   <tbody>
-                    {itemlist.map((val)=> {
-                      var cdate = (new Date(val.stockout_id)).toLocaleDateString();
+                    {itemlist.filter((val)=>{
+                        if(searchinput == ""){
+                          return val
+                        }
+                        else if(val.stockout_id == searchinput){
+                          return val
+                        }
+                      }).map((val)=> {
+                      var cdate = (new Date(val.date)).toLocaleDateString();
                         return (
                             <tr class="table-active tractive">
-                                <th scope="col">{cdate}</th>
+                                <th scope="col">{val.stockout_id}</th>
                                 <th scope="col">{val.quantity}</th>
-                                <th scope="col">{val.date}</th>
+                                <th scope="col">{cdate}</th>
                             </tr>
                         )
                     })}

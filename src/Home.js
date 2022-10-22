@@ -4,21 +4,22 @@ import { Link, useNavigate, generatePath, Navigate } from 'react-router-dom';
 import Axios from 'axios';
 
 function Home() {
+  Axios.put("http://localhost:3001/expireditems", {})
   const navigate = useNavigate();
-  const [userinfo, setuserinfo] = useState(0);
-  useEffect(() =>{
-    async function fetchData(){
-      await Axios.get(`http://localhost:3001/`).then((response) => {
+  const [userinfo, setuserinfo] = useState("");
+  const [isLoading, setLoading] = useState(true);
+  Axios.get(`http://localhost:3001/`).then((response) => {
         setuserinfo(response.data);
+        setLoading(false);
       })
-      }
-  fetchData()
-  }, [])
-  console.log(userinfo)
+  console.log("user:",userinfo)
   const handleLogout = (e) => {
     Axios.post("http://localhost:3001/logout", {})
     alert("Logged out")
     navigate(generatePath("/", {}));
+  }
+  if (isLoading) {
+    return (<div className="App">Loading...</div>)
   }
   return (
     <div className="App">

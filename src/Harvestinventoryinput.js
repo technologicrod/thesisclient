@@ -45,7 +45,7 @@ function Harvestinventoryinput() {
             formData.append('remarks', remarks)
             formData.append('batch_status', batch_status)
             Axios.post("http://localhost:3001/harvestbatchinput", formData);
-            navigate('/harvestcalendarharvested', { replace: true });
+            navigate('/harvestcalendarlist', { replace: true });
             window.location.reload();
             alert("Batch updated");
         }

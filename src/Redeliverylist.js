@@ -15,17 +15,21 @@ function Redeliverylist() {
       style: 'currency',
       currency: 'PHP',
     });
+    const handleProceedHome = (e) => {
+      navigate(generatePath("/home"));
+      window.location.reload();
+    };
+    const [searchinput, setsearchinput] = useState("");
     return (
       <div className='App'>
           <div class="headform">
           <h1 class="titleheadform">Redelivery List</h1>
           <main class="container-fluid">
-        <Link to="/home"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+          <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceedHome}>Back</button>
         <br></br>
         <form class="d-flex">
-                  <input class="form-control me-sm-2" type="text" placeholder="Search ID" />
-                  <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-              </form>
+            <input class="form-control me-sm-2" type="text" placeholder="Search ID, Item, or Supplier" onChange={(e) =>{setsearchinput(e.target.value)}}/>
+          </form>
               <div class="tablediv">
               <table class="table table-hover">
                   <thead>
@@ -38,7 +42,20 @@ function Redeliverylist() {
                       </tr>
                     </thead>
                         <tbody>
-                          {redlist.map((val)=> {
+                          {redlist.filter((val)=>{
+                        if(searchinput == ""){
+                          return val
+                        }
+                        else if(val.supply_name.toLowerCase().includes(searchinput.toLowerCase())){
+                          return val
+                        }
+                        else if(val.company_name.toLowerCase().includes(searchinput.toLowerCase())){
+                          return val
+                        }
+                        else if(val.redelivery_id == searchinput){
+                          return val
+                        }
+                      }).map((val)=> {
                             var cdate1 = (new Date(val.date_delivered)).toLocaleDateString();
                             return(
                               <tr class="table-active tractive">

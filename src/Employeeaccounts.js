@@ -24,6 +24,10 @@ function Employeeaccounts() {
       id && navigate(generatePath("/employeeaccountsedit/:id", { id }));
     }
   };
+  const handleProceedHome = (e) => {
+    navigate(generatePath("/home"));
+    window.location.reload();
+  };
   return (
     <div className='App'>
       
@@ -32,7 +36,7 @@ function Employeeaccounts() {
         <h1 class="titleheadform">Employee Accounts</h1>
       </div>
       <main class="container-fluid">
-      <Link to="/home"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+      <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceedHome}>Back</button>
       <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>Edit</button>
         <Link to="/employeeaccountsadd"><button type="button" class="btn btn-outline-info secondarybutton">Add</button></Link>
         <form class="d-flex">

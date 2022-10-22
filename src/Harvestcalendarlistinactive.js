@@ -63,20 +63,18 @@ function Harvestcalendarlistinactive() {
           }
     })()
 }, [batchlist])
+const [searchinput, setsearchinput] = useState("");
   return (
     <div className='App'>
         <div class="headform">
-        <h1 class="titleheadform">Harvest Calendar List</h1>
+        <h1 class="titleheadform">Harvest Calendar Inactive List</h1>
         <main class="container-fluid">
-      <Link to="/"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
-      <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>View Harvest Calendar</button>
+      <Link to="/harvestcalendarlist"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
       <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedEdit}>Edit Batch Harvest</button>
       <Link to="/harvestcalendarlist"><button type="button" class="btn btn-outline-info secondarybutton">View Active Batches</button></Link>
       <Link to="/harvestcalendarharvested"><button type="button" class="btn btn-outline-info secondarybutton">View Harvested Batches</button></Link>
-      <Link to="/harvestcalendaradd"><button type="button" class="btn btn-outline-info secondarybutton">Add New Batch</button></Link>
-        <form class="d-flex">
-            <input class="form-control me-sm-2" type="text" placeholder="Search ID" />
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+      <form class="d-flex">
+            <input class="form-control me-sm-2" type="text" placeholder="Search ID, Name, or Area" onChange={(e) =>{setsearchinput(e.target.value)}}/>
           </form>
             <div class="tablediv">
             <table class="table table-hover">
@@ -84,6 +82,7 @@ function Harvestcalendarlistinactive() {
                     <tr>
                       <th scope="col">Batch ID</th>
                       <th scope="col">Plant Planted</th>
+                      <th scope="col">Area</th>
                       <th scope="col">Current Stage</th>
                       <th scope="col">Survival Rate</th>
                       <th scope="col">Current Count</th>
@@ -92,11 +91,25 @@ function Harvestcalendarlistinactive() {
                     </tr>
                   </thead>
                       <tbody>
-                        {batchlist.map((val)=> {
+                        {batchlist.filter((val)=>{
+                        if(searchinput == ""){
+                          return val
+                        }
+                        else if(val.plant_name.toLowerCase().includes(searchinput.toLowerCase())){
+                          return val
+                        }
+                        else if(val.area_name.toLowerCase().includes(searchinput.toLowerCase())){
+                          return val
+                        }
+                        else if(val.batch_id == searchinput){
+                          return val
+                        }
+                      }).map((val)=> {
                           return(
                             <tr class="table-active tractive" onClick={rowSelect.bind(this, val.batch_id)}>
                             <td scope="row">{val.batch_id}</td>
                             <td scope="row">{val.plant_name}</td>
+                            <td scope="row">{val.area_name}</td>
                             {latestlist.map((valo)=> {
                               if(valo.batch_id == val.batch_id){
                                 return(

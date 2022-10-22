@@ -5,12 +5,17 @@ import Axios from 'axios';
 
 
 function Purchaseorders() {
+  const navigate = useNavigate()
+  const handleProceedHome = (e) => {
+    navigate(generatePath("/home"));
+    window.location.reload();
+  };
   return (
     <div className='App'>
         <div class="headform">
         <h1 class="titleheadform">Purchase Orders</h1>
         <main class="container-fluid">
-      <Link to="/home"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+        <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceedHome}>Back</button>
       <p>
       <Link to="/purchaseorderlist"><button type="button" class="btn btn-outline-info secondarybutton">New Purchase Order</button></Link>
       <Link to="/purchaseorderlistinfo"><button type="button" class="btn btn-outline-info secondarybutton">Purchase Order Cart</button></Link>

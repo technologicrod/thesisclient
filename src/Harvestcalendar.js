@@ -35,6 +35,28 @@ function Harvestcalendar() {
             setbatchinfo(response.data);
         })
     }, [x])
+    var today = new Date();
+    const batchea = batchinfo[0]
+    var batchstatus, batchend, areaname, areasize, thestatus
+    for (var key in batchea) {
+        if (batchea.hasOwnProperty(key)) {
+            if (key === "batch_status"){
+                batchstatus = batchea[key]
+            }
+            if (key === "expected_harvest_period"){
+                batchend = batchea[key]
+            }
+            if (key === "area_name"){
+                areaname = batchea[key]
+            }
+            if (key === "size"){
+                areasize = batchea[key]
+            }
+            if (key === "batch_status"){
+                thestatus = batchea[key]
+            }
+        }
+      }
     const [latestinfo, setlatestinfo] = useState([]);
     useEffect(() =>{
         Axios.get(`http://localhost:3001/plantbatchlatestinfo/${x}`).then((response) => {
@@ -151,12 +173,98 @@ function Harvestcalendar() {
           },
         }
     }
-   if (latestinfo.length > 0) {
+    var cdatetodayy = (new Date(today)).toLocaleDateString();
+    var cdateend = (new Date(batchend)).toLocaleDateString();
+   if(thestatus == "Active"){
+    if (latestinfo.length > 0) {
+        return (
+            <div className='App'>
+                <h1>Harvest Calendar of Batch {x}</h1>
+                <br></br>
+                <h6><strong>Date Today:</strong>: {cdatetodayy}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 <strong>Expected Harvest Period:</strong>: {cdateend} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </h6>
+                 <h6><strong>Area:</strong>: {areaname}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 <strong>Area Size:</strong>: {areasize} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </h6>
+                <h3><em>Latest Data Inputted:</em></h3>
+                {latestinfo.map((val)=> {
+                    return (
+                        <div>
+                            <p>
+                                <h6><strong>Plant Stage</strong>: {val.plant_stage}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <strong>Quantity</strong>: {val.quantity} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <strong>Survival Rate</strong>: {val.survival_rate} </h6>
+                            </p>
+                            <p>
+                                <h6><strong>Average Current Height in M</strong>: {val.curr_height} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <strong>Average Current Width in M:</strong> {val.curr_width} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <strong>Remarks</strong>: {val.remarks}</h6>
+                            </p>
+                        </div>
+                    )
+                })}
+                <Link to="/harvestcalendarlist"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+                {/*<div>
+                    <input type="text" placeholder='Add Title' style={{width:"20%", marginRight:"10px"}} value={newEvent.title} onChange={(e) => setnewEvent({...newEvent, title: e.target.value})} />
+                </div>
+                <DatePicker placeholderText='Start Date' style={{marginRight:"10px"}} selected={newEvent.start} onChange={(start) => setnewEvent({...newEvent, start})} />
+                <DatePicker placeholderText='End Date' selected={newEvent.end} onChange={(end) => setnewEvent({...newEvent, end})} />
+                <button style={{marginTop:"10px"}} onClick={handleAddEvent}>Add Event</button> */}
+                <Calendar 
+                localizer={localizer} 
+                events={allEvents} 
+                startAccessor="start" 
+                endAccessor="end" 
+                dayPropGetter={calendarStyle}
+                style={{height: 500, margin: "50px"}} 
+                selectable views={['month', 'day']} 
+                onSelectSlot={handleSelectSlot} 
+                onSelectEvent={handleEventSelection}
+                onDoubleClickEvent={handleEventSelection} />
+            </div>
+        )
+       }
+       else {
+        return (
+            <div className='App'>
+                <h1>Harvest Calendar of Batch {x}</h1>
+                <br></br>
+                <h6><strong>Date Today:</strong>: {cdatetodayy}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 <strong>Expected Harvest Period:</strong>: {cdateend} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </h6>
+                 <h6><strong>Area:</strong>: {areaname}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                 <strong>Area Size:</strong>: {areasize} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </h6>
+                <h3><em>No data yet</em></h3>
+                <Link to="/harvestcalendarlist"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+                {/*<div>
+                    <input type="text" placeholder='Add Title' style={{width:"20%", marginRight:"10px"}} value={newEvent.title} onChange={(e) => setnewEvent({...newEvent, title: e.target.value})} />
+                </div>
+                <DatePicker placeholderText='Start Date' style={{marginRight:"10px"}} selected={newEvent.start} onChange={(start) => setnewEvent({...newEvent, start})} />
+                <DatePicker placeholderText='End Date' selected={newEvent.end} onChange={(end) => setnewEvent({...newEvent, end})} />
+                <button style={{marginTop:"10px"}} onClick={handleAddEvent}>Add Event</button> */}
+                <Calendar 
+                localizer={localizer} 
+                events={allEvents} 
+                startAccessor="start" 
+                endAccessor="end" 
+                dayPropGetter={calendarStyle}
+                style={{height: 500, margin: "50px"}} 
+                selectable views={['month', 'day']} 
+                onSelectSlot={handleSelectSlot} 
+                onSelectEvent={handleEventSelection}
+                onDoubleClickEvent={handleEventSelection} />
+            </div>
+        )
+       }
+   }
+   else {
     return (
         <div className='App'>
-            <h1>Harvest Calendar of Batch {x}</h1>
+            <h1>Harvest Calendar of Batch {x} <em>(batch not active for input)</em></h1>
             <br></br>
-            <h3><em>Latest Data Inputted:</em></h3>
+            <h6><strong>Date Today:</strong>: {cdatetodayy}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             <strong>Expected Harvest Period:</strong>: {cdateend} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </h6>
+             <h6><strong>Area:</strong>: {areaname}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             <strong>Area Size:</strong>: {areasize} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </h6>
+            <h3><em>Last Data Inputted:</em></h3>
             {latestinfo.map((val)=> {
                 return (
                     <div>
@@ -188,34 +296,6 @@ function Harvestcalendar() {
             dayPropGetter={calendarStyle}
             style={{height: 500, margin: "50px"}} 
             selectable views={['month', 'day']} 
-            onSelectSlot={handleSelectSlot} 
-            onSelectEvent={handleEventSelection}
-            onDoubleClickEvent={handleEventSelection} />
-        </div>
-    )
-   }
-   else {
-    return (
-        <div className='App'>
-            <h1>Harvest Calendar of Batch {x}</h1>
-            <br></br>
-            <h3><em>No data yet</em></h3>
-            <Link to="/harvestcalendarlist"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
-            {/*<div>
-                <input type="text" placeholder='Add Title' style={{width:"20%", marginRight:"10px"}} value={newEvent.title} onChange={(e) => setnewEvent({...newEvent, title: e.target.value})} />
-            </div>
-            <DatePicker placeholderText='Start Date' style={{marginRight:"10px"}} selected={newEvent.start} onChange={(start) => setnewEvent({...newEvent, start})} />
-            <DatePicker placeholderText='End Date' selected={newEvent.end} onChange={(end) => setnewEvent({...newEvent, end})} />
-            <button style={{marginTop:"10px"}} onClick={handleAddEvent}>Add Event</button> */}
-            <Calendar 
-            localizer={localizer} 
-            events={allEvents} 
-            startAccessor="start" 
-            endAccessor="end" 
-            dayPropGetter={calendarStyle}
-            style={{height: 500, margin: "50px"}} 
-            selectable views={['month', 'day']} 
-            onSelectSlot={handleSelectSlot} 
             onSelectEvent={handleEventSelection}
             onDoubleClickEvent={handleEventSelection} />
         </div>

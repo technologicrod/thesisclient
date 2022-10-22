@@ -24,6 +24,7 @@ function Iteminventorystockinhistorypartial() {
     style: 'currency',
     currency: 'PHP',
   });
+  const [searchinput, setsearchinput] = useState("");
   return (
     <div className='App'>
         <div class="headform">
@@ -34,8 +35,7 @@ function Iteminventorystockinhistorypartial() {
       <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>View Stock Out History</button>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedFull}>View Fully Stocked In History</button>
         <form class="d-flex">
-            <input class="form-control me-sm-2" type="text" placeholder="Search ID" />
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            <input class="form-control me-sm-2" type="text" placeholder="Search ID" onChange={(e) =>{setsearchinput(e.target.value)}}/>
           </form>
         <div class="tablediv">
             <table class="table table-hover">
@@ -49,7 +49,14 @@ function Iteminventorystockinhistorypartial() {
                     </tr>
                   </thead>
                   <tbody>
-                    {itemlist.map((val)=> {
+                    {itemlist.filter((val)=>{
+                        if(searchinput == ""){
+                          return val
+                        }
+                        else if(val.po_id == searchinput){
+                          return val
+                        }
+                      }).map((val)=> {
                       var cdate = (new Date(val.date)).toLocaleDateString();
                         return (
                             <tr class="table-active tractive">

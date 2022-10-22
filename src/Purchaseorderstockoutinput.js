@@ -103,7 +103,7 @@ function Purchaseorderstockoutinput() {
             <main class="container-fluid">
             <button type="button" class="btn btn-outline-dark backbutton" onClick={handleBack}>Back</button>
             <h5><strong>Quantity Available: </strong>{i1}</h5> <h5><strong>Units: </strong>{i2}</h5>
-            <h6><em>input quantity first before selecting a row</em></h6>
+            <h6><em>input quantity first before selecting a row for perishable items</em></h6>
                 <form class="formdiv" name="myform" required>
                 <div class="form-group">
                     <label class="col-form-label mt-4" for="inputDefault">Quantity</label>
@@ -128,13 +128,15 @@ function Purchaseorderstockoutinput() {
                 {perishablelist.map((val)=> {
                   if(i3 == 1){
                     var cdatey = (new Date(val.exp_date)).toLocaleDateString();
-                    return (
-                      <tr class="table-primary tractive" onClick={rowSelect.bind(this, val)}>
-                        <th scope="row">{val.perishable_items_id}</th>
-                        <th scope="row">{val.quantity}</th>
-                        <th scope="row">{cdatey}</th>
-                      </tr>
-                    )
+                    if(val.quantity > 0){
+                      return (
+                        <tr class="table-primary tractive" onClick={rowSelect.bind(this, val)}>
+                          <th scope="row">{val.perishable_items_id}</th>
+                          <th scope="row">{val.quantity}</th>
+                          <th scope="row">{cdatey}</th>
+                        </tr>
+                      )
+                    }
                   }
                 })}
                 </tbody>

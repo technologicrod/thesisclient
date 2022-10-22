@@ -16,12 +16,16 @@ function Harvestinventoryallvariations() {
     style: 'currency',
     currency: 'PHP',
   });
+  const [searchinput, setsearchinput] = useState("");
   return (
     <div className='App'>
         <div class="headform">
         <h1 class="titleheadform">Variations List On Sale</h1>
         <main class="container-fluid">
       <Link to="/harvestinventory"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+      <form class="d-flex">
+            <input class="form-control me-sm-2" type="text" placeholder="Search ID, Name, or Quality" onChange={(e) =>{setsearchinput(e.target.value)}}/>
+          </form>
             <div class="tablediv">
             <table class="table table-hover">
                 <thead>
@@ -37,7 +41,23 @@ function Harvestinventoryallvariations() {
                     </tr>
                   </thead>
                       <tbody>
-                        {batchlist.map((val)=> {
+                        {batchlist.filter((val)=>{
+                        if(searchinput == ""){
+                          return val
+                        }
+                        else if(val.plant_name.toLowerCase().includes(searchinput.toLowerCase())){
+                          return val
+                        }
+                        else if(val.harvest_id == searchinput){
+                          return val
+                        }
+                        else if(val.quantity_id == searchinput){
+                          return val
+                        }
+                        else if(val.grade.toLowerCase().includes(searchinput.toLowerCase())){
+                          return val
+                        }
+                      }).map((val)=> {
                           
                           return(
                             <tr class="table-active tractive">

@@ -24,7 +24,7 @@ function Login() {
       });
     }
   }
-  const [userinfo, setuserinfo] = useState(0);
+  const [userinfo, setuserinfo] = useState("");
   useEffect(() =>{
     async function fetchData(){
       await Axios.get(`http://localhost:3001/`).then((response) => {
@@ -33,6 +33,7 @@ function Login() {
       }
   fetchData()
   }, [])
+  console.log(userinfo)
   if (userinfo.length <= 0 || userinfo == undefined){
     return (
       <div className="App">

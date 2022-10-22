@@ -31,6 +31,7 @@ function Purchaseorderstockoutinventory() {
   const handleBack = (e) => {
     navigate(generatePath("/harvestcalendarmonitoringevent/:wnew", { wnew }));
   };
+  const [searchinput, setsearchinput] = useState("");
   return (
     <div className='App'>
         <div class="headform">
@@ -40,8 +41,7 @@ function Purchaseorderstockoutinventory() {
       <button type="button" class="btn btn-outline-dark backbutton" onClick={handleBack}>Back</button>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>Select Item</button>
         <form class="d-flex">
-            <input class="form-control me-sm-2" type="text" placeholder="Search ID" />
-            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            <input class="form-control me-sm-2" type="text" placeholder="Search ID or Name" onChange={(e) =>{setsearchinput(e.target.value)}}/>
           </form>
         <div class="tablediv">
             <table class="table table-hover">
@@ -55,7 +55,17 @@ function Purchaseorderstockoutinventory() {
                     </tr>
                   </thead>
                   <tbody>
-                      {itemlist.map((val)=> {
+                      {itemlist.filter((val)=>{
+                        if(searchinput == ""){
+                          return val
+                        }
+                        else if(val.supply_name.toLowerCase().includes(searchinput.toLowerCase())){
+                          return val
+                        }
+                        else if(val.supply_id == searchinput){
+                          return val
+                        }
+                      }).map((val)=> {
                         if (val.quantity <= val.re_order_lvl) {
                           return (
                             <tr class="table-danger tractive" onClick={rowSelect.bind(this, val.supply_id)}>

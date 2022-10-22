@@ -17,6 +17,14 @@ function Availableplants() {
     id = event;
     console.log(id)
   }
+  const handleProceedPrice = (e) => {
+    if (id == 0){
+      alert("Select a row to edit.")
+    }
+    else {
+      id && navigate(generatePath("/availableplantseditprice/:id", { id }));
+    }
+  };
   const navigate = useNavigate();
   const status = "Wasted"
   const handleProceed = (e) => {
@@ -37,18 +45,23 @@ function Availableplants() {
     style: 'currency',
     currency: 'PHP',
   });
+  const handleProceedHome = (e) => {
+    navigate(generatePath("/home"));
+    window.location.reload();
+  };
+  const [searchinput, setsearchinput] = useState("");
   return (
     <div className='App'>
         <div class="headform">
         <h1 class="titleheadform">Available Plants for Sale</h1>
         <main class="container-fluid">
-      <Link to="/home"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+<button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceedHome}>Back</button>
       <button type="button" class="btn btn-outline-danger secondarybutton" onClick={handleProceed}>Mark as Wasted</button>
       <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleChange}>View Wasted Plants</button>
+      <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceedPrice}>Edit Price</button>
       <form class="d-flex">
-                <input class="form-control me-sm-2" type="text" placeholder="Search ID" />
-                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-            </form>
+            <input class="form-control me-sm-2" type="text" placeholder="Search ID, Name, or Quality" onChange={(e) =>{setsearchinput(e.target.value)}}/>
+          </form>
             <div class="tablediv">
             <table class="table table-hover">
                 <thead>
@@ -64,7 +77,23 @@ function Availableplants() {
                     </tr>
                   </thead>
                       <tbody>
-                        {batchlist.map((val)=> {
+                        {batchlist.filter((val)=>{
+                        if(searchinput == ""){
+                          return val
+                        }
+                        else if(val.plant_name.toLowerCase().includes(searchinput.toLowerCase())){
+                          return val
+                        }
+                        else if(val.harvest_id == searchinput){
+                          return val
+                        }
+                        else if(val.quantity_id == searchinput){
+                          return val
+                        }
+                        else if(val.grade.toLowerCase().includes(searchinput.toLowerCase())){
+                          return val
+                        }
+                      }).map((val)=> {
                           return(
                             <tr class="table-primary tractive" onClick={rowSelect.bind(this, val.quantity_id)}>
                             <td scope="row">{val.quantity_id}</td>

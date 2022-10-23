@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import { Link, Navigate  } from 'react-router-dom';
+import { Link, Navigate, useNavigate, generatePath  } from 'react-router-dom';
 import Axios from 'axios';
 
 function Nav() {
   const [userinfo, setuserinfo] = useState(0);
+  const navigate = useNavigate
   useEffect(() =>{
     async function fetchData(){
       await Axios.get(`http://localhost:3001/`).then((response) => {
@@ -14,6 +15,10 @@ function Nav() {
   fetchData()
   }, [])
   console.log(userinfo)
+  const handleHome = () =>{
+    navigate('/home', { replace: true });
+      window.location.reload();
+  }
   if (userinfo.length <= 0 || userinfo == undefined){
     alert("Not logged in")
     return (<Navigate to="/" />);

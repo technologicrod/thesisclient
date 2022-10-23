@@ -13,12 +13,14 @@ function Purchaseorderconfirmedinfo() {
     useEffect(() =>{
       Axios.get(`http://localhost:3001/purchaseorderconfirmedinfo/${x}`).then((response) => {
         setpolist(response.data);
+        setLoading(false);
       })
     }, [x])
     const [paymentlist, setpaymentlist] = useState([]);
     useEffect(() =>{
       Axios.get(`http://localhost:3001/purchaseorderpaymentinfo/${x}`).then((response) => {
         setpaymentlist(response.data);
+        setLoading(false);
       })
     }, [x])
     const ea = polist[0]

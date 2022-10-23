@@ -23,7 +23,7 @@ function Purchaseorderrelivery() {
     var i1, i2, rdid
     for (var key in ea) {
         if (ea.hasOwnProperty(key)) {
-            if (key === "status"){
+            if (key === "redelivery"){
               i1 = ea[key]
             }
         }
@@ -37,7 +37,7 @@ function Purchaseorderrelivery() {
     const ia = redinfo[0]
     for (var key in ia) {
         if (ia.hasOwnProperty(key)) {
-            if (key === "redelivery_id"){
+            if (key === "po_redelivery_id"){
                 rdid = ia[key]
               }
             if (key === "prev_status"){
@@ -45,17 +45,17 @@ function Purchaseorderrelivery() {
             }
         }
       }
-    console.log("red: ", redinfo)
+    console.log("y: ", y)
     const [remarks, setremarks] = useState("")
     const [exp_date, setexp_date] = useState({start: ""})
     const handleProceedBack = (e) => {
         navigate(generatePath("/purchaseorderstockin/:x", { x }));
       };
     const register = () => {
-        if (i1 != "Redelivery"){
+        if (i1 != "true"){
             var a = document.forms["myform"]["ainput"].value;
             if (a == "" ) {
-            alert("Required fields must be filled out");
+            alert("Field must be filled out");
             }
             else {
                 Axios.post("http://localhost:3001/inputredelivery", {supply_id: z, po_id: y, remarks: a, prev_status: i1});
@@ -67,7 +67,7 @@ function Purchaseorderrelivery() {
         else {
             var c = document.forms["myform"]["ccinput"].value;
             if (c == "" ) {
-            alert("Required fields must be filled out");
+            alert("Field must be filled out");
             }
             else {
                 Axios.put("http://localhost:3001/updateredelivery", {po_id: y, redelivery_id: rdid, date_delivered: c, prev_status: i2});
@@ -85,7 +85,7 @@ function Purchaseorderrelivery() {
             <main class="container-fluid">
             <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceedBack}>Back</button>
                 {poinfo.map((val)=> {
-                    if (i1 != "Redelivery") {
+                    if (i1 != "true") {
                         return (
                             <form class="formdiv" name="myform" required>
                         <div class="form-group">

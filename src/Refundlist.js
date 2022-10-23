@@ -57,14 +57,14 @@ function Refundlist() {
                         else if(val.company_name.toLowerCase().includes(searchinput.toLowerCase())){
                           return val
                         }
-                        else if(val.refund_id == searchinput){
+                        else if(val.po_refund_id == searchinput){
                           return val
                         }
                       }).map((val)=> {
                             var cdate1 = (new Date(val.date)).toLocaleDateString();
                             return(
                               <tr class="table-active tractive">
-                              <td scope="row">{val.refund_id}</td>
+                              <td scope="row">{val.po_refund_id}</td>
                               <td scope="row">{val.supply_name}</td>
                               <td scope="row">{val.company_name}</td>
                               <td scope="row">{val.remarks}</td>

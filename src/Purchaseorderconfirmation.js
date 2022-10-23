@@ -30,7 +30,8 @@ function Purchaseorderconfirmation() {
             poidlist.push(polist[i][key])
           }
           if(key === "total_payment"){
-            totalamount += polist[i][key]
+            let floatpayment = parseFloat(polist[i][key])
+            totalamount += floatpayment
           }
       }
     }

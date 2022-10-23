@@ -3,12 +3,12 @@ import './App.css';
 import { Link, useNavigate, generatePath, Navigate } from 'react-router-dom';
 import Axios from 'axios';
 
-function Employeeaccounts() {
+function Employeeaccountsinactive() {
   const [searchinput, setsearchinput] = useState("");
   const navigate = useNavigate();
   const [employeelist, setemployeelist] = useState([]);
   useEffect(() =>{
-    Axios.get('http://localhost:3001/employeesaccount').then((response) => {
+    Axios.get('http://localhost:3001/employeesaccountinactive').then((response) => {
       setemployeelist(response.data);
     })
   }, [])
@@ -48,14 +48,12 @@ function Employeeaccounts() {
       
       <div>
         <div class="headform">
-        <h1 class="titleheadform">Employee Accounts</h1>
+        <h1 class="titleheadform">Inactive Employee Accounts</h1>
       </div>
       <main class="container-fluid">
-      <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceedHome}>Back</button>
+      <Link to="/employeeaccounts"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
       <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleProceed}>Edit</button>
-        <Link to="/employeeaccountsadd"><button type="button" class="btn btn-outline-info secondarybutton">Add</button></Link>
-        <Link to="/employeeaccountsinactive"><button type="button" class="btn btn-outline-info secondarybutton">View Inactive Accounts</button></Link>
-        <form class="d-flex">
+      <form class="d-flex">
             <input class="form-control me-sm-2" type="text" placeholder="Search ID, Name, or Account Type" onChange={(e) =>{setsearchinput(e.target.value)}}/>
           </form>
         <div class="tablediv">
@@ -101,4 +99,4 @@ function Employeeaccounts() {
   );
 }
 
-export default Employeeaccounts;
+export default Employeeaccountsinactive;

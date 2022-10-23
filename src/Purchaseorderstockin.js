@@ -40,11 +40,13 @@ function Purchaseorderstockin() {
   }, [i1])
   console.log("red", rdlist)
     var id = 0
-    var id1, id2
+    var id1, id2, id3, id4
     function rowSelect(event) {
       id = event.po_id;
       id1 = event.supply_id
       id2 = event.status
+      id3 = event.redelivery
+      id4 = event.refund
       console.log(id)
     }
     var w, y, a
@@ -58,7 +60,7 @@ function Purchaseorderstockin() {
     }
     console.log(z)
     const handleProceed = (e) => {
-        if (id2 != "Redelivery" && id2 != "Refund"){
+        if (id3 != "true" && id4 != "true"){
           if (id == 0 ){
             alert("Select Item to Stock In")
         }
@@ -93,15 +95,15 @@ function Purchaseorderstockin() {
             }
         }
         }
-        else if (id2 == "Redelivery") {
+        else if (id3 == "true") {
           alert("Pending redelivery can not be stocked in.")
         }
-        else if (id2 == "Refund") {
+        else if (id4 == "true") {
           alert("Refunded quantity can not be stocked in.")
         }
     };
     const handleProceedRedeliver = (e) => {
-      if (id2 == "Refund") {
+      if (id4 == "true") {
         alert("Refunded orders can not be processed for redelivery.")
       }
       else {
@@ -114,7 +116,7 @@ function Purchaseorderstockin() {
       }
     };
     const handleProceedRefund = (e) => {
-      if (id2 == "Refund" || id2 == "Redelivery") {
+      if (id3 == "true" || id4 == "true") {
         alert("Refunded and for redelivery orders can not be processed for refund again.")
       }
       else {
@@ -155,7 +157,7 @@ function Purchaseorderstockin() {
                       </thead>
                     <tbody>
                       {purorderlist.map((val)=> {
-                        if(val.status != "Stocked In" && val.status !="Redelivery" && val.status != "Refund"){
+                        if(val.status != "Stocked In" && val.redelivery !="true" && val.refund != "true"){
                           let quanti = parseInt(val.po_quantity)
                           let siquanti = parseInt(val.stocked_in_quantity)
                           let avail = quanti - siquanti
@@ -171,7 +173,7 @@ function Purchaseorderstockin() {
                                   </tr>
                               )
                         }
-                        else if(val.status == "Redelivery"){
+                        else if(val.redelivery == "true"){
                           let quanti = parseInt(val.po_quantity)
                           let siquanti = parseInt(val.stocked_in_quantity)
                           let avail = quanti - siquanti
@@ -187,7 +189,7 @@ function Purchaseorderstockin() {
                               </tr>
                           )
                         }
-                        else if(val.status == "Refund"){
+                        else if(val.refund == "true"){
                           let quanti = parseInt(val.po_quantity)
                           let siquanti = parseInt(val.stocked_in_quantity)
                           let avail = quanti - siquanti

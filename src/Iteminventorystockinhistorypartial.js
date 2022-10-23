@@ -45,6 +45,7 @@ function Iteminventorystockinhistorypartial() {
                       <th scope="col">Ordered Quantity</th>
                       <th scope="col">Price per Unit</th>
                       <th scope="col">Stocked In Quantity</th>
+                      <th scope="col">Date</th>
                       {/* <th scope="col">Date</th> */}
                     </tr>
                   </thead>
@@ -64,6 +65,7 @@ function Iteminventorystockinhistorypartial() {
                                 <th scope="col">{val.po_quantity}</th>
                                 <th scope="col">{formatter.format(val.price_per_unit)}</th>
                                 <th scope="col">{val.stocked_in_quantity}</th>
+                                <th scope="col">{cdate}</th>
                                 {/*<th scope="col">{cdate}</th>*/}
                             </tr>
                         )

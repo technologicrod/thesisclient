@@ -44,6 +44,7 @@ function Iteminventorystockinhistoryfull() {
                       <th scope="col">Purchase Order ID</th>
                       <th scope="col">Ordered Quantity</th>
                       <th scope="col">Price per Unit</th>
+                      <th scope="col">Date</th>
                       {/* <th scope="col">Date</th> */}
                     </tr>
                   </thead>
@@ -62,6 +63,7 @@ function Iteminventorystockinhistoryfull() {
                                 <th scope="col">{val.po_id}</th>
                                 <th scope="col">{val.po_quantity}</th>
                                 <th scope="col">{formatter.format(val.price_per_unit)}</th>
+                                <th scope="col">{cdate}</th>
                                 {/*<th scope="col">{cdate}</th>*/}
                             </tr>
                         )

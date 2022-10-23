@@ -14,6 +14,7 @@ import Employeeprofile from './Employeeprofile';
 import Employeeaccounts from './Employeeaccounts';
 import Employeeaccountsedit from './Employeeaccountsedit';
 import Employeeaccountsadd from './Employeeaccountsadd';
+import Employeeaccountsinactive from './Employeeaccountsinactive';
 import Plantutilities from './Plantutilities';
 import Plantutilitiessoiltype from './Plantutilitiessoiltype';
 import Plantutilitiesplantprofile from './Plantutilitiesplantprofile';
@@ -130,6 +131,7 @@ function App() {
               <Route exact path="/employeeaccounts" element={<Employeeaccounts />} />
               <Route path="/employeeaccountsedit/:employeeid" element={<Employeeaccountsedit />} />
               <Route exact path="/employeeaccountsadd" element={<Employeeaccountsadd />} />
+              <Route exact path="/employeeaccountsinactive" element={<Employeeaccountsinactive />} />
               <Route exact path="/plantutilities" element={<Plantutilities />} />
               <Route exact path="/plantutilitiessoiltype" element={<Plantutilitiessoiltype />} />
               <Route exact path="/plantutilitiesplantprofile" element={<Plantutilitiesplantprofile />} />

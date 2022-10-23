@@ -27,8 +27,9 @@ function Allexpensesoe() {
           <main class="container-fluid">
         <Link to="/allexpensespo"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleChange}>View Purchase Order Expenses</button>
-        <form class="d-flex">
-            <input class="form-control me-sm-2" type="text" placeholder="Search ID, Type, or Paid to" onChange={(e) =>{setsearchinput(e.target.value)}}/>
+        <br></br>
+        <form class="d-flex" style={{width : '30%', float: 'left', margin: '20px'}}>
+            <input class="form-control me-sm-2" type="text" placeholder="Search ID, Type, Paid to, or Month" onChange={(e) =>{setsearchinput(e.target.value)}}/>
           </form>
               <div class="tablediv">
               <table class="table table-hover">
@@ -54,6 +55,9 @@ function Allexpensesoe() {
                           return val
                         }
                         else if(val.other_expenses_id == searchinput){
+                          return val
+                        }
+                        else if(new Date(val.date_paid).toLocaleString('en-us',{month:'long'}).toLowerCase() == searchinput.toLowerCase()){
                           return val
                         }
                       }).map((val)=> {

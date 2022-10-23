@@ -22,6 +22,9 @@ function Allexpensespo() {
       navigate(generatePath("/home"));
       window.location.reload();
     };
+    const myComponentStyle = {
+      width: '50%'
+   }
     const [searchinput, setsearchinput] = useState("");
     return (
       <div className='App'>
@@ -30,8 +33,9 @@ function Allexpensespo() {
           <main class="container-fluid">
           <button type="button" class="btn btn-outline-dark backbutton" onClick={handleProceedHome}>Back</button>
         <button type="button" class="btn btn-outline-info secondarybutton" onClick={handleChange}>View Paid Other Expenses</button>
-        <form class="d-flex">
-            <input class="form-control me-sm-2" type="text" placeholder="Search ID or Name" onChange={(e) =>{setsearchinput(e.target.value)}}/>
+        <br></br>
+        <form class="d-flex" style={{width : '30%', float: 'left', margin: '20px'}}>
+            <input class="form-control me-sm-2" type="text" placeholder="Search ID, Name, or Month" onChange={(e) =>{setsearchinput(e.target.value)}}/>
           </form>
               <div class="tablediv">
               <table class="table table-hover">
@@ -45,6 +49,7 @@ function Allexpensespo() {
                     </thead>
                         <tbody>
                           {polist.filter((val)=>{
+                        let cdate2 = new Date(val.date_paid).toLocaleString('en-us',{month:'long'})
                         if(searchinput == ""){
                           return val
                         }
@@ -54,8 +59,13 @@ function Allexpensespo() {
                         else if(val.payment_po_id == searchinput){
                           return val
                         }
+                        else if(new Date(val.date_paid).toLocaleString('en-us',{month:'long'}).toLowerCase() == searchinput.toLowerCase()){
+                          return val
+                        }
                       }).map((val)=> {
                             var cdate1 = (new Date(val.date_paid)).toLocaleDateString();
+                            var cdate2 = new Date(val.date_paid).toLocaleString('en-us',{month:'long'})
+                            console.log(cdate2)
                             return(
                               <tr class="table-active tractive">
                               <td scope="row">{val.payment_po_id}</td>

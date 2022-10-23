@@ -56,7 +56,7 @@ function Harvestinventoryinput() {
             <h1 class="titleheadform">Input Batch {x}'s Crops for Sales</h1>
             </div>
             <main class="container-fluid">
-            <Link to="/harvestcalendarharvested"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
+            <Link to="/harvestcalendarlist"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
                 <form class="formdiv" enctype="multipart/form-data" name="myform" required>
                 <fieldset name="ainput" class="form-group" onChange={(e) =>{setbatch_quality(e.target.value)}} required>
                             <legend class="mt-4">Harvested Batch Quality</legend>

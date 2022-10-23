@@ -52,14 +52,14 @@ function Redeliverylist() {
                         else if(val.company_name.toLowerCase().includes(searchinput.toLowerCase())){
                           return val
                         }
-                        else if(val.redelivery_id == searchinput){
+                        else if(val.po_redelivery_id == searchinput){
                           return val
                         }
                       }).map((val)=> {
                             var cdate1 = (new Date(val.date_delivered)).toLocaleDateString();
                             return(
                               <tr class="table-active tractive">
-                              <td scope="row">{val.redelivery_id}</td>
+                              <td scope="row">{val.po_redelivery_id}</td>
                               <td scope="row">{val.supply_name}</td>
                               <td scope="row">{val.company_name}</td>
                               <td scope="row">{val.remarks}</td>

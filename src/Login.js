@@ -38,33 +38,28 @@ function Login() {
     return (
       <div className="App">
         <div class="maindiv2">
-        <h1 class="login1">Admin System Login</h1>
+        <h5 class="login1">Admin System Login</h5>
+        <br></br>
         <div class="form-group">
-          <label for="exampleInputEmail1" class="form-label mt-4"
-            >Username</label
-          >
           <input
             type="text"
-            class="form-control phcolor"
+            class="form-control inputclass"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
-            placeholder="Enter username"
+            placeholder="Username"
             onChange={(e) =>{setUsername(e.target.value)}}
           />
         </div>
         <div class="form-group">
-          <label for="exampleInputPassword1" class="form-label mt-4"
-            >Password</label
-          >
           <input
             type="password"
-            class="form-control"
+            class="form-control inputclass"
             id="exampleInputPassword1"
             placeholder="Password"
             onChange={(e) =>{setpass(e.target.value)}}
           />
         </div>
-        <button type="button" class="btn btn-primary loginbutton" onClick={register}>Submit</button>
+        <button type="button" class="btn btn-primary loginbutton" onClick={register}><b>Login</b></button>
         
         </div>
       </div>

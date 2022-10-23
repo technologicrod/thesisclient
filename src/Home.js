@@ -16,7 +16,8 @@ function Home() {
   const handleLogout = (e) => {
     Axios.post("http://localhost:3001/logout", {})
     alert("Logged out")
-    navigate(generatePath("/", {}));
+    navigate(generatePath("/", { replace: true }));
+    window.location.reload()
   }
   if (isLoading) {
     return (<div className="App">Loading...</div>)

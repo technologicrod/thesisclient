@@ -15,36 +15,41 @@ function Employeeaccountsedit() {
     })
   }, [x])
   const ea = employeelist[0]
-  var i1, i2, i3;
+  var i1, i2, i3, i4;
   for (var key in ea) {
     if (ea.hasOwnProperty(key)) {
-        if (key === "employeeaccountusername"){
+        if (key === "username"){
           i1 = ea[key]
         }
-        if (key === "employeeaccountpassword"){
+        if (key === "pass"){
           i2 = ea[key]
         }
-        if (key === "employeeaccounttype"){
+        if (key === "account_type"){
           i3 = ea[key]
+        }
+        if (key === "account_status"){
+          i4 = ea[key]
         }
     }
   }
   const [newemployeeaccountusername, setnewemployeeaccountusername] = useState("");
   const [newemployeeaccountpassword, setnewemployeeaccountpassword] = useState("");
   const [newemployeeaccounttype, setnewemployeeaccounttype] = useState("");
+  const [newstatus, setnewstatus] = useState("");
   useEffect(() =>{
     setnewemployeeaccountusername(i1)
     setnewemployeeaccountpassword(i2)
     setnewemployeeaccounttype(i3)
-  }, [i1, i2, i3])
-  const register = (employeeid) => {
+    setnewstatus(i4)
+  }, [i1, i2, i3, i4])
+  const register = () => {
     var a = document.forms["myform"]["ainput"].value;
     var b = document.forms["myform"]["binput"].value;
     if (a == "" ||b == "") {
       alert("Required fields must be filled out");
     }
     else {
-      Axios.put("http://localhost:3001/employeeaccountupdate", {newemployeeaccountusername: newemployeeaccountusername, newemployeeaccountpassword: newemployeeaccountpassword, newemployeeaccounttype: newemployeeaccounttype , employeeaccountid: employeeaccountid});
+      Axios.put("http://localhost:3001/employeeaccountupdate", {newemployeeaccountusername: newemployeeaccountusername, newemployeeaccountpassword: newemployeeaccountpassword, newemployeeaccounttype: newemployeeaccounttype, newstatus: newstatus, employeeaccountid: employeeaccountid});
       navigate('/employeeaccounts', { replace: true });
       window.location.reload();
       alert("Employee Account updated");
@@ -57,7 +62,7 @@ function Employeeaccountsedit() {
             <div>
               <div class="headform">
         <h1 class="titleheadform">{val.emp_name}'s Account Edit</h1>
-        <h6>Account ID: {val.employeeid}</h6>
+        <h6>Account ID: {val.emp_id}</h6>
       </div>
       <main class="container-fluid">
       <Link to="/employeeaccounts"><button type="button" class="btn btn-outline-dark backbutton">Back</button></Link>
@@ -85,7 +90,25 @@ function Employeeaccountsedit() {
                   </label>
                 </div>
               </fieldset>
-              <button type="button" class="btn btn-outline-success submitbutton" onClick={() => {register(employeeaccountid)}}>Submit</button>
+              
+        </form>
+        <form class="formdiv">
+        <fieldset class="form-group" onChange={(e) =>{setnewstatus(e.target.value)}}>
+                <legend class="mt-4">Account Status</legend>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios1" value="Active" defaultChecked={val.account_status == 'Active'} />
+                  <label class="form-check-label" for="optionsRadios1">
+                    Active
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="optionsRadios" id="optionsRadios2" value="Inactive" defaultChecked={val.account_status == 'Inactive'}/>
+                  <label class="form-check-label" for="optionsRadios2">
+                    Inactive
+                  </label>
+                </div>
+              </fieldset>
+              <button type="button" class="btn btn-outline-success submitbutton" onClick={register}>Submit</button>
         </form>
       </main>
             </div>

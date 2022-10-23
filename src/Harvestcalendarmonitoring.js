@@ -42,10 +42,12 @@ function Harvestcalendarmonitoring() {
       x && navigate(generatePath("/harvestcalendar/:x", { x }));
     };
     const [harvestmonitoringinfo, setharvestmonitoringinfo] = useState([]);
+    const [isLoading, setLoading] = useState(true);
     useEffect(() =>{
       async function fetchData(){
           await Axios.get(`http://localhost:3001/harvestmonitoring/${x}`).then((response) => {
             setharvestmonitoringinfo(response.data);
+            setLoading(false);
       })
       }
       fetchData()
@@ -72,6 +74,10 @@ function Harvestcalendarmonitoring() {
       }, [x])
     var cdatey = (new Date(y)).toLocaleDateString();
     var cdatez = (new Date(z)).toLocaleDateString();
+    console.log("harvest", harvestmonitoringinfo)
+    if (isLoading) {
+      return <div className="App">Loading...</div>;
+    }
     if (harvestmonitoringinfo.length > 0){
       return (
         <div className='App'>
